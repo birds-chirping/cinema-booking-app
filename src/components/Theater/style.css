@@ -1,0 +1,44 @@
+.theater {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.theater-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.theater-row:nth-child(2) {
+  margin-bottom: 2rem;
+}
+
+.row-tag {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgb(206, 215, 216);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat {
+  background-color: rgb(7, 223, 151);
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theater-row:nth-child(n + 3):nth-child(-n + 6) > .seat:nth-child(3) {
+  margin-right: 6rem;
+}
+
+.theater-row:nth-child(-n + 2) .seat:nth-child(2) {
+  margin-left: 12rem;
+}
+
+.row-tag {
+  margin-right: 2rem;
+}

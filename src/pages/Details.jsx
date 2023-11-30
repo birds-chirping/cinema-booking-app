@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Mock from "../api/MockAPI/mock.js";
 import TMDB from "../api/TMDB/tmdb.js";
+import Theater from "../components/Theater/index.jsx";
+import SpecialButton from "../components/SpecialButton/index.jsx";
+import "./details.css";
 
 const Details = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [room, setRoom] = useState({
+    interval: "",
+    theaterLayout: [],
+  });
+
   useEffect(() => {
     const fetchMovie = async () => {
       const response = await Mock.getMovie(movieId);
@@ -16,10 +24,16 @@ const Details = () => {
     fetchMovie();
   }, []);
 
+  // console.log(movie);
+
+  const handleOnClick = (interval, theaterLayout) => {
+    setRoom({ interval: interval, theaterLayout: theaterLayout });
+  };
+
   return movie ? (
-    <div>
-      <Link to="../">Back home</Link>
+    <div className="details">
       <div className="details-movie">
+        <Link to="../">Back home</Link>
         <img className="details-movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w500")} />
         <div className="details-movie-title">{movie.title}</div>
         <div className="details-genre">
@@ -27,6 +41,24 @@ const Details = () => {
         </div>
         <div className="details-description">{movie.description}</div>
       </div>
+
+      <div className="booking-section">
+        {movie.days.map((day) => {
+          return day.intervals.map((interval) => {
+            return (
+              <SpecialButton
+                onClick={handleOnClick}
+                key={`${day.date}_${day.interval}`}
+                interval={interval.interval}
+                theaterLayout={interval.theaterLayout}
+              />
+            );
+          });
+        })}
+        {room.interval.length > 0 && <Theater className={"theater"} data={room} />}
+      </div>
+
+      {/* {room.interval.length > 0 && <Room data={room} />} */}
     </div>
   ) : (
     <div>Loading...</div>
@@ -34,3 +66,9 @@ const Details = () => {
 };
 
 export default Details;
+
+// {movie.days.map((day) => {
+//   return day.intervals.map((interval) => {
+//     return <Room key={`${day.date}_${day.interval}`} interval={interval.interval} booked={interval.booked} />;
+//   });
+// })}

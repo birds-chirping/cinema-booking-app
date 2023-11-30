@@ -1,0 +1,13 @@
+.seat {
+  background-color: mediumaquamarine;
+  background-color: rgb(7, 223, 151);
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hall-rows:nth-child(3) > .seat:nth-child(3) {
+  margin-right: 3rem;
+}

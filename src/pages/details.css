@@ -1,0 +1,17 @@
+.details {
+  display: flex;
+  gap: 2rem;
+}
+
+.details > * {
+  flex: 1;
+}
+
+.details-movie {
+  display: flex;
+  flex-direction: column;
+}
+.booking-section {
+  /* display: flex;
+  flex-direction: column; */
+}
