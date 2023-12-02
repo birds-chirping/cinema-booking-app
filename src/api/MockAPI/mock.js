@@ -17,10 +17,16 @@ class Mock {
     return movie;
   }
 
-  static async getRoom() {
-    const response = await fetch(`${this.BASE_URL}room`);
-    const room = await response.json();
-    return room;
+  static async getTheatreData() {
+    const response = await fetch(`${this.BASE_URL}showtimes`);
+    const theatre = await response.json();
+    return theatre;
+  }
+
+  static async getShowtimeData(id) {
+    const response = await fetch(`${this.BASE_URL}showtimes/${id}`);
+    const theatre = await response.json();
+    return theatre;
   }
 }
 

@@ -6,8 +6,8 @@ const Theater = ({ data }) => {
   return (
     <>
       <div>Interval: {data.interval}</div>
+      <div className="screen">Screen</div>
       <div className="theater">
-        Bookings:{" "}
         {data.theaterLayout.map((row) => {
           return (
             <div className="theater-row" key={row.row}>

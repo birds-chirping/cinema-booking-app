@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: 1rem;
 }
 
 .theater-row {
@@ -13,8 +14,12 @@
   margin-bottom: 2rem;
 }
 
+.theater-row:nth-child(7) {
+  margin-bottom: 2rem;
+}
+
 .row-tag {
-  width: 2.5rem;
+  width: 1.5rem;
   height: 2.5rem;
   background-color: rgb(206, 215, 216);
   display: flex;
@@ -31,7 +36,7 @@
   justify-content: center;
 }
 
-.theater-row:nth-child(n + 3):nth-child(-n + 6) > .seat:nth-child(3) {
+.theater-row:nth-child(n + 3):nth-child(-n + 7) > .seat:nth-child(3) {
   margin-right: 6rem;
 }
 
@@ -41,4 +46,11 @@
 
 .row-tag {
   margin-right: 2rem;
+}
+
+.screen {
+  border-top: 10px solid gray;
+  height: 5rem;
+  border-radius: 50%;
+  text-align: center;
 }

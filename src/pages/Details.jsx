@@ -4,14 +4,13 @@ import { useParams } from "react-router-dom";
 import Mock from "../api/MockAPI/mock.js";
 import TMDB from "../api/TMDB/tmdb.js";
 import Theater from "../components/Theater/index.jsx";
-import SpecialButton from "../components/SpecialButton/index.jsx";
+import ShowtimeButton from "../components/ShowtimeButton/index.jsx";
 import "./details.css";
 
 const Details = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
-  const [room, setRoom] = useState({
-    interval: "",
+  const [room, setTheater] = useState({
     theaterLayout: [],
   });
 
@@ -26,8 +25,9 @@ const Details = () => {
 
   // console.log(movie);
 
-  const handleOnClick = (interval, theaterLayout) => {
-    setRoom({ interval: interval, theaterLayout: theaterLayout });
+  const handleOnClick = async (id) => {
+    const data = await Mock.getShowtimeData(id);
+    setTheater({ theaterLayout: data.theaterLayout });
   };
 
   return movie ? (
@@ -43,22 +43,11 @@ const Details = () => {
       </div>
 
       <div className="booking-section">
-        {movie.days.map((day) => {
-          return day.intervals.map((interval) => {
-            return (
-              <SpecialButton
-                onClick={handleOnClick}
-                key={`${day.date}_${day.interval}`}
-                interval={interval.interval}
-                theaterLayout={interval.theaterLayout}
-              />
-            );
-          });
+        {movie.showtimeIDs.map((showtimeID) => {
+          return <ShowtimeButton onClick={handleOnClick} key={`${showtimeID}`} showtimeID={showtimeID} />;
         })}
-        {room.interval.length > 0 && <Theater className={"theater"} data={room} />}
+        {room.theaterLayout.length > 0 && <Theater className={"theater"} data={room} />}
       </div>
-
-      {/* {room.interval.length > 0 && <Room data={room} />} */}
     </div>
   ) : (
     <div>Loading...</div>
@@ -66,9 +55,3 @@ const Details = () => {
 };
 
 export default Details;
-
-// {movie.days.map((day) => {
-//   return day.intervals.map((interval) => {
-//     return <Room key={`${day.date}_${day.interval}`} interval={interval.interval} booked={interval.booked} />;
-//   });
-// })}
