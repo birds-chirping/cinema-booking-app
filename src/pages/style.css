@@ -3,3 +3,8 @@
   gap: 1rem;
   padding: 1rem;
 }
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+}

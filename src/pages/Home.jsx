@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link, Routes, Route } from "react-router-dom";
-import Details from "./Details.jsx";
-import TMDB from "../api/TMDB/tmdb.js";
 import Mock from "../api/MockAPI/mock.js";
 import MovieCard from "../components/Movies/MovieCard.jsx";
 import "./style.css";
@@ -19,6 +16,7 @@ const Home = () => {
   }, []);
 
   // console.log(movies);
+  console.log("home");
 
   return movies ? (
     <div className="movies">

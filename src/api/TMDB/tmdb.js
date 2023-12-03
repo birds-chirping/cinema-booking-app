@@ -2,7 +2,6 @@ import MDB_KEY from "./key.js";
 
 class TMDB {
   static KEY = MDB_KEY;
-  static BASE_URL = "https://image.tmdb.org/t/p/";
   static genres = [
     { id: 28, name: "Action" },
     { id: 12, name: "Adventure" },
@@ -33,12 +32,24 @@ class TMDB {
   //   still_sizes: ["w92", "w185", "w300", "original"],
   // };
 
+  static async getMovieData(movieID) {
+    const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.KEY}`);
+    const movie = await response.json();
+    return movie;
+  }
+
   static getPhotoPath(file_path, size = "w500") {
-    return `${this.BASE_URL}${size}${file_path}`;
+    return `https://image.tmdb.org/t/p/${size}${file_path}`;
   }
 
   static getGenreNameByGenreId(genre_id) {
     return TMDB.genres.find((item) => item.id == genre_id).name;
+  }
+
+  static getGenres(data) {
+    const arr = [];
+    data.forEach((genre) => arr.push(this.getGenreNameByGenreId(genre.id)));
+    return arr;
   }
 }
 

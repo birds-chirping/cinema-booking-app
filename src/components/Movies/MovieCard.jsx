@@ -4,11 +4,14 @@ import "./style.css";
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
+  console.log("movieCard");
+
+  // console.log(movie);
   return (
     <div className="movie-card">
       <img className="movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w185")} />
       <div className="movie-title">{movie.title}</div>
-      <div className="genre">Genre: {movie.genre_ids.map((id) => TMDB.getGenreNameByGenreId(id)).join(", ")}</div>
+      <div className="genre">Genre: {movie.genres.split(",").join(", ")}</div>
       <Link to={`/details/${movie.id}`}>Details</Link>
     </div>
   );
