@@ -5,33 +5,39 @@ import MovieTable from "../components/MovieTable/index.jsx";
 import "./style.css";
 
 const Admin = () => {
-  const [newMovie, setNewMovie] = useState(null);
-  const [movies, setMovies] = useState(null);
-  // const [currentMovieId, setCurrentMovieId] = useState("");
-
-  const addNewMovie = (movie) => {
-    const url = Mock.MOVIES_URL;
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(movie),
-    };
-    fetch(url, options);
-  };
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (newMovie) addNewMovie(newMovie);
-    const fetchMovies = async () => {
-      const response = await Mock.getMovies();
-      setMovies(response);
-    };
     fetchMovies();
-    return setNewMovie(null);
-  }, [newMovie]);
+  }, []);
 
-  const deleteMovie = async (id) => {
+  const fetchMovies = async () => {
+    try {
+      const data = await Mock.getMovies();
+      setMovies(data);
+    } catch (error) {
+      console.error("error fetching data", error);
+    }
+  };
+
+  const handleMovieAdd = async (newMovie) => {
+    try {
+      const url = Mock.MOVIES_URL;
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMovie),
+      };
+      await fetch(url, options);
+      fetchMovies();
+    } catch (error) {
+      console.error("error adding movie:", error);
+    }
+  };
+
+  const handleOnDelete = async (id) => {
     const url = `${Mock.MOVIES_URL}/${id}`;
     const options = {
       method: "DELETE",
@@ -43,15 +49,40 @@ const Admin = () => {
     if (response.ok) {
       const updatedMovies = movies.filter((movie) => movie.id != id);
       setMovies(updatedMovies);
+      // fetchMovies();
     }
   };
 
-  console.log("Admin");
+  const handleSaveChanges = async (id, newMovieData) => {
+    console.log("changes!!!!", id, newMovieData);
+
+    const url = `${Mock.MOVIES_URL}/${id}`;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newMovieData),
+    };
+    const response = await fetch(url, options);
+    if (response.ok) {
+      fetchMovies();
+    }
+  };
 
   return (
     <div className="admin">
-      <AddMovieForm addNewMovie={setNewMovie} />
-      {movies && <MovieTable deleteMovie={deleteMovie} movies={movies} />}
+      <div className="Header">
+        <button className="add-movie">Add new movie</button>
+        <button className="schedule-movie">Schedule</button>
+      </div>
+      <AddMovieForm onMovieAdd={handleMovieAdd} />
+      <MovieTable
+        key={movies.length}
+        movieData={movies}
+        onDeleteMovie={handleOnDelete}
+        onSaveChanges={handleSaveChanges}
+      />
     </div>
   );
 };

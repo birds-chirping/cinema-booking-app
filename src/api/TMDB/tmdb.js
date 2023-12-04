@@ -35,7 +35,7 @@ class TMDB {
   static async getMovieData(movieID) {
     const response = await fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${this.KEY}`);
     const movie = await response.json();
-    return movie;
+    return response.ok ? movie : movie.status_message;
   }
 
   static getPhotoPath(file_path, size = "w500") {

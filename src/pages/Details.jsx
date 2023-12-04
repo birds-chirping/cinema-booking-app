@@ -36,9 +36,7 @@ const Details = () => {
         <Link to="../">Back home</Link>
         <img className="details-movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w500")} />
         <div className="details-movie-title">{movie.title}</div>
-        <div className="details-genre">
-          Genre: {movie.genre_ids.map((id) => TMDB.getGenreNameByGenreId(id)).join(", ")}
-        </div>
+        <div className="details-genre">Genre: {movie.genres}</div>
         <div className="details-description">{movie.description}</div>
       </div>
 

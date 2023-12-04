@@ -2,56 +2,63 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import TMDB from "../../api/TMDB/tmdb";
-import Mock from "../../api/MockAPI/mock";
 
-const AddMovieForm = ({ addNewMovie }) => {
+const AddMovieForm = ({ onMovieAdd }) => {
   const movieCode = useRef();
   const autocompleteBtn = useRef();
+  const [movieInput, setMovieInput] = useState({
+    title: "",
+    backdrop_path: "",
+    poster_path: "",
+    genres: "",
+    description: "",
+    runtime: "",
+    status: "",
+    showtimeIDs: [],
+  });
+  const [error, setError] = useState(null);
 
-  const title = useRef();
-  const backdrop = useRef();
-  const poster = useRef();
-  const genres = useRef();
-  const description = useRef();
-  const runtime = useRef();
-
-  function handleNewMovie() {
-    const movie = {
-      title: title.current.value,
-      backdrop_path: backdrop.current.value,
-      poster_path: poster.current.value,
-      genres: genres.current.value,
-      description: description.current.value,
-      runtime: runtime.current.value,
-      status: "",
-      showtimeIDs: [],
-    };
-
-    addNewMovie(movie);
+  async function handleNewMovie() {
+    const newMovie = movieInput;
     resetFields();
+    onMovieAdd(newMovie);
   }
-
-  const resetFields = () => {
-    movieCode.current.value = "";
-    title.current.value = "";
-    backdrop.current.value = "";
-    poster.current.value = "";
-    genres.current.value = "";
-    description.current.value = "";
-    runtime.current.value = "";
-  };
 
   const handleAutocomplete = async () => {
     const data = await TMDB.getMovieData(movieCode.current.value);
-    title.current.value = data.title;
-    backdrop.current.value = data.backdrop_path;
-    poster.current.value = data.poster_path;
-    genres.current.value = TMDB.getGenres(data.genres);
-    description.current.value = data.overview;
-    runtime.current.value = data.runtime;
+    if (typeof data === "string") {
+      resetFields();
+      setError(data);
+    } else {
+      setMovieInput({
+        ...movieInput,
+        title: data.title || "",
+        backdrop_path: data.backdrop_path || "",
+        poster_path: data.poster_path || "",
+        genres: TMDB.getGenres(data.genres).join(",") || "",
+        description: data.overview || "",
+        runtime: data.runtime || "",
+        status: "",
+        showtimeIDs: [],
+        // TODO: make input fields required
+      });
+      setError(null);
+    }
   };
 
-  console.log("add movie form");
+  const resetFields = () => {
+    setMovieInput({
+      ...movieInput,
+      title: "",
+      backdrop_path: "",
+      poster_path: "",
+      genres: "",
+      description: "",
+      runtime: "",
+      status: "",
+      showtimeIDs: [],
+    });
+  };
 
   return (
     <div className="admin-inputs">
@@ -60,47 +67,70 @@ const AddMovieForm = ({ addNewMovie }) => {
         <input ref={movieCode} className="input-moviecode" type="text" id="moviecode" />
       </div>
 
+      {error && <div>{error}</div>}
       <button ref={autocompleteBtn} onClick={handleAutocomplete}>
         Autocomplete
       </button>
-
       <div className="admin-input-title">
         <label htmlFor="title">Title</label>
-        <input ref={title} className="input-title" type="text" id="title" />
+        <input
+          value={movieInput.title}
+          onChange={(e) => setMovieInput({ ...movieInput, title: e.target.value })}
+          className="input-title"
+          type="text"
+          id="title"
+        />
       </div>
-
       <div className="admin-input-backdrop">
         <label htmlFor="backdropPath">Backdrop Path</label>
-        <input ref={backdrop} type="text" id="backdropPath" className="input-backdrop" />
+        <input
+          value={movieInput.backdrop_path}
+          onChange={(e) => setMovieInput({ ...movieInput, backdrop_path: e.target.value })}
+          type="text"
+          id="backdropPath"
+          className="input-backdrop"
+        />
       </div>
       <div className="admin-input-poster">
         <label htmlFor="poster">Poster path</label>
-        <input ref={poster} type="text" id="poster" className="input-poster" />
+        <input
+          value={movieInput.poster_path}
+          onChange={(e) => setMovieInput({ ...movieInput, poster_path: e.target.value })}
+          type="text"
+          id="poster"
+          className="input-poster"
+        />
       </div>
       <div className="admin-input-genres">
         <label htmlFor="genres">Genres</label>
-        <input ref={genres} type="text" id="genres" className="input-genres" />
+        <input
+          value={movieInput.genres}
+          onChange={(e) => setMovieInput({ ...movieInput, genres: e.target.value })}
+          type="text"
+          id="genres"
+          className="input-genres"
+        />
       </div>
-
       <div className="admin-input-description">
         <label htmlFor="description">Description</label>
         <input
-          ref={description}
+          value={movieInput.description}
+          onChange={(e) => setMovieInput({ ...movieInput, description: e.target.value })}
           type="text"
           id="description"
           className="input-description"
-          // value={movie.description}
-          // onChange={(e) => {
-          //   const movieDescription = e.target.value;
-          //   setMovie({ ...movie, description: movieDescription });
-          // }}
         />
       </div>
       <div className="admin-input-runtime">
         <label htmlFor="runtime">Runtime (minutes) </label>
-        <input ref={runtime} type="text" id="runtime" className="input-runtime" />
+        <input
+          value={movieInput.runtime}
+          onChange={(e) => setMovieInput({ ...movieInput, runtime: e.target.value })}
+          type="text"
+          id="runtime"
+          className="input-runtime"
+        />
       </div>
-
       <button onClick={handleNewMovie} className="admin-save-button">
         Add new movie
       </button>
