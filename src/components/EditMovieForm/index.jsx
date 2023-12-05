@@ -8,6 +8,7 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges }) => {
   const genres = useRef();
   const description = useRef();
   const runtime = useRef();
+  const price = useRef();
 
   const saveChanges = () => {
     const newMovieData = {
@@ -18,6 +19,7 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges }) => {
       genres: genres.current.value,
       description: description.current.value,
       runtime: runtime.current.value,
+      price: price.current.value,
     };
     onSaveChanges(newMovieData);
   };
@@ -77,6 +79,10 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges }) => {
           id="editRuntime"
           className="input-runtime"
         />
+      </div>
+      <div className="edit-input-price">
+        <label htmlFor="editPrice">Price (RON) </label>
+        <input ref={price} defaultValue={movieToBeEdited.price} type="text" id="editPrice" className="input-price" />
       </div>
       <button onClick={saveChanges} className="edit-save-button">
         Save changes

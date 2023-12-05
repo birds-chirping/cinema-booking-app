@@ -3,7 +3,7 @@ import Mock from "../../api/MockAPI/mock";
 import "./style.css";
 import TheaterModel from "../../theaterModel/theaterModel";
 
-const Showtimes = ({ movie }) => {
+const Showtimes = ({ movie, onSaveSchedule }) => {
   const [showtimes, setShowtimes] = useState([]);
   const showtimeForm = useRef();
 
@@ -39,32 +39,8 @@ const Showtimes = ({ movie }) => {
   const updateMovie = async (movie, showtimeIDs) => {
     const newMovie = { ...movie, showtimeIDs: showtimeIDs };
 
-    const url = `${Mock.MOVIES_URL}/${movie.id}`;
-    const options = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newMovie),
-    };
-    const response = await fetch(url, options);
-    if (response.ok) {
-      console.log("-----------MOVIE UPDATED", movie.id);
-    }
+    onSaveSchedule(newMovie);
   };
-
-  //   const url = `${Mock.MOVIES_URL}/${id}`;
-  //   const options = {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(newMovieData),
-  //   };
-  //   const response = await fetch(url, options);
-  //   if (response.ok) {
-  //     fetchMovies();
-  //   }
 
   const onSubmit = async (e, movie) => {
     e.preventDefault();
@@ -80,34 +56,35 @@ const Showtimes = ({ movie }) => {
     });
     let toUnbook = movie.showtimeIDs.filter((t) => !showtimeIDsToBeAdded.includes(t));
 
-    // add movie to showtimes
+    let addResponse = await addMoviesToSchedule(showtimeIDsToBeAdded, movie, showtimesCopy);
+    let deleteResponse = await removeMoviesFromSchedule(toUnbook, showtimesCopy);
+
+    if (addResponse && deleteResponse) updateMovie(movie, showtimeIDsToBeAdded);
+  };
+
+  const addMoviesToSchedule = async (showtimeIDsToBeAdded, movie, showtimesCopy) => {
     for (const showtimeID of showtimeIDsToBeAdded) {
       if (!movie.showtimeIDs.includes(showtimeID)) {
         let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == showtimeID);
         showtimeToBeEdited.movieID = movie.id;
-        const response = await updateShowtime(showtimeToBeEdited, movie, "add");
-        // if (response) {
-        //   const movieToUpdate = await Mock.getMovie(movie.id);
-        //   updateMovie(showtimeToBeEdited.id, movieToUpdate, "add");
-        // }
+        const response = await updateShowtime(showtimeToBeEdited);
+        if (response === false) return false;
       }
     }
+    return true;
+  };
 
-    // remove movie from showtimes
+  const removeMoviesFromSchedule = async (toUnbook, showtimesCopy) => {
     for (const id of toUnbook) {
       let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == id);
       if (showtimeToBeEdited) {
         showtimeToBeEdited.movieID = null;
         showtimeToBeEdited.theaterLayout = TheaterModel.getNewLayout();
       }
-      const response = await updateShowtime(showtimeToBeEdited, movie, "del");
-      //   if (response) {
-      //     const movieToUpdate = await Mock.getMovie(movie.id);
-      //     updateMovie(showtimeToBeEdited.id, movieToUpdate, "del");
-      //   }
+      const response = await updateShowtime(showtimeToBeEdited);
+      if (response === false) return false;
     }
-
-    updateMovie(movie, showtimeIDsToBeAdded);
+    return true;
   };
 
   return showtimes ? (

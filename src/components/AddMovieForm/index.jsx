@@ -13,7 +13,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
     genres: "",
     description: "",
     runtime: "",
-    status: "",
+    price: "",
     showtimeIDs: [],
   });
   const [error, setError] = useState(null);
@@ -38,7 +38,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
         genres: TMDB.getGenres(data.genres).join(",") || "",
         description: data.overview || "",
         runtime: data.runtime || "",
-        status: "",
+        price: "",
         showtimeIDs: [],
         // TODO: make input fields required
       });
@@ -55,7 +55,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
       genres: "",
       description: "",
       runtime: "",
-      status: "",
+      price: "",
       showtimeIDs: [],
     });
   };
@@ -128,6 +128,16 @@ const AddMovieForm = ({ onMovieAdd }) => {
           onChange={(e) => setMovieInput({ ...movieInput, runtime: e.target.value })}
           type="text"
           id="runtime"
+          className="input-runtime"
+        />
+      </div>
+      <div className="admin-input-price">
+        <label htmlFor="price">Price (RON) </label>
+        <input
+          value={movieInput.price}
+          onChange={(e) => setMovieInput({ ...movieInput, price: e.target.value })}
+          type="text"
+          id="price"
           className="input-runtime"
         />
       </div>

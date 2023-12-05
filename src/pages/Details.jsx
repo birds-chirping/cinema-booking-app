@@ -38,6 +38,7 @@ const Details = () => {
         <div className="details-movie-title">{movie.title}</div>
         <div className="details-genre">Genre: {movie.genres}</div>
         <div className="details-description">{movie.description}</div>
+        <div className="details-price">Price: {movie.price} RON</div>
       </div>
 
       <div className="booking-section">

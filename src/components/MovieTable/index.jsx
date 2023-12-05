@@ -34,6 +34,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
         <tr>
           <th>Poster</th>
           <th>Title</th>
+          <th>Price</th>
           <th>Showtimes</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -47,6 +48,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 <img src={TMDB.getPhotoPath(movie.poster_path, "w92")} width={"80"} alt="" />{" "}
               </td>
               <td>{movie.title}</td>
+              <td>{movie.price} RON</td>
               <td>
                 {movie.showtimeIDs.join(" ")}{" "}
                 <button onClick={showShowtimes} id={movie.id}>
@@ -63,7 +65,6 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                   id={movie.id}
                   onClick={(e) => {
                     if (movie.showtimeIDs.length > 0) {
-                      // setAllowDelete(movie.id);
                       showDeleteAlert(movie.id);
                     } else {
                       onDeleteMovie(e.target.id);
@@ -88,7 +89,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                   <EditMovieForm
                     movieToBeEdited={movie}
                     onSaveChanges={(newMovieData) => {
-                      onSaveChanges(movie.id, newMovieData);
+                      onSaveChanges(newMovieData);
                       setEditForm(null);
                     }}
                   />
@@ -100,6 +101,10 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 <td colSpan={5}>
                   <Showtimes
                     movie={movie}
+                    onSaveSchedule={(newMovieData) => {
+                      onSaveChanges(newMovieData);
+                      setShowtimeRow(null);
+                    }}
                     // onSaveChanges={(newMovieData) => {
                     //   onSaveChanges(movie.id, newMovieData);
                     //   setShowtimeRow(null);

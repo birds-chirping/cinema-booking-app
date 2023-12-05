@@ -6,6 +6,7 @@ import "./style.css";
 
 const Admin = () => {
   const [movies, setMovies] = useState([]);
+  const [addMovieForm, setAddMovieForm] = useState(false);
 
   useEffect(() => {
     fetchMovies();
@@ -52,10 +53,8 @@ const Admin = () => {
     }
   };
 
-  const handleSaveChanges = async (id, newMovieData) => {
-    // console.log("changes!!!!", id, newMovieData);
-
-    const url = `${Mock.MOVIES_URL}/${id}`;
+  const handleSaveChanges = async (newMovieData) => {
+    const url = `${Mock.MOVIES_URL}/${newMovieData.id}`;
     const options = {
       method: "PUT",
       headers: {
@@ -71,11 +70,10 @@ const Admin = () => {
 
   return (
     <div className="admin">
-      <div className="Header">
-        <button className="add-movie">Add new movie</button>
-        <button className="schedule-movie">Schedule</button>
-      </div>
-      <AddMovieForm onMovieAdd={handleMovieAdd} />
+      <button onClick={() => setAddMovieForm(!addMovieForm)} className="add-movie">
+        {addMovieForm && "Hide"} {!addMovieForm && "Add new movie"}
+      </button>
+      {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}
       <MovieTable
         key={movies.length}
         movieData={movies}
