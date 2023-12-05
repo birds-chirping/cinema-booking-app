@@ -17,7 +17,7 @@ class Mock {
     return movie;
   }
 
-  static async getTheatreData() {
+  static async getShowtimes() {
     const response = await fetch(`${this.BASE_URL}showtimes`);
     const theatre = await response.json();
     return theatre;

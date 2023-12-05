@@ -49,12 +49,11 @@ const Admin = () => {
     if (response.ok) {
       const updatedMovies = movies.filter((movie) => movie.id != id);
       setMovies(updatedMovies);
-      // fetchMovies();
     }
   };
 
   const handleSaveChanges = async (id, newMovieData) => {
-    console.log("changes!!!!", id, newMovieData);
+    // console.log("changes!!!!", id, newMovieData);
 
     const url = `${Mock.MOVIES_URL}/${id}`;
     const options = {

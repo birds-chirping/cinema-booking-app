@@ -1,0 +1,27 @@
+.showtimes-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.showtime-label {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(189, 172, 222);
+}
+
+.showtime-label > * {
+  text-align: center;
+}
+
+.locked {
+  background-color: rgb(226, 218, 226);
+}
+.alreadyBooked {
+  background-color: mediumslateblue;
+}
+.available {
+  background-color: rgb(140, 224, 140);
+}

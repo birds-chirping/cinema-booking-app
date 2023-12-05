@@ -3,12 +3,20 @@ import TMDB from "../../api/TMDB/tmdb.js";
 import { useState } from "react";
 import EditMovieForm from "../EditMovieForm/index.jsx";
 import { Fragment } from "react";
+import Showtimes from "../EditShowtimes/index.jsx";
 
 const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
   const [editForm, setEditForm] = useState(null);
+  const [showtimeRow, setShowtimeRow] = useState(null);
 
   const editMovie = (e) => {
+    setShowtimeRow(null);
     setEditForm(e.target.id);
+  };
+
+  const showShowtimes = (e) => {
+    setShowtimeRow(e.target.id);
+    setEditForm(null);
   };
 
   return (
@@ -17,6 +25,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
         <tr>
           <th>Poster</th>
           <th>Title</th>
+          <th>Showtimes</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
@@ -29,6 +38,12 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 <img src={TMDB.getPhotoPath(movie.poster_path, "w92")} width={"80"} alt="" />{" "}
               </td>
               <td>{movie.title}</td>
+              <td>
+                {movie.showtimeIDs.join(" ")}{" "}
+                <button onClick={showShowtimes} id={movie.id}>
+                  Change showtimes
+                </button>
+              </td>
               <td>
                 <button id={movie.id} onClick={editMovie} className="admin-edit-button">
                   Edit
@@ -49,6 +64,19 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                       onSaveChanges(movie.id, newMovieData);
                       setEditForm(null);
                     }}
+                  />
+                </td>
+              </tr>
+            )}
+            {showtimeRow === movie.id && (
+              <tr key={`showtimerow_${movie.id}`} className="edit-row">
+                <td colSpan={4}>
+                  <Showtimes
+                    movie={movie}
+                    // onSaveChanges={(newMovieData) => {
+                    //   onSaveChanges(movie.id, newMovieData);
+                    //   setShowtimeRow(null);
+                    // }}
                   />
                 </td>
               </tr>
