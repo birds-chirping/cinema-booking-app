@@ -20,7 +20,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
   };
 
   return (
-    <table>
+    <table style={{ width: "800px" }}>
       <thead>
         <tr>
           <th>Poster</th>
@@ -57,7 +57,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
             </tr>
             {editForm === movie.id && (
               <tr key={`editrow_${movie.id}`} className="edit-row">
-                <td colSpan={4}>
+                <td colSpan={5}>
                   <EditMovieForm
                     movieToBeEdited={movie}
                     onSaveChanges={(newMovieData) => {
@@ -70,7 +70,7 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
             )}
             {showtimeRow === movie.id && (
               <tr key={`showtimerow_${movie.id}`} className="edit-row">
-                <td colSpan={4}>
+                <td colSpan={5}>
                   <Showtimes
                     movie={movie}
                     // onSaveChanges={(newMovieData) => {

@@ -19,25 +19,32 @@ const Showtimes = ({ movie }) => {
     }
   };
 
-  const updateShowtime = async (newData) => {
-    console.log("changes!!!!", newData.id);
-
-    const url = `${Mock.BASE_URL}showtimes/${newData.id}`;
+  const updateShowtime = async (newShowtimeData, movie, action) => {
+    const url = `${Mock.BASE_URL}showtimes/${newShowtimeData.id}`;
     const options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(newShowtimeData),
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      fetchShowtimes();
+      return true;
     }
+    return false;
   };
 
-  const updateMovie = async (movie, showtimeList) => {
-    const newMovie = { ...movie, showtimeIDs: showtimeList };
+  const updateMovie = async (showtimeID, movie, action) => {
+    let newShowtimeIDs = [];
+    if (action === "add") {
+      newShowtimeIDs = [...movie.showtimeIDs, showtimeID];
+    } else if (action === "del") {
+      newShowtimeIDs = movie.showtimeIDs.filter((id) => id != showtimeID);
+    }
+    newShowtimeIDs.sort();
+
+    const newMovie = { ...movie, showtimeIDs: newShowtimeIDs };
 
     const url = `${Mock.MOVIES_URL}/${movie.id}`;
     const options = {
@@ -49,7 +56,7 @@ const Showtimes = ({ movie }) => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      fetchShowtimes();
+      console.log("-----------MOVIE UPDATED", movie.id);
     }
   };
 
@@ -66,32 +73,43 @@ const Showtimes = ({ movie }) => {
   //     fetchMovies();
   //   }
 
-  const onSubmit = (e, movie) => {
+  const onSubmit = async (e, movie) => {
     e.preventDefault();
 
-    const newShowtimes = showtimes.map((prop) => {
+    const showtimesCopy = showtimes.map((prop) => {
       return { ...prop };
     });
-
     const form = new FormData(showtimeForm.current);
-    let showtimesList = [];
 
+    let showtimeIDsToBeAdded = [];
     form.forEach((showtimeID) => {
-      showtimesList.push(showtimeID);
-      let showtimeToBeEdited = newShowtimes.find((time) => time.id == showtimeID);
-      showtimeToBeEdited.movieID = movie.id;
-      updateShowtime(showtimeToBeEdited);
+      showtimeIDsToBeAdded.push(showtimeID);
     });
+    let toUnbook = movie.showtimeIDs.filter((t) => !showtimeIDsToBeAdded.includes(t));
 
-    let toUnbook = movie.showtimeIDs.filter((t) => !showtimesList.includes(t));
+    // add movie to showtimes
+    for (const showtimeID of showtimeIDsToBeAdded) {
+      if (!movie.showtimeIDs.includes(showtimeID)) {
+        let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == showtimeID);
+        showtimeToBeEdited.movieID = movie.id;
+        const response = await updateShowtime(showtimeToBeEdited, movie, "add");
+        if (response) {
+          const movieToUpdate = await Mock.getMovie(movie.id);
+          updateMovie(showtimeToBeEdited.id, movieToUpdate, "add");
+        }
+      }
+    }
 
-    toUnbook.forEach((id) => {
-      let showtimeToBeEdited = newShowtimes.find((time) => time.id == id);
+    // remove movie from showtimes
+    for (const id of toUnbook) {
+      let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == id);
       if (showtimeToBeEdited) showtimeToBeEdited.movieID = null;
-      updateShowtime(showtimeToBeEdited);
-    });
-
-    updateMovie(movie, showtimesList);
+      const response = await updateShowtime(showtimeToBeEdited, movie, "del");
+      if (response) {
+        const movieToUpdate = await Mock.getMovie(movie.id);
+        updateMovie(showtimeToBeEdited.id, movieToUpdate, "del");
+      }
+    }
   };
 
   return showtimes ? (
