@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
+import TheaterModel from "../../theaterModel/theaterModel";
 
 const Showtimes = ({ movie }) => {
   const [showtimes, setShowtimes] = useState([]);
@@ -19,7 +20,7 @@ const Showtimes = ({ movie }) => {
     }
   };
 
-  const updateShowtime = async (newShowtimeData, movie, action) => {
+  const updateShowtime = async (newShowtimeData) => {
     const url = `${Mock.BASE_URL}showtimes/${newShowtimeData.id}`;
     const options = {
       method: "PUT",
@@ -35,16 +36,8 @@ const Showtimes = ({ movie }) => {
     return false;
   };
 
-  const updateMovie = async (showtimeID, movie, action) => {
-    let newShowtimeIDs = [];
-    if (action === "add") {
-      newShowtimeIDs = [...movie.showtimeIDs, showtimeID];
-    } else if (action === "del") {
-      newShowtimeIDs = movie.showtimeIDs.filter((id) => id != showtimeID);
-    }
-    newShowtimeIDs.sort();
-
-    const newMovie = { ...movie, showtimeIDs: newShowtimeIDs };
+  const updateMovie = async (movie, showtimeIDs) => {
+    const newMovie = { ...movie, showtimeIDs: showtimeIDs };
 
     const url = `${Mock.MOVIES_URL}/${movie.id}`;
     const options = {
@@ -93,23 +86,28 @@ const Showtimes = ({ movie }) => {
         let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == showtimeID);
         showtimeToBeEdited.movieID = movie.id;
         const response = await updateShowtime(showtimeToBeEdited, movie, "add");
-        if (response) {
-          const movieToUpdate = await Mock.getMovie(movie.id);
-          updateMovie(showtimeToBeEdited.id, movieToUpdate, "add");
-        }
+        // if (response) {
+        //   const movieToUpdate = await Mock.getMovie(movie.id);
+        //   updateMovie(showtimeToBeEdited.id, movieToUpdate, "add");
+        // }
       }
     }
 
     // remove movie from showtimes
     for (const id of toUnbook) {
       let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == id);
-      if (showtimeToBeEdited) showtimeToBeEdited.movieID = null;
-      const response = await updateShowtime(showtimeToBeEdited, movie, "del");
-      if (response) {
-        const movieToUpdate = await Mock.getMovie(movie.id);
-        updateMovie(showtimeToBeEdited.id, movieToUpdate, "del");
+      if (showtimeToBeEdited) {
+        showtimeToBeEdited.movieID = null;
+        showtimeToBeEdited.theaterLayout = TheaterModel.getNewLayout();
       }
+      const response = await updateShowtime(showtimeToBeEdited, movie, "del");
+      //   if (response) {
+      //     const movieToUpdate = await Mock.getMovie(movie.id);
+      //     updateMovie(showtimeToBeEdited.id, movieToUpdate, "del");
+      //   }
     }
+
+    updateMovie(movie, showtimeIDsToBeAdded);
   };
 
   return showtimes ? (

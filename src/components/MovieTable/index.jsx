@@ -8,15 +8,24 @@ import Showtimes from "../EditShowtimes/index.jsx";
 const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
   const [editForm, setEditForm] = useState(null);
   const [showtimeRow, setShowtimeRow] = useState(null);
+  const [allowDelete, setAllowDelete] = useState(null);
 
   const editMovie = (e) => {
     setShowtimeRow(null);
     setEditForm(e.target.id);
+    setAllowDelete(null);
   };
 
   const showShowtimes = (e) => {
     setShowtimeRow(e.target.id);
     setEditForm(null);
+    setAllowDelete(null);
+  };
+
+  const showDeleteAlert = (id) => {
+    setAllowDelete(id);
+    setEditForm(null);
+    setShowtimeRow(null);
   };
 
   return (
@@ -50,11 +59,29 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 </button>
               </td>
               <td>
-                <button id={movie.id} onClick={(e) => onDeleteMovie(e.target.id)} className="admin-delete-button">
+                <button
+                  id={movie.id}
+                  onClick={(e) => {
+                    if (movie.showtimeIDs.length > 0) {
+                      // setAllowDelete(movie.id);
+                      showDeleteAlert(movie.id);
+                    } else {
+                      onDeleteMovie(e.target.id);
+                    }
+                  }}
+                  className="admin-delete-button"
+                >
                   Delete
                 </button>
               </td>
             </tr>
+            {allowDelete === movie.id && (
+              <tr key={`errordeleterow_${movie.id}`} className="edit-row">
+                <td colSpan={5}>
+                  <div>Please remove movie from schedule first.</div>
+                </td>
+              </tr>
+            )}
             {editForm === movie.id && (
               <tr key={`editrow_${movie.id}`} className="edit-row">
                 <td colSpan={5}>
