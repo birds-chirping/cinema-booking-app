@@ -1,17 +1,32 @@
 .details {
   display: flex;
   gap: 2rem;
+  min-height: 100vh;
 }
 
-.details > * {
-  flex: 1;
+.details-movie-wrapper {
+  padding: 3rem;
+  flex: 1.5;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6), transparent);
+  display: flex;
+  align-items: center;
 }
 
 .details-movie {
   display: flex;
   flex-direction: column;
+  width: min-content;
 }
+
 .booking-section {
+  flex: 2;
+  padding: 3rem;
+
+  .theater {
+    background-color: rgba(57, 57, 57, 0.6);
+    padding: 5rem;
+  }
+
   /* display: flex;
   flex-direction: column; */
 }
