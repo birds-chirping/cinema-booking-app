@@ -1,0 +1,15 @@
+.showtimes-td {
+  padding: 1rem;
+}
+
+.showtimes {
+  height: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.change-showtimes-btn {
+  text-wrap: nowrap;
+}
