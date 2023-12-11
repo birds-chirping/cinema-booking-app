@@ -5,21 +5,40 @@ import MovieTable from "../components/MovieTable/index.jsx";
 import "./style.css";
 
 const Admin = () => {
-  const [movies, setMovies] = useState([]);
+  const [data, setData] = useState({
+    movies: [],
+    showtimes: [],
+  });
   const [addMovieForm, setAddMovieForm] = useState(false);
 
   useEffect(() => {
-    fetchMovies();
+    const fetchData = async () => {
+      const movies = await Mock.getMovies();
+      const showtimes = await Mock.getShowtimes();
+      if (typeof movies !== "string" && typeof showtimes !== "string") {
+        setData({ movies: movies, showtimes: showtimes });
+      }
+    };
+    fetchData();
   }, []);
 
   const fetchMovies = async () => {
     try {
-      const data = await Mock.getMovies();
-      setMovies(data);
+      const response = await Mock.getMovies();
+      setData({ ...data, movies: response });
     } catch (error) {
       console.error("error fetching data", error);
     }
   };
+
+  // const fetchShowtimes = async () => {
+  //   try {
+  //     const response = await Mock.getShowtimes();
+  //     setData({ ...data, showtimes: response });
+  //   } catch (error) {
+  //     console.error("error fetching data", error);
+  //   }
+  // };
 
   const handleMovieAdd = async (newMovie) => {
     try {
@@ -48,12 +67,12 @@ const Admin = () => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      const updatedMovies = movies.filter((movie) => movie.id != id);
-      setMovies(updatedMovies);
+      const updatedMovies = data.movies.filter((movie) => movie.id != id);
+      setData({ ...data, movies: updatedMovies });
     }
   };
 
-  const handleSaveChanges = async (newMovieData) => {
+  const handleEditMovie = async (newMovieData) => {
     const url = `${Mock.MOVIES_URL}/${newMovieData.id}`;
     const options = {
       method: "PUT",
@@ -75,10 +94,12 @@ const Admin = () => {
       </button>
       {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}
       <MovieTable
-        key={movies.length}
-        movieData={movies}
+        key={data.movies.length}
+        movieData={data.movies}
+        showtimes={data.showtimes}
+        setShowtimes={(newShowtimes) => setData({ ...data, showtimes: newShowtimes })}
         onDeleteMovie={handleOnDelete}
-        onSaveChanges={handleSaveChanges}
+        onEdit={handleEditMovie}
       />
     </div>
   );

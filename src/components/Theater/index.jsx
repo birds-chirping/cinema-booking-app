@@ -2,13 +2,13 @@ import React from "react";
 import Seat from "../Seat";
 import "./style.css";
 
-const Theater = ({ data }) => {
+const Theater = ({ showtime }) => {
   return (
     <>
-      <div>Interval: {data.interval}</div>
       <div className="screen">Screen</div>
       <div className="theater">
-        {data.theaterLayout.map((row) => {
+        {showtime.id} {/* temp */}
+        {showtime.theaterLayout.map((row) => {
           return (
             <div className="theater-row" key={row.row}>
               <div className="row-tag">{row.row}</div>

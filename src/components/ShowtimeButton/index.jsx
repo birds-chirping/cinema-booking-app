@@ -1,14 +1,20 @@
 import React from "react";
-import ShowtimeTag from "../ShowtimeTag";
 
-const ShowtimeButton = ({ onClick, showtimeID }) => {
+const ShowtimeButton = ({ onClick, showtimeID, showtimeDate }) => {
   function handleOnClick() {
     onClick(showtimeID);
   }
-  // return <button onClick={handleOnClick}>click</button>;
+
   return (
     <button onClick={handleOnClick}>
-      <ShowtimeTag id={showtimeID} />
+      <div>
+        <div>
+          {showtimeDate.getDate()}.{showtimeDate.getMonth() + 1}
+        </div>{" "}
+        <div>
+          {showtimeDate.getHours()}:{showtimeDate.getMinutes()}
+        </div>
+      </div>
     </button>
   );
 };

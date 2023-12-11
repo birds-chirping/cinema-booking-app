@@ -9,6 +9,7 @@ const MovieCard = ({ movie }) => {
       <img className="movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w185")} />
       <div className="movie-title">{movie.title}</div>
       <div className="genre">Genre: {movie.genres.split(",").join(", ")}</div>
+      {/* <Link to={`/details/${movie.id}`} state={{ showtimes: movieShowtimes }}> */}
       <Link to={`/details/${movie.id}`}>Details</Link>
     </div>
   );

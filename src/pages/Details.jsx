@@ -9,51 +9,65 @@ import "./details.css";
 
 const Details = () => {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
-  const [room, setTheater] = useState({
-    theaterLayout: [],
+  const [theater, setTheater] = useState({
+    showtime: null,
+  });
+  const [data, setData] = useState({
+    movie: null,
+    showtimes: [],
   });
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      const response = await Mock.getMovie(movieId);
-      setMovie(response);
+    const fetchData = async () => {
+      const movie = await Mock.getMovie(movieId);
+      const showtimes = await Mock.getShowtimesByMovieID(movieId);
+      if (typeof movie !== "string" && typeof showtimes !== "string") {
+        setData({ movie: movie, showtimes: showtimes });
+      }
     };
-
-    fetchMovie();
+    fetchData();
   }, []);
 
-  // console.log(movie);
-
-  const handleOnClick = async (id) => {
-    const data = await Mock.getShowtimeData(id);
-    setTheater({ theaterLayout: data.theaterLayout });
+  const handleOnClick = (showtimeID) => {
+    const showtime = data.showtimes.find((showtime) => showtime.id == showtimeID);
+    setTheater({ showtime: showtime });
   };
 
-  return movie ? (
+  return data.movie ? (
     <div
       className="details"
-      style={{ backgroundImage: `url(${TMDB.getPhotoPath(movie.backdrop_path, "w1280")})`, backgroundSize: "cover" }}
+      style={{
+        backgroundImage: `url(${TMDB.getPhotoPath(data.movie.backdrop_path, "w1280")})`,
+        backgroundSize: "cover",
+      }}
     >
       <div className="details-movie-wrapper">
         <div className="details-movie">
           <div>
-            <img className="details-movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w500")} />
+            <img className="details-movie-poster" src={TMDB.getPhotoPath(data.movie.poster_path, "w500")} />
           </div>
 
-          <div className="details-movie-title">{movie.title}</div>
-          <div className="details-genre">Genre: {movie.genres}</div>
-          <div className="details-description">{movie.description}</div>
-          <div className="details-price">Price: {movie.price} RON</div>
+          <div className="details-movie-title">{data.movie.title}</div>
+          <div className="details-genre">Genre: {data.movie.genres}</div>
+          <div className="details-description">{data.movie.description}</div>
+          <div className="details-price">Price: {data.movie.price} RON</div>
           <Link to="../">Back home</Link>
         </div>
       </div>
 
       <div className="booking-section">
-        {movie.showtimeIDs.map((showtimeID) => {
-          return <ShowtimeButton onClick={handleOnClick} key={`${showtimeID}`} showtimeID={showtimeID} />;
-        })}
-        {room.theaterLayout.length > 0 && <Theater className={"theater"} data={room} />}
+        {data.showtimes.length > 0 &&
+          data.showtimes.map((showtime) => {
+            return (
+              <ShowtimeButton
+                onClick={handleOnClick}
+                key={`${showtime.id}`}
+                showtimeID={showtime.id}
+                showtimeDate={new Date(showtime.timestamp * 1000)}
+              />
+            );
+          })}
+        {theater.showtime && <Theater className={"theater"} showtime={theater.showtime} />}
       </div>
     </div>
   ) : (

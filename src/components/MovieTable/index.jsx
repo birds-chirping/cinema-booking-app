@@ -5,27 +5,23 @@ import EditMovieForm from "../EditMovieForm/index.jsx";
 import { Fragment } from "react";
 import Showtimes from "../EditShowtimes/index.jsx";
 
-const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
-  const [editForm, setEditForm] = useState(null);
-  const [showtimeRow, setShowtimeRow] = useState(null);
-  const [allowDelete, setAllowDelete] = useState(null);
+const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit }) => {
+  const [mode, setMode] = useState({
+    edit: false,
+    showtimes: false,
+    blockDelete: false,
+  });
 
   const editMovie = (e) => {
-    setShowtimeRow(null);
-    setEditForm(e.target.id);
-    setAllowDelete(null);
+    setMode({ edit: e.target.id, showtimes: false, blockDelete: false });
   };
 
   const showShowtimes = (e) => {
-    setShowtimeRow(e.target.id);
-    setEditForm(null);
-    setAllowDelete(null);
+    setMode({ edit: false, showtimes: e.target.id, blockDelete: false });
   };
 
   const showDeleteAlert = (id) => {
-    setAllowDelete(id);
-    setEditForm(null);
-    setShowtimeRow(null);
+    setMode({ edit: false, showtimes: false, blockDelete: id });
   };
 
   return (
@@ -50,7 +46,12 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
               <td>{movie.title}</td>
               <td>{movie.price} RON</td>
               <td>
-                {movie.showtimeIDs.join(" ")}{" "}
+                {showtimes
+                  .filter((showtime) => {
+                    return showtime.movieID == movie.id;
+                  })
+                  .map((showtime) => showtime.id)
+                  .join(" ")}
                 <button onClick={showShowtimes} id={movie.id}>
                   Change showtimes
                 </button>
@@ -64,7 +65,8 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 <button
                   id={movie.id}
                   onClick={(e) => {
-                    if (movie.showtimeIDs.length > 0) {
+                    const showtimesList = showtimes.filter((showtime) => showtime.movieID === movie.id);
+                    if (showtimesList.length > 0) {
                       showDeleteAlert(movie.id);
                     } else {
                       onDeleteMovie(e.target.id);
@@ -76,40 +78,30 @@ const MovieTable = ({ movieData, onDeleteMovie, onSaveChanges }) => {
                 </button>
               </td>
             </tr>
-            {allowDelete === movie.id && (
+            {mode.blockDelete === movie.id && (
               <tr key={`errordeleterow_${movie.id}`} className="edit-row">
                 <td colSpan={5}>
                   <div>Please remove movie from schedule first.</div>
                 </td>
               </tr>
             )}
-            {editForm === movie.id && (
+            {mode.edit === movie.id && (
               <tr key={`editrow_${movie.id}`} className="edit-row">
                 <td colSpan={5}>
                   <EditMovieForm
                     movieToBeEdited={movie}
                     onSaveChanges={(newMovieData) => {
-                      onSaveChanges(newMovieData);
-                      setEditForm(null);
+                      onEdit(newMovieData);
+                      setMode({ ...mode, edit: false });
                     }}
                   />
                 </td>
               </tr>
             )}
-            {showtimeRow === movie.id && (
+            {mode.showtimes === movie.id && (
               <tr key={`showtimerow_${movie.id}`} className="edit-row">
                 <td colSpan={5}>
-                  <Showtimes
-                    movie={movie}
-                    onSaveSchedule={(newMovieData) => {
-                      onSaveChanges(newMovieData);
-                      setShowtimeRow(null);
-                    }}
-                    // onSaveChanges={(newMovieData) => {
-                    //   onSaveChanges(movie.id, newMovieData);
-                    //   setShowtimeRow(null);
-                    // }}
-                  />
+                  <Showtimes movie={movie} showtimes={showtimes} setShowtimes={setShowtimes} />
                 </td>
               </tr>
             )}

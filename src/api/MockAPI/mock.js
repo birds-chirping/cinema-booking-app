@@ -18,15 +18,21 @@ class Mock {
   }
 
   static async getShowtimes() {
-    const response = await fetch(`${this.BASE_URL}showtimes`);
-    const theatre = await response.json();
-    return theatre;
+    const response = await fetch(`${this.BASE_URL}showtimes/1`);
+    const theater = await response.json();
+    return theater.showtimes;
   }
 
-  static async getShowtimeData(id) {
-    const response = await fetch(`${this.BASE_URL}showtimes/${id}`);
-    const theatre = await response.json();
-    return theatre;
+  // static async getShowtimeData(id) {
+  //   const response = await fetch(`${this.BASE_URL}showtimes/${id}`);
+  //   const theater = await response.json();
+  //   return theater;
+  // }
+
+  static async getShowtimesByMovieID(id) {
+    const response = await fetch(`${this.BASE_URL}showtimes/1`);
+    const showtimes = await response.json();
+    return showtimes.showtimes.filter((showtime) => showtime.movieID === id);
   }
 }
 

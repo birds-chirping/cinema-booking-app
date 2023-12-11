@@ -1,27 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
-import TheaterModel from "../../theaterModel/theaterModel";
 
-const Showtimes = ({ movie, onSaveSchedule }) => {
-  const [showtimes, setShowtimes] = useState([]);
+const Showtimes = ({ movie, showtimes, setShowtimes }) => {
   const showtimeForm = useRef();
 
-  useEffect(() => {
-    fetchShowtimes();
-  }, []);
-
-  const fetchShowtimes = async () => {
-    try {
-      const data = await Mock.getShowtimes();
-      setShowtimes(data);
-    } catch (error) {
-      console.error("error fetching data", error);
-    }
-  };
-
   const updateShowtime = async (newShowtimeData) => {
-    const url = `${Mock.BASE_URL}showtimes/${newShowtimeData.id}`;
+    const url = `${Mock.BASE_URL}showtimes/1`;
     const options = {
       method: "PUT",
       headers: {
@@ -31,15 +16,9 @@ const Showtimes = ({ movie, onSaveSchedule }) => {
     };
     const response = await fetch(url, options);
     if (response.ok) {
-      return true;
+      setShowtimes(newShowtimeData.showtimes);
     }
     return false;
-  };
-
-  const updateMovie = async (movie, showtimeIDs) => {
-    const newMovie = { ...movie, showtimeIDs: showtimeIDs };
-
-    onSaveSchedule(newMovie);
   };
 
   const onSubmit = async (e, movie) => {
@@ -54,37 +33,19 @@ const Showtimes = ({ movie, onSaveSchedule }) => {
     form.forEach((showtimeID) => {
       showtimeIDsToBeAdded.push(showtimeID);
     });
-    let toUnbook = movie.showtimeIDs.filter((t) => !showtimeIDsToBeAdded.includes(t));
 
-    let addResponse = await addMoviesToSchedule(showtimeIDsToBeAdded, movie, showtimesCopy);
-    let deleteResponse = await removeMoviesFromSchedule(toUnbook, showtimesCopy);
-
-    if (addResponse && deleteResponse) updateMovie(movie, showtimeIDsToBeAdded);
-  };
-
-  const addMoviesToSchedule = async (showtimeIDsToBeAdded, movie, showtimesCopy) => {
-    for (const showtimeID of showtimeIDsToBeAdded) {
-      if (!movie.showtimeIDs.includes(showtimeID)) {
-        let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == showtimeID);
-        showtimeToBeEdited.movieID = movie.id;
-        const response = await updateShowtime(showtimeToBeEdited);
-        if (response === false) return false;
+    const addMoviesToSchedule = async (showtimeIDsToBeAdded, movieID, showtimesCopy) => {
+      for (const showtime of showtimesCopy) {
+        if (showtimeIDsToBeAdded.includes(showtime.id)) {
+          showtime.movieID = movieID;
+        } else {
+          if (showtime.movieID == movieID) showtime.movieID = null;
+        }
       }
-    }
-    return true;
-  };
+      updateShowtime({ id: 1, showtimes: showtimesCopy });
+    };
 
-  const removeMoviesFromSchedule = async (toUnbook, showtimesCopy) => {
-    for (const id of toUnbook) {
-      let showtimeToBeEdited = showtimesCopy.find((showtime) => showtime.id == id);
-      if (showtimeToBeEdited) {
-        showtimeToBeEdited.movieID = null;
-        showtimeToBeEdited.theaterLayout = TheaterModel.getNewLayout();
-      }
-      const response = await updateShowtime(showtimeToBeEdited);
-      if (response === false) return false;
-    }
-    return true;
+    addMoviesToSchedule(showtimeIDsToBeAdded, movie.id, showtimesCopy);
   };
 
   return showtimes ? (
