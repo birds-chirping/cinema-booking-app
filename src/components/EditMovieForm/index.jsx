@@ -1,7 +1,7 @@
 import React from "react";
 import { useRef } from "react";
 
-const EditMovieForm = ({ movieToBeEdited, onSaveChanges }) => {
+const EditMovieForm = ({ movieToBeEdited, onSaveChanges, closeEditForm }) => {
   const title = useRef();
   const backdrop_path = useRef();
   const poster_path = useRef();
@@ -87,6 +87,7 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges }) => {
       <button onClick={saveChanges} className="edit-save-button">
         Save changes
       </button>
+      <button onClick={() => closeEditForm()}>Cancel</button>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
 
-const Showtimes = ({ movie, showtimes, setShowtimes }) => {
+const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes }) => {
   const showtimeForm = useRef();
 
   const updateShowtime = async (newShowtimeData) => {
@@ -86,10 +86,12 @@ const Showtimes = ({ movie, showtimes, setShowtimes }) => {
         <button
           onClick={(e) => {
             onSubmit(e, movie);
+            closeShowtimes();
           }}
         >
           Submit
         </button>
+        <button onClick={() => closeShowtimes()}>Cancel</button>
       </form>
     </div>
   ) : (

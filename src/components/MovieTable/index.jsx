@@ -94,6 +94,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
                       onEdit(newMovieData);
                       setMode({ ...mode, edit: false });
                     }}
+                    closeEditForm={() => setMode({ ...mode, edit: false })}
                   />
                 </td>
               </tr>
@@ -101,7 +102,12 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
             {mode.showtimes === movie.id && (
               <tr key={`showtimerow_${movie.id}`} className="edit-row">
                 <td colSpan={5}>
-                  <Showtimes movie={movie} showtimes={showtimes} setShowtimes={setShowtimes} />
+                  <Showtimes
+                    movie={movie}
+                    showtimes={showtimes}
+                    setShowtimes={setShowtimes}
+                    closeShowtimes={() => setMode({ ...mode, showtimes: false })}
+                  />
                 </td>
               </tr>
             )}
