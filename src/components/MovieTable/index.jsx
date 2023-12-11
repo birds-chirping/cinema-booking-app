@@ -10,18 +10,23 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
     edit: false,
     showtimes: false,
     blockDelete: false,
+    alertDelete: false,
   });
 
-  const editMovie = (e) => {
-    setMode({ edit: e.target.id, showtimes: false, blockDelete: false });
+  const showEditForm = (e) => {
+    setMode({ edit: e.target.id, showtimes: false, blockDelete: false, alertDelete: false });
   };
 
   const showShowtimes = (e) => {
-    setMode({ edit: false, showtimes: e.target.id, blockDelete: false });
+    setMode({ edit: false, showtimes: e.target.id, blockDelete: false, alertDelete: false });
+  };
+
+  const showDeleteErrorAlert = (id) => {
+    setMode({ edit: false, showtimes: false, blockDelete: id, alertDelete: false });
   };
 
   const showDeleteAlert = (id) => {
-    setMode({ edit: false, showtimes: false, blockDelete: id });
+    setMode({ edit: false, showtimes: false, blockDelete: false, alertDelete: id });
   };
 
   return (
@@ -57,7 +62,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
                 </button>
               </td>
               <td>
-                <button id={movie.id} onClick={editMovie} className="admin-edit-button">
+                <button id={movie.id} onClick={showEditForm} className="admin-edit-button">
                   Edit
                 </button>
               </td>
@@ -67,9 +72,9 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
                   onClick={(e) => {
                     const showtimesList = showtimes.filter((showtime) => showtime.movieID === movie.id);
                     if (showtimesList.length > 0) {
-                      showDeleteAlert(movie.id);
+                      showDeleteErrorAlert(movie.id);
                     } else {
-                      onDeleteMovie(e.target.id);
+                      showDeleteAlert(movie.id);
                     }
                   }}
                   className="admin-delete-button"
@@ -79,9 +84,31 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
               </td>
             </tr>
             {mode.blockDelete === movie.id && (
-              <tr key={`errordeleterow_${movie.id}`} className="edit-row">
+              <tr key={`errordeleterow_${movie.id}`} className="errordelete-row">
                 <td colSpan={5}>
                   <div>Please remove movie from schedule first.</div>
+                </td>
+              </tr>
+            )}
+            {mode.alertDelete === movie.id && (
+              <tr key={`alertdeleterow_${movie.id}`} className="alertdelete-row">
+                <td colSpan={5}>
+                  <div>The movie "{movie.title}" will be permanently deleted. Continue?</div>
+                  <button
+                    onClick={() => {
+                      onDeleteMovie(movie.id);
+                      setMode({ ...mode, alertDelete: false });
+                    }}
+                  >
+                    Delete movie
+                  </button>
+                  <button
+                    onClick={() => {
+                      setMode({ ...mode, alertDelete: false });
+                    }}
+                  >
+                    Cancel
+                  </button>
                 </td>
               </tr>
             )}
@@ -100,7 +127,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
               </tr>
             )}
             {mode.showtimes === movie.id && (
-              <tr key={`showtimerow_${movie.id}`} className="edit-row">
+              <tr key={`showtimerow_${movie.id}`} className="showtime-row">
                 <td colSpan={5}>
                   <Showtimes
                     movie={movie}
