@@ -83,7 +83,6 @@ const Details = () => {
             );
           })}
         {theater.showtime && <Theater showtime={theater.showtime} />}
-        {theater.showtime && <div className="selected-seats">Selected seats</div>}
       </div>
     </div>
   ) : (

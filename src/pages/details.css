@@ -38,9 +38,3 @@
   flex: 2;
   padding: 3rem;
 }
-
-.selected-seats {
-  background-color: rgba(57, 57, 57, 0.8);
-  min-height: 10rem;
-  color: white;
-}

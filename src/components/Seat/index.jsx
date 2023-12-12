@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const Seat = ({ showtimeID, seat }) => {
+const Seat = ({ showtimeID, seat, onSeatClick }) => {
   const locked = seat.available != true;
 
   return (
@@ -15,6 +15,7 @@ const Seat = ({ showtimeID, seat }) => {
         className={`seat-input ${showtimeID}`}
         disabled={locked}
         defaultChecked={locked}
+        onChange={(e) => onSeatClick(seat.row, seat.index, e.target.checked)}
       />
       <label className={`seat-label ${locked ? "locked" : "available"}`} htmlFor={`seat_${seat.row}_${seat.index + 1}`}>
         {seat.row + (seat.index + 1)}
