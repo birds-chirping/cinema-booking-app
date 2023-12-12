@@ -38,7 +38,8 @@ class TMDB {
     return response.ok ? movie : movie.status_message;
   }
 
-  static getPhotoPath(file_path, size = "w500") {
+  static getPhotoPath(file_path, size) {
+    if (file_path.includes("http") || file_path == "") return file_path;
     return `https://image.tmdb.org/t/p/${size}${file_path}`;
   }
 

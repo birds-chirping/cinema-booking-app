@@ -13,3 +13,23 @@
 .change-showtimes-btn {
   text-wrap: nowrap;
 }
+
+.movie-table td {
+  padding: 5px;
+}
+
+.movie-table .poster-wrapper {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 5px;
+}
+
+.movie-table .poster-wrapper img {
+  width: 90px;
+}

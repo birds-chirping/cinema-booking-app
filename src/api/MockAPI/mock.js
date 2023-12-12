@@ -23,12 +23,6 @@ class Mock {
     return theater.showtimes;
   }
 
-  // static async getShowtimeData(id) {
-  //   const response = await fetch(`${this.BASE_URL}showtimes/${id}`);
-  //   const theater = await response.json();
-  //   return theater;
-  // }
-
   static async getShowtimesByMovieID(id) {
     const response = await fetch(`${this.BASE_URL}showtimes/1`);
     const showtimes = await response.json();

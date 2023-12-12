@@ -14,7 +14,6 @@ const AddMovieForm = ({ onMovieAdd }) => {
     description: "",
     runtime: "",
     price: "",
-    showtimeIDs: [],
   });
   const [error, setError] = useState(null);
 
@@ -39,7 +38,6 @@ const AddMovieForm = ({ onMovieAdd }) => {
         description: data.overview || "",
         runtime: data.runtime || "",
         price: "",
-        showtimeIDs: [],
         // TODO: make input fields required
       });
       setError(null);
@@ -56,7 +54,6 @@ const AddMovieForm = ({ onMovieAdd }) => {
       description: "",
       runtime: "",
       price: "",
-      showtimeIDs: [],
     });
   };
 

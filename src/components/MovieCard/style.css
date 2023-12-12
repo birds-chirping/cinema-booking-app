@@ -3,3 +3,21 @@
   box-shadow: 1px 1px 5px rgb(138, 138, 138);
   border-radius: 5px;
 }
+
+.movie-card .poster-wrapper {
+  width: 185px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.movie-card .noposter {
+  font-size: 5rem;
+}
+
+.movie-card .movie-poster {
+  width: 100%;
+}

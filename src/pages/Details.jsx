@@ -6,6 +6,7 @@ import TMDB from "../api/TMDB/tmdb.js";
 import Theater from "../components/Theater/index.jsx";
 import ShowtimeButton from "../components/ShowtimeButton/index.jsx";
 import "./details.css";
+import generic_bg from "../assets/img/generic_bg.jpg";
 
 const Details = () => {
   const { movieId } = useParams();
@@ -37,20 +38,32 @@ const Details = () => {
     <div
       className="details"
       style={{
-        backgroundImage: `url(${TMDB.getPhotoPath(data.movie.backdrop_path, "w1280")})`,
+        background: data.movie.backdrop_path
+          ? `linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent 40%), url(${TMDB.getPhotoPath(
+              data.movie.backdrop_path,
+              "w1280"
+            )})`
+          : `linear-gradient(90deg, rgba(255, 255, 255, 0.9),  transparent 40%), url(${generic_bg})`,
         backgroundSize: "cover",
       }}
     >
       <div className="details-movie-wrapper">
         <div className="details-movie">
-          <div>
-            <img className="details-movie-poster" src={TMDB.getPhotoPath(data.movie.poster_path, "w500")} />
+          <div className="poster-wrapper" style={{ backgroundColor: !data.movie.poster_path && `rgb(232, 232, 232)` }}>
+            {data.movie.poster_path ? (
+              <img className="movie-poster" src={TMDB.getPhotoPath(data.movie.poster_path, "w500")} />
+            ) : (
+              <>
+                <i className="fa-regular fa-image noposter"></i>
+                <div>No image available</div>
+              </>
+            )}
           </div>
 
-          <div className="details-movie-title">{data.movie.title}</div>
-          <div className="details-genre">Genre: {data.movie.genres}</div>
-          <div className="details-description">{data.movie.description}</div>
-          <div className="details-price">Price: {data.movie.price} RON</div>
+          <div className="movie-title">{data.movie.title}</div>
+          <div className="genre">Genre: {data.movie.genres}</div>
+          <div className="description">{data.movie.description}</div>
+          <div className="price">Price: {data.movie.price} RON</div>
           <Link to="../">Back home</Link>
         </div>
       </div>

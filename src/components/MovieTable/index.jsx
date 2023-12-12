@@ -47,7 +47,16 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
           <Fragment key={movie.id}>
             <tr key={`row_${movie.id}`}>
               <td>
-                <img src={TMDB.getPhotoPath(movie.poster_path, "w92")} width={"80"} alt="" />{" "}
+                <div className="poster-wrapper" style={{ backgroundColor: !movie.poster_path && `rgb(232, 232, 232)` }}>
+                  {movie.poster_path ? (
+                    <img className="movie-poster" src={TMDB.getPhotoPath(movie.poster_path, "w92")} alt="" />
+                  ) : (
+                    <>
+                      <i className="fa-regular fa-image noposter"></i>
+                      <div>No image available</div>
+                    </>
+                  )}
+                </div>
               </td>
               <td>{movie.title}</td>
               <td>
