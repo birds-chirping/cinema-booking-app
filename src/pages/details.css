@@ -37,9 +37,10 @@
 .booking-section {
   flex: 2;
   padding: 3rem;
+}
 
-  .theater {
-    background-color: rgba(57, 57, 57, 0.6);
-    padding: 5rem;
-  }
+.selected-seats {
+  background-color: rgba(57, 57, 57, 0.8);
+  min-height: 10rem;
+  color: white;
 }

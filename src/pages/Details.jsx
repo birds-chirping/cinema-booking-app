@@ -63,7 +63,9 @@ const Details = () => {
           <div className="movie-title">{data.movie.title}</div>
           <div className="genre">Genre: {data.movie.genres}</div>
           <div className="description">{data.movie.description}</div>
-          <div className="price">Price: {data.movie.price} RON</div>
+          <div className="price">
+            Price: {data.movie.price} {(data.movie.price && "RON") || "-"}
+          </div>
           <Link to="../">Back home</Link>
         </div>
       </div>
@@ -80,7 +82,8 @@ const Details = () => {
               />
             );
           })}
-        {theater.showtime && <Theater className={"theater"} showtime={theater.showtime} />}
+        {theater.showtime && <Theater showtime={theater.showtime} />}
+        {theater.showtime && <div className="selected-seats">Selected seats</div>}
       </div>
     </div>
   ) : (

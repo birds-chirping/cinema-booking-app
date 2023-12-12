@@ -1,8 +1,13 @@
+.theater-wrapper {
+  width: fit-content;
+  background-color: rgba(57, 57, 57, 0.7);
+  padding: 3rem 5rem 5rem 5rem;
+}
 .theater {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .theater-row {
@@ -10,38 +15,34 @@
   gap: 0.5rem;
 }
 
+/* aisle B - C */
 .theater-row:nth-child(2) {
   margin-bottom: 2rem;
 }
 
+/* aisle G - H */
 .theater-row:nth-child(7) {
   margin-bottom: 2rem;
 }
 
 .row-tag {
   width: 1.5rem;
-  height: 2.5rem;
+  height: 2rem;
   background-color: rgb(206, 215, 216);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.9rem;
 }
 
-.seat {
-  background-color: rgb(7, 223, 151);
-  height: 2.5rem;
-  width: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* aisle 2 - 3 */
 .theater-row:nth-child(n + 3):nth-child(-n + 7) > .seat:nth-child(3) {
-  margin-right: 6rem;
+  margin-right: 5rem;
 }
 
+/* left space rows A & B */
 .theater-row:nth-child(-n + 2) .seat:nth-child(2) {
-  margin-left: 12rem;
+  margin-left: 10rem;
 }
 
 .row-tag {
@@ -49,8 +50,12 @@
 }
 
 .screen {
-  border-top: 10px solid gray;
+  border-top: 10px solid rgb(206, 215, 216);
+  margin-left: 4rem;
   height: 5rem;
   border-radius: 50%;
   text-align: center;
+  color: white;
+  text-shadow: 0px 1px 20px black;
+  font-size: 1rem;
 }

@@ -17,12 +17,12 @@
   text-align: center;
 }
 
-.locked {
+.showtimes-form .locked {
   background-color: rgb(226, 218, 226);
 }
-.alreadyBooked {
+.showtimes-form .alreadyBooked {
   background-color: mediumslateblue;
 }
-.available {
+.showtimes-form .available {
   background-color: rgb(140, 224, 140);
 }
