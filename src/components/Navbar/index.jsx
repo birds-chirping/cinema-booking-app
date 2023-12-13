@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import CartPreview from "../CartPreview";
 
-export const Navbar = (props) => {
+export const Navbar = ({ moviesInCart }) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -25,13 +25,15 @@ export const Navbar = (props) => {
     };
   }, []);
 
+  console.log("irere");
+
   return (
     <div
       className="navbar"
-      style={{
-        backgroundColor: props.color ?? "transparent",
-        color: props.textColor ?? "black",
-      }}
+      // style={{
+      //   backgroundColor: props.color ?? "transparent",
+      //   color: props.textColor ?? "black",
+      // }}
     >
       <div className="logo">
         <Link to="/">Home</Link>
@@ -42,7 +44,7 @@ export const Navbar = (props) => {
         </div>
         <div>
           <Link onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
-            Cart
+            Cart {moviesInCart && "+"}
           </Link>
           {showCartPreview && <CartPreview onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />}
         </div>
@@ -51,7 +53,7 @@ export const Navbar = (props) => {
   );
 };
 
-Navbar.propTypes = {
-  color: PropTypes.string,
-  textColor: PropTypes.string,
-};
+// Navbar.propTypes = {
+//   color: PropTypes.string,
+//   textColor: PropTypes.string,
+// };
