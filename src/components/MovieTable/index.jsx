@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import TMDB from "../../api/TMDB/tmdb.js";
 import { useState } from "react";
 import EditMovieForm from "../EditMovieForm/index.jsx";
@@ -13,6 +13,17 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
     blockDelete: false,
     alertDelete: false,
   });
+  const editForm = useRef();
+  const blockDeleteRow = useRef();
+  const alertDeleteRow = useRef();
+  const showtimesRow = useRef();
+
+  useEffect(() => {
+    if (editForm.current) editForm.current.scrollIntoView(false);
+    if (blockDeleteRow.current) blockDeleteRow.current.scrollIntoView(false);
+    if (alertDeleteRow.current) alertDeleteRow.current.scrollIntoView(false);
+    if (showtimesRow.current) showtimesRow.current.scrollIntoView(false);
+  }, [mode]);
 
   const showEditForm = (e) => {
     setMode({ edit: e.target.id, showtimes: false, blockDelete: false, alertDelete: false });
@@ -24,6 +35,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
 
   const showDeleteErrorAlert = (id) => {
     setMode({ edit: false, showtimes: false, blockDelete: id, alertDelete: false });
+    // blockDeleteRow.current.scrollIntoView();
   };
 
   const showDeleteAlert = (id) => {
@@ -109,14 +121,21 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
               </td>
             </tr>
             {mode.blockDelete === movie.id && (
-              <tr key={`errordeleterow_${movie.id}`} className="errordelete-row">
+              <tr ref={blockDeleteRow} key={`errordeleterow_${movie.id}`} className="errordelete-row">
                 <td colSpan={6}>
                   <div>Please remove movie from schedule first.</div>
+                  <button
+                    onClick={() => {
+                      setMode({ ...mode, blockDelete: false });
+                    }}
+                  >
+                    OK
+                  </button>
                 </td>
               </tr>
             )}
             {mode.alertDelete === movie.id && (
-              <tr key={`alertdeleterow_${movie.id}`} className="alertdelete-row">
+              <tr ref={alertDeleteRow} key={`alertdeleterow_${movie.id}`} className="alertdelete-row">
                 <td colSpan={6}>
                   <div>The movie "{movie.title}" will be permanently deleted. Continue?</div>
                   <button
@@ -138,7 +157,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
               </tr>
             )}
             {mode.edit === movie.id && (
-              <tr key={`editrow_${movie.id}`} className="edit-row">
+              <tr ref={editForm} key={`editrow_${movie.id}`} className="edit-row">
                 <td colSpan={6}>
                   <EditMovieForm
                     movieToBeEdited={movie}
@@ -152,7 +171,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
               </tr>
             )}
             {mode.showtimes === movie.id && (
-              <tr key={`showtimerow_${movie.id}`} className="showtime-row">
+              <tr ref={showtimesRow} key={`showtimerow_${movie.id}`} className="showtime-row">
                 <td colSpan={6}>
                   <Showtimes
                     movie={movie}
