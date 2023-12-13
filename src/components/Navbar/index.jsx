@@ -1,8 +1,30 @@
 import { Link } from "react-router-dom";
 import "./style.css";
 import PropTypes from "prop-types";
+import { useEffect, useState, useRef } from "react";
+import CartPreview from "../CartPreview";
 
 export const Navbar = (props) => {
+  const [showCartPreview, setShowCartPreview] = useState(false);
+  const timeoutRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setShowCartPreview(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setShowCartPreview(false);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   return (
     <div
       className="navbar"
@@ -19,7 +41,10 @@ export const Navbar = (props) => {
           <Link to="/admin">Admin</Link>
         </div>
         <div>
-          <Link to="/cart">Cart</Link>
+          <Link onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
+            Cart
+          </Link>
+          {showCartPreview && <CartPreview onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />}
         </div>
       </div>
     </div>

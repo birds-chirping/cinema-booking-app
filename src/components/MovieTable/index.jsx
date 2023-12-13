@@ -41,8 +41,6 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
     setMode({ edit: false, showtimes: false, blockDelete: false, alertDelete: id });
   };
 
-  console.log(movies);
-
   return (
     <table className="movie-table">
       <thead>
