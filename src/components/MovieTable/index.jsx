@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import Showtimes from "../EditShowtimes/index.jsx";
 import "./style.css";
 
-const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit }) => {
+const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) => {
   const [mode, setMode] = useState({
     edit: false,
     showtimes: false,
@@ -35,12 +35,13 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
 
   const showDeleteErrorAlert = (id) => {
     setMode({ edit: false, showtimes: false, blockDelete: id, alertDelete: false });
-    // blockDeleteRow.current.scrollIntoView();
   };
 
   const showDeleteAlert = (id) => {
     setMode({ edit: false, showtimes: false, blockDelete: false, alertDelete: id });
   };
+
+  console.log(movies);
 
   return (
     <table className="movie-table">
@@ -55,7 +56,7 @@ const MovieTable = ({ movieData, onDeleteMovie, showtimes, setShowtimes, onEdit 
         </tr>
       </thead>
       <tbody>
-        {movieData.map((movie) => (
+        {movies.toReversed().map((movie) => (
           <Fragment key={movie.id}>
             <tr key={`row_${movie.id}`}>
               <td>

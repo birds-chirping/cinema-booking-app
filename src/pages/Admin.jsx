@@ -95,7 +95,7 @@ const Admin = () => {
       {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}
       <MovieTable
         key={data.movies.length}
-        movieData={data.movies}
+        movies={data.movies}
         showtimes={data.showtimes}
         setShowtimes={(newShowtimes) => setData({ ...data, showtimes: newShowtimes })}
         onDeleteMovie={handleOnDelete}
