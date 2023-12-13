@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  position: relative;
 }
 .theater {
   display: flex;
@@ -69,4 +70,31 @@
   color: white;
   display: flex;
   flex-direction: column;
+}
+
+.double-alert {
+  position: absolute;
+  background-color: rgba(139, 139, 139, 0.571);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.double-alert .alert-content {
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  color: black;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.double-alert .alert-button {
 }

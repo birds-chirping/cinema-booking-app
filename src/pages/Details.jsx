@@ -17,6 +17,7 @@ const Details = () => {
     movie: null,
     showtimes: [],
   });
+  const [addedTickets, setAddedTickets] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +83,14 @@ const Details = () => {
               />
             );
           })}
-        {theater.showtime && <Theater showtime={theater.showtime} />}
+        {theater.showtime && (
+          <Theater
+            key={addedTickets}
+            setAddedTickets={setAddedTickets}
+            showtime={theater.showtime}
+            movieTitle={data.movie.title}
+          />
+        )}
       </div>
     </div>
   ) : (
