@@ -12,7 +12,16 @@ const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
   }, [showtime]);
 
   const handleSeatClick = (row, index, checked, timestamp, movie) => {
-    const seat = { row: row, index: index, price: movie.price, timestamp: timestamp, movieTitle: movie.title };
+    const seat = {
+      seatID: `${timestamp}_${movie.id}_${row}${index}`,
+      row: row,
+      index: index,
+      price: movie.price,
+      timestamp: timestamp,
+      movieTitle: movie.title,
+      movieID: movie.id,
+    };
+
     if (checked) {
       setSelectedSeats((prev) => [...prev, seat]);
     } else {
@@ -27,11 +36,10 @@ const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
       movieTickets = JSON.parse(window.localStorage.getItem("moviecart"));
     }
     seats.forEach((seat) => {
-      const seatString = `${seat.movieTitle}_${seat.timestamp}_${seat.row}_${seat.index}_${seat.price}`;
-      if (!movieTickets.includes(seatString)) {
-        movieTickets.push(seatString);
-      } else {
+      if (movieTickets.find((bookedSeat) => bookedSeat.seatID === seat.seatID)) {
         alreadyBooked.push(seat);
+      } else {
+        movieTickets.push(seat);
       }
     });
 

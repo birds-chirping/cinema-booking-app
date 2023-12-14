@@ -13,26 +13,17 @@ const Cart = () => {
 
   return moviesInCart ? (
     <div className="cart-tickets">
-      {moviesInCart.map((movieString) => {
-        const movie = movieString.split("_");
-        const date = new Date(movie[1] * 1000);
-        const data = {
-          movietitle: movie[0],
-          date: date,
-          row: movie[2],
-          seat: movie[3],
-          price: movie[4],
-        };
-        console.log(data);
+      {moviesInCart.map((seat) => {
+        const date = new Date(seat.timestamp * 1000);
         return (
-          <div className="ticket-wrapper">
+          <div key={seat.seatID} className="ticket-wrapper">
             <div className="left">
               <div className="cinema">
                 <span>Imaginary</span> Cinema
               </div>
               <div className="content">
                 <div className="title">
-                  <div className="data">{data.movietitle}</div>
+                  <div className="data">{seat.movieTitle}</div>
                   <div className="tag">MOVIE</div>
                 </div>
                 <div className="ticket-details">
@@ -49,25 +40,28 @@ const Cart = () => {
                     <div className="tag">TIME</div>
                   </div>
                   <div className="row">
-                    <div className="data">{data.row}</div>
+                    <div className="data">{seat.row}</div>
                     <div className="tag">ROW</div>
                   </div>
                   <div className="seat">
-                    <div className="data">{data.seat}</div>
+                    <div className="data">{seat.index + 1}</div>
                     <div className="tag">SEAT</div>
+                  </div>
+                  <div className="seat">
+                    <div className="data">{seat.price}</div>
+                    <div className="tag">RON</div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="right">
               <div className="logo">
-                <i class="fa-solid fa-ticket"></i>
-                {/* <i class="fa-solid fa-clapperboard"></i> */}
+                <i className="fa-solid fa-ticket"></i>
               </div>
               <div className="seat">
                 <div>
-                  {data.row}
-                  {data.seat}
+                  {seat.row}
+                  {seat.index + 1}
                 </div>
                 <div className="tag">SEAT</div>
               </div>
