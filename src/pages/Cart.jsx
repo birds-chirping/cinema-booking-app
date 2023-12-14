@@ -7,8 +7,6 @@ const Cart = () => {
     if (window.localStorage.getItem("moviecart")) {
       setMoviesInCart(JSON.parse(window.localStorage.getItem("moviecart")));
     }
-
-    console.log(moviesInCart);
   }, []);
 
   return moviesInCart ? (

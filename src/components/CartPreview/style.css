@@ -1,5 +1,71 @@
 .cart-preview {
-  padding: 30px;
   position: absolute;
+  right: 0px;
+  top: 2.5rem;
   background-color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.559);
+  width: 20rem;
+  z-index: 10000;
+  /* background: linear-gradient(to bottom, #e84c3d 3rem, #ecedef 3rem); */
+  background: linear-gradient(to bottom, #e84c3d 3rem, white 3rem);
+}
+
+.preview-title {
+  text-align: center;
+  background-color: #e84c3d;
+  border-top-right-radius: 7px;
+  border-top-left-radius: 7px;
+  font-weight: 700;
+}
+.movies-in-cart {
+  max-height: 25rem;
+  overflow: hidden;
+}
+.cart-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1rem 0rem 0.5rem 1rem;
+}
+
+.cart-entry .seat {
+  width: 2rem;
+  color: #e84c3d;
+  font-weight: 700;
+}
+.cart-entry .movie-title {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+
+.cart-entry .del-button {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+}
+.and-x-more {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+.cart-button {
+  background-color: #e84c3d;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 7px;
+  color: white;
+}
+.cart-preview .total {
+  text-align: end;
+  margin: 0 1rem;
+  padding-top: 0.7rem;
+}
+
+.cart-preview .total-price {
+  font-weight: 700;
 }

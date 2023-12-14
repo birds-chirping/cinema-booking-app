@@ -34,17 +34,25 @@ export const Navbar = ({ moviesInCart }) => {
       // }}
     >
       <div className="logo">
-        <Link to="/">Home</Link>
+        <Link to="/">
+          <span>Imaginary</span>Cinema
+        </Link>
       </div>
       <div className="menu">
-        <div>
+        <div className="nav-admin">
           <Link to="/admin">Admin</Link>
         </div>
-        <div>
+        <div className="nav-cart">
           <Link onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
             Cart {moviesInCart && "+"}
           </Link>
-          {showCartPreview && <CartPreview onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} />}
+          {showCartPreview && (
+            <CartPreview
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => setShowCartPreview(false)}
+            />
+          )}
         </div>
       </div>
     </div>
