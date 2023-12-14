@@ -7,7 +7,7 @@
   padding: 1rem;
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.559);
   width: 20rem;
-  z-index: 10000;
+  z-index: 100;
   /* background: linear-gradient(to bottom, #e84c3d 3rem, #ecedef 3rem); */
   background: linear-gradient(to bottom, #e84c3d 3rem, white 3rem);
 }

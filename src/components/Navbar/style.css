@@ -1,9 +1,13 @@
 .navbar {
+  position: sticky;
+  background-color: white;
+  top: 0px;
   display: flex;
   justify-content: space-around;
   align-items: baseline;
   padding: 0.7rem 0;
   box-shadow: 0px 2px 5px rgba(111, 111, 111, 0.478);
+  z-index: 101;
 }
 
 .navbar a {

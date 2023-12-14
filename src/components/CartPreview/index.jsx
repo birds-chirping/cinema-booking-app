@@ -17,8 +17,8 @@ const CartPreview = ({ onMouseEnter, onMouseLeave, onClick }) => {
         <div className="preview-title">Latest tickets</div>
         <div className="movies-in-cart">
           {moviesInCart
-            .toReversed()
             .slice(moviesInCart.length - 5)
+            .toReversed()
             .map((seat) => {
               return (
                 <div key={seat.seatID} className="cart-entry">
