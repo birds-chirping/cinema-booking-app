@@ -4,7 +4,6 @@
   top: 2.5rem;
   background-color: white;
   border-radius: 10px;
-  /* padding: 1rem; */
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.559);
   width: 20rem;
   z-index: 100;
@@ -44,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  padding: 0.5rem 1rem 0.5rem 1.5rem;
 }
 
 .cart-entry .seat {
@@ -60,21 +59,22 @@
   font-weight: 700;
 }
 
-.cart-entry .del-button {
+.cart-entry .delete-button {
   background-color: transparent;
   padding: 0.5rem 1rem;
 }
-.and-x-more {
-  text-align: center;
-  padding-bottom: 0.5rem;
-  font-size: 0.8rem;
+
+.cart-entry .delete-button:hover {
+  border: 1px solid transparent;
+  background-color: #e84c3d;
+  color: white;
 }
 
 .cart-button-wrapper {
-  padding: 1rem;
+  padding: 1rem 1rem 0.5rem;
 }
 .scroll-shadow {
-  box-shadow: 0px -7px 20px #855a5633;
+  box-shadow: 0px -10px 15px #855a5633;
 }
 .cart-button {
   background-color: #e84c3d;

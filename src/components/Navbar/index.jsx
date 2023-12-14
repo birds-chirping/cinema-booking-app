@@ -45,11 +45,16 @@ export const Navbar = ({ moviesInCart, setMoviesInCart }) => {
       </div>
       <div className="menu">
         <div className="nav-admin">
-          <Link to="/admin">Admin</Link>
+          <Link to="/admin">
+            <i className="fa-solid fa-user-tie"></i>
+          </Link>
         </div>
         <div className="nav-cart">
-          <Link onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
-            Cart {moviesInCart > 0 && `${moviesInCart}`}
+          <Link className="cart-link" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
+            <div className="cart-icon">
+              <i className="fa-solid fa-cart-shopping"></i>
+            </div>
+            {moviesInCart > 0 && <div className="cart-counter">{`${moviesInCart}`}</div>}
           </Link>
           {showCartPreview && (
             <CartPreview
