@@ -25,8 +25,6 @@ export const Navbar = ({ moviesInCart }) => {
     };
   }, []);
 
-  console.log("irere");
-
   return (
     <div
       className="navbar"

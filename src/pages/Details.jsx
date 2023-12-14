@@ -88,7 +88,7 @@ const Details = ({ setMoviesInCart }) => {
             key={addedTickets}
             setAddedTickets={setAddedTickets}
             showtime={theater.showtime}
-            movieTitle={data.movie.title}
+            movie={data.movie}
             setMoviesInCart={setMoviesInCart}
           />
         )}

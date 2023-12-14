@@ -40,6 +40,6 @@
   width: 0;
 }
 
-.seat {
+.theater .seat {
   display: flex;
 }

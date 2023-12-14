@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Seat from "../Seat";
 import "./style.css";
 
-const Theater = ({ setAddedTickets, showtime, movieTitle, setMoviesInCart }) => {
+const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
   const selectedSeatsDiv = useRef();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [reselectedSeats, setReselectedSeats] = useState([]);
@@ -11,8 +11,8 @@ const Theater = ({ setAddedTickets, showtime, movieTitle, setMoviesInCart }) => 
     setSelectedSeats([]);
   }, [showtime]);
 
-  const handleSeatClick = (row, index, checked, timestamp, movieTitle) => {
-    const seat = { row: row, index: index, timestamp: timestamp, movieTitle: movieTitle };
+  const handleSeatClick = (row, index, checked, timestamp, movie) => {
+    const seat = { row: row, index: index, price: movie.price, timestamp: timestamp, movieTitle: movie.title };
     if (checked) {
       setSelectedSeats((prev) => [...prev, seat]);
     } else {
@@ -27,7 +27,7 @@ const Theater = ({ setAddedTickets, showtime, movieTitle, setMoviesInCart }) => 
       movieTickets = JSON.parse(window.localStorage.getItem("moviecart"));
     }
     seats.forEach((seat) => {
-      const seatString = `${seat.movieTitle}_${seat.timestamp}_${seat.row}_${seat.index}`;
+      const seatString = `${seat.movieTitle}_${seat.timestamp}_${seat.row}_${seat.index}_${seat.price}`;
       if (!movieTickets.includes(seatString)) {
         movieTickets.push(seatString);
       } else {
@@ -62,7 +62,7 @@ const Theater = ({ setAddedTickets, showtime, movieTitle, setMoviesInCart }) => 
                     showtimeID={showtime.id}
                     seat={{ available: seat, row: rowData.row, index: index }}
                     onSeatClick={(row, index, checked) =>
-                      handleSeatClick(row, index, checked, showtime.timestamp, movieTitle)
+                      handleSeatClick(row, index, checked, showtime.timestamp, movie)
                     }
                   />
                 );
@@ -75,9 +75,18 @@ const Theater = ({ setAddedTickets, showtime, movieTitle, setMoviesInCart }) => 
       <div ref={selectedSeatsDiv} className="selected-seats-wrapper">
         {selectedSeats.map((seat) => (
           <div key={`${seat.row}${seat.index}`} className="selected-seats">
-            {`Row: ${seat.row} Seat: ${seat.index + 1}`}
+            {`Row: ${seat.row} Seat: ${seat.index + 1} - ${seat.price} RON`}
           </div>
         ))}
+        {selectedSeats.length > 0 && (
+          <div>
+            Total:{" "}
+            {selectedSeats.reduce(function (acc, obj) {
+              return acc + Number(obj.price);
+            }, 0)}{" "}
+            RON
+          </div>
+        )}
       </div>
 
       {selectedSeats.length > 0 && <button onClick={() => addTicketsToCart(selectedSeats)}>Add tickets to cart</button>}
