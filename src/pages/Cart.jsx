@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./cart.css";
-const Cart = () => {
-  const [moviesInCart, setMoviesInCart] = useState(null);
-
-  useEffect(() => {
-    if (window.localStorage.getItem("moviecart")) {
-      setMoviesInCart(JSON.parse(window.localStorage.getItem("moviecart")));
-    }
-  }, []);
-
+const Cart = ({ ticketsInCart, setTicketsInCart }) => {
   return (
     <div className="cart-page">
       <div className="cart">
         <div className="cart title">Tickets in cart</div>
-        {moviesInCart ? (
+        {ticketsInCart ? (
           <div className="cart-tickets">
-            {moviesInCart.map((seat) => {
+            {ticketsInCart.map((seat) => {
               const date = new Date(seat.timestamp * 1000);
               return (
                 <div key={seat.seatID} className="ticket-wrapper">
@@ -73,7 +65,7 @@ const Cart = () => {
             })}
           </div>
         ) : (
-          <div>Loading...</div>
+          <div>No products in cart</div>
         )}
         <div className="checkout">
           <button className="checkout-button">Checkout</button>

@@ -8,7 +8,7 @@ import ShowtimeButton from "../components/ShowtimeButton/index.jsx";
 import "./details.css";
 import generic_bg from "../assets/img/generic_bg.jpg";
 
-const Details = ({ setMoviesInCart }) => {
+const Details = ({ setTicketsInCart }) => {
   const { movieId } = useParams();
   const [theater, setTheater] = useState({
     showtime: null,
@@ -89,7 +89,7 @@ const Details = ({ setMoviesInCart }) => {
             setAddedTickets={setAddedTickets}
             showtime={theater.showtime}
             movie={data.movie}
-            setMoviesInCart={setMoviesInCart}
+            setTicketsInCart={setTicketsInCart}
           />
         )}
       </div>

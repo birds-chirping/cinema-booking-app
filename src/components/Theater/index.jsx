@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Seat from "../Seat";
 import "./style.css";
 
-const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
+const Theater = ({ setAddedTickets, showtime, movie, setTicketsInCart }) => {
   const selectedSeatsDiv = useRef();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [reselectedSeats, setReselectedSeats] = useState([]);
@@ -48,7 +48,7 @@ const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
     } else if (movieTickets.length > 0) {
       window.localStorage.setItem("moviecart", JSON.stringify(movieTickets));
       setAddedTickets((prev) => prev + 1);
-      setMoviesInCart(movieTickets.length);
+      setTicketsInCart(movieTickets);
     }
   };
 

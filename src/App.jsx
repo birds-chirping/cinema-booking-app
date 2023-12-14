@@ -9,28 +9,31 @@ import { Navbar } from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [moviesInCart, setMoviesInCart] = useState(0);
+  const [ticketsInCart, setTicketsInCart] = useState(null);
 
   useEffect(() => {
     const storage = window.localStorage.getItem("moviecart");
 
     if (storage) {
-      setMoviesInCart(JSON.parse(storage).length);
+      setTicketsInCart(JSON.parse(storage));
     }
   }, []);
 
-  const handleSetMoviesInCart = (count) => {
-    setMoviesInCart(count);
+  const handleSetTicketsInCart = (movies) => {
+    setTicketsInCart(movies);
   };
 
   return (
     <>
-      <Navbar moviesInCart={moviesInCart} setMoviesInCart={handleSetMoviesInCart} />
+      <Navbar ticketsInCart={ticketsInCart} setTicketsInCart={handleSetTicketsInCart} />
       <Routes>
         <Route path="*" element={<Home />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/details/:movieId" element={<Details setMoviesInCart={handleSetMoviesInCart} />} />
+        <Route
+          path="/cart"
+          element={<Cart ticketsInCart={ticketsInCart} setTicketsInCart={handleSetTicketsInCart} />}
+        />
+        <Route path="/details/:movieId" element={<Details setTicketsInCart={handleSetTicketsInCart} />} />
       </Routes>
     </>
   );

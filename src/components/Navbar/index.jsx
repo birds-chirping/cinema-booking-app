@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import CartPreview from "../CartPreview";
 
-export const Navbar = ({ moviesInCart, setMoviesInCart }) => {
+export const Navbar = ({ ticketsInCart, setTicketsInCart }) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -25,8 +25,8 @@ export const Navbar = ({ moviesInCart, setMoviesInCart }) => {
     };
   }, []);
 
-  const handleUpdateCount = (count) => {
-    setMoviesInCart(count);
+  const handleSetTicketsInCart = (count) => {
+    setTicketsInCart(count);
   };
 
   return (
@@ -54,14 +54,16 @@ export const Navbar = ({ moviesInCart, setMoviesInCart }) => {
             <div className="cart-icon">
               <i className="fa-solid fa-cart-shopping"></i>
             </div>
-            {moviesInCart > 0 && <div className="cart-counter">{`${moviesInCart}`}</div>}
+            {ticketsInCart && ticketsInCart.length > 0 && (
+              <div className="cart-counter">{`${ticketsInCart.length}`}</div>
+            )}
           </Link>
           {showCartPreview && (
             <CartPreview
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onGoToCartClick={() => setShowCartPreview(false)}
-              updateCartCount={handleUpdateCount}
+              setTicketsInCart={handleSetTicketsInCart}
             />
           )}
         </div>

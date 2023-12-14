@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-const CartPreview = ({ onMouseEnter, onMouseLeave, onGoToCartClick, updateCartCount }) => {
+const CartPreview = ({ onMouseEnter, onMouseLeave, onGoToCartClick, setTicketsInCart }) => {
   const [moviesInCart, setMoviesInCart] = useState(null);
 
   useEffect(() => {
@@ -16,7 +16,6 @@ const CartPreview = ({ onMouseEnter, onMouseLeave, onGoToCartClick, updateCartCo
       return movie.seatID != id;
     });
 
-    console.log(updatedCart);
     updatedCart.length > 0
       ? window.localStorage.setItem("moviecart", JSON.stringify(updatedCart))
       : window.localStorage.removeItem("moviecart");
@@ -27,7 +26,7 @@ const CartPreview = ({ onMouseEnter, onMouseLeave, onGoToCartClick, updateCartCo
       setMoviesInCart(null);
       onMouseLeave();
     }
-    updateCartCount(updatedCart.length);
+    setTicketsInCart(updatedCart);
   };
 
   return (
