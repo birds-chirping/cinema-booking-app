@@ -4,30 +4,47 @@
   top: 2.5rem;
   background-color: white;
   border-radius: 10px;
-  padding: 1rem;
+  /* padding: 1rem; */
   box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.559);
   width: 20rem;
   z-index: 100;
   /* background: linear-gradient(to bottom, #e84c3d 3rem, #ecedef 3rem); */
-  background: linear-gradient(to bottom, #e84c3d 3rem, white 3rem);
+  /* background: linear-gradient(to bottom, #e84c3d 3rem, white 3rem); */
 }
 
 .preview-title {
   text-align: center;
-  background-color: #e84c3d;
+  color: #e84c3d;
   border-top-right-radius: 7px;
   border-top-left-radius: 7px;
   font-weight: 700;
+  font-size: 1.2rem;
+  border-bottom: 1px dashed #e84c3d;
+  margin: 1rem 1rem 0;
+  padding-bottom: 0.5rem;
 }
 .movies-in-cart {
-  max-height: 25rem;
-  overflow: hidden;
+  max-height: 19rem;
+  /* overflow: hidden; */
+  overflow-y: scroll;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.movies-in-cart::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.movies-in-cart {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .cart-entry {
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 1rem 0rem 0.5rem 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
 }
 
 .cart-entry .seat {
@@ -52,6 +69,13 @@
   padding-bottom: 0.5rem;
   font-size: 0.8rem;
 }
+
+.cart-button-wrapper {
+  padding: 1rem;
+}
+.scroll-shadow {
+  box-shadow: 0px -7px 20px #855a5633;
+}
 .cart-button {
   background-color: #e84c3d;
   width: 100%;
@@ -68,4 +92,9 @@
 
 .cart-preview .total-price {
   font-weight: 700;
+  padding-bottom: 1rem;
+}
+
+.empty-cart {
+  padding: 1rem;
 }

@@ -45,10 +45,10 @@ const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
 
     if (alreadyBooked.length > 0) {
       setReselectedSeats(alreadyBooked);
-    } else {
+    } else if (movieTickets.length > 0) {
       window.localStorage.setItem("moviecart", JSON.stringify(movieTickets));
       setAddedTickets((prev) => prev + 1);
-      setMoviesInCart(true);
+      setMoviesInCart(movieTickets.length);
     }
   };
 
@@ -89,9 +89,11 @@ const Theater = ({ setAddedTickets, showtime, movie, setMoviesInCart }) => {
         {selectedSeats.length > 0 && (
           <div>
             Total:{" "}
-            {selectedSeats.reduce(function (acc, obj) {
-              return acc + Number(obj.price);
-            }, 0)}{" "}
+            {selectedSeats
+              .reduce(function (acc, obj) {
+                return acc + Number(obj.price);
+              }, 0)
+              .toFixed(2)}{" "}
             RON
           </div>
         )}

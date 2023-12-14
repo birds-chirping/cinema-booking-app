@@ -9,21 +9,23 @@ import { Navbar } from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 
 const App = () => {
-  const [moviesInCart, setMoviesInCart] = useState(false);
+  const [moviesInCart, setMoviesInCart] = useState(0);
 
   useEffect(() => {
-    if (window.localStorage.getItem("moviecart")) {
-      setMoviesInCart(true);
+    const storage = window.localStorage.getItem("moviecart");
+
+    if (storage) {
+      setMoviesInCart(JSON.parse(storage).length);
     }
   }, []);
 
-  const handleSetMoviesInCart = (bool) => {
-    setMoviesInCart(bool);
+  const handleSetMoviesInCart = (count) => {
+    setMoviesInCart(count);
   };
 
   return (
     <>
-      <Navbar moviesInCart={moviesInCart} />
+      <Navbar moviesInCart={moviesInCart} setMoviesInCart={handleSetMoviesInCart} />
       <Routes>
         <Route path="*" element={<Home />} />
         <Route path="/admin" element={<Admin />} />

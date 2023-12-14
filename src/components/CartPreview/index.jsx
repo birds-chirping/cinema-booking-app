@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
-const CartPreview = ({ onMouseEnter, onMouseLeave, onClick }) => {
+const CartPreview = ({ onMouseEnter, onMouseLeave, onGoToCartClick, updateCartCount }) => {
   const [moviesInCart, setMoviesInCart] = useState(null);
 
   useEffect(() => {
@@ -11,44 +11,60 @@ const CartPreview = ({ onMouseEnter, onMouseLeave, onClick }) => {
     }
   }, []);
 
-  return (
-    moviesInCart && (
-      <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="cart-preview">
-        <div className="preview-title">Latest tickets</div>
-        <div className="movies-in-cart">
-          {moviesInCart
-            .slice(moviesInCart.length - 5)
-            .toReversed()
-            .map((seat) => {
-              return (
-                <div key={seat.seatID} className="cart-entry">
-                  <div className="seat">
-                    {seat.row}
-                    {seat.index + 1}
-                  </div>
-                  <div className="movie-title">{seat.movieTitle}</div>
-                  <div className="price">{seat.price} RON</div>
-                  <button className="del-button">
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
+  const handleDeleteTicket = (id) => {
+    const updatedCart = moviesInCart.filter((movie) => {
+      return movie.seatID != id;
+    });
+
+    updatedCart.length > 0
+      ? window.localStorage.setItem("moviecart", JSON.stringify(updatedCart))
+      : window.localStorage.removeItem("moviecart");
+
+    setMoviesInCart(updatedCart);
+    updateCartCount(updatedCart.length);
+  };
+
+  return moviesInCart ? (
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="cart-preview">
+      <div className="preview-title">Latest tickets</div>
+      <div className="movies-in-cart">
+        {moviesInCart
+          // .slice(moviesInCart.length - 5)
+          .toReversed()
+          .map((seat) => {
+            return (
+              <div key={seat.seatID} className="cart-entry">
+                <div className="seat">
+                  {seat.row}
+                  {seat.index + 1}
                 </div>
-              );
-            })}
-        </div>
-        {moviesInCart.length > 5 && <div className="and-x-more">( +{moviesInCart.length - 5} more)</div>}
-        <Link onClick={onClick} to="/cart">
+                <div className="movie-title">{seat.movieTitle}</div>
+                <div className="price">{seat.price} RON</div>
+                <button onClick={() => handleDeleteTicket(seat.seatID)} className="del-button">
+                  <i className="fa-regular fa-trash-can"></i>
+                </button>
+              </div>
+            );
+          })}
+      </div>
+
+      <div className={`cart-button-wrapper ${moviesInCart.length > 5 ? "scroll-shadow" : ""}`}>
+        <Link onClick={onGoToCartClick} to="/cart">
           <button className="cart-button">Go to cart</button>
         </Link>
-        <div className="total">
-          <div className="total-tickets">
-            {moviesInCart.length} ticket{moviesInCart.length > 1 && "s"} booked
-          </div>
-          <div className="total-price">
-            Total: {moviesInCart.reduce((a, b) => a + Number(b.price), 0).toFixed(2)} RON
-          </div>
-        </div>
       </div>
-    )
+
+      <div className="total">
+        <div className="total-tickets">
+          {moviesInCart.length} ticket{moviesInCart.length > 1 && "s"} booked
+        </div>
+        <div className="total-price">Total: {moviesInCart.reduce((a, b) => a + Number(b.price), 0).toFixed(2)} RON</div>
+      </div>
+    </div>
+  ) : (
+    <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="cart-preview">
+      <div className="empty-cart">No tickets booked</div>
+    </div>
   );
 };
 

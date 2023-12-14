@@ -35,6 +35,10 @@
   font-size: 2rem;
 }
 
-.navbar .logo span {
+.navbar .logo span:first-child {
   font-weight: 900;
+}
+
+.navbar .logo span:nth-child(2) {
+  /* color: #e84c3d; */
 }
