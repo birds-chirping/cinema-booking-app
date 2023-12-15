@@ -19,8 +19,8 @@ const App = () => {
     }
   }, []);
 
-  const handleSetTicketsInCart = (movies) => {
-    setTicketsInCart(movies);
+  const handleSetTicketsInCart = (tickets) => {
+    setTicketsInCart(tickets);
   };
 
   return (

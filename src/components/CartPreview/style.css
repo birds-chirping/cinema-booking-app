@@ -4,11 +4,9 @@
   top: 2.5rem;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.559);
+  box-shadow: 0px 0px 8px 0px rgba(99, 99, 99, 0.2);
   width: 20rem;
   z-index: 100;
-  /* background: linear-gradient(to bottom, #e84c3d 3rem, #ecedef 3rem); */
-  /* background: linear-gradient(to bottom, #e84c3d 3rem, white 3rem); */
 }
 
 .preview-title {
@@ -24,7 +22,6 @@
 }
 .movies-in-cart {
   max-height: 19rem;
-  /* overflow: hidden; */
   overflow-y: scroll;
 }
 

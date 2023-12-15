@@ -3,25 +3,41 @@
   justify-content: center;
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   height: calc(100% - 4.5rem);
+  position: relative;
 }
 
 .cart {
   width: 44rem;
   background-color: white;
-  margin-top: -1rem;
+  margin: -1rem 4rem 0 0;
   padding: 2rem 3rem 1rem 4rem;
   box-shadow: 1px 1px 6px rgba(150, 150, 150, 0.554);
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: calc(100vh - 3.5rem);
 }
 
 .cart-title {
   text-align: center;
   font-weight: 700;
   font-size: 2rem;
+  padding-top: 2rem;
 }
 
+/* ------ cover photo------ */
+
+.cart-cover img {
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.95) 0px 25px 20px -20px;
+}
+.cart-cover {
+  position: sticky;
+  top: 6.5rem;
+  height: calc(100vh - 8.5rem);
+  /* min-height: 30rem; */
+  margin: 0 4rem;
+}
 /* ------ tickets------- */
 
 .cart-tickets {
@@ -137,7 +153,7 @@
   color: #e84c3d;
 }
 
-/* ---------- */
+/* ----- delete ticket----- */
 .delete-wrapper button {
   background-color: transparent;
   font-weight: 700;
@@ -152,41 +168,6 @@
   background-color: transparent;
   border: 2px solid #e84c3d;
   color: #e84c3d;
-}
-
-/* ---------- */
-.cart .cart-buttons {
-  width: 100%;
-  display: flex;
-  padding: 1rem 3.5rem 10rem 1.3rem;
-  justify-content: space-between;
-}
-
-.cart .checkout-button {
-  background-color: #e84c3d;
-  padding: 0.5rem 3rem;
-  color: white;
-  border: 2px solid #e84c3d;
-}
-
-.cart .continue-shopping-button {
-  background-color: #ebedee;
-  color: #e84c3d;
-  border: 2px solid #e84c3d;
-}
-
-/* ------------ */
-
-.cart-cover img {
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.95) 0px 25px 20px -20px;
-}
-.cart-cover {
-  position: sticky;
-  top: 6.5rem;
-  height: calc(100vh - 8.5rem);
-  margin: 0 4rem;
 }
 
 /* -----cart info------ */
@@ -212,11 +193,15 @@
 
 .cart .discount input {
   line-height: 1.8rem;
-  border: 2px solid #213547;
+  border: 1px solid #213547;
   border-radius: 5px;
   padding: 0 0.5rem;
   width: 8rem;
   font-weight: 700;
+}
+
+.cart .discount input:focus {
+  border: 2px solid #213547;
 }
 
 .cart .discount button {
@@ -232,4 +217,52 @@
   font-size: 1.3rem;
   border-top: 1px solid #213547;
   width: fit-content;
+}
+
+/* -----continue shopping & checkout----- */
+
+.cart .cart-buttons {
+  width: 100%;
+  display: flex;
+  padding: 1rem 1.3rem 10rem;
+  justify-content: space-between;
+}
+
+.cart .checkout-button {
+  background-color: #e84c3d;
+  padding: 0.6rem 3rem;
+  color: white;
+  border: 2px solid #e84c3d;
+}
+
+.cart .continue-shopping-button {
+  background-color: #ebedee;
+  padding: 0.6rem 1.5rem;
+  color: #e84c3d;
+  border: 2px solid #e84c3d;
+}
+
+/* -------thank you & empty cart------ */
+
+.thank-you,
+.cart .empty-cart {
+  font-size: 2rem;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.thank-you span {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: mediumslateblue;
+}
+
+.cart .empty-cart span {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: mediumaquamarine;
 }

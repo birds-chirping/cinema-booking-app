@@ -1,16 +1,63 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./cart.css";
 import happy_people from "../assets/img/2151024819.jpg";
+import daydreaming from "../assets/img/9930998_4286861.jpg";
+import popcorn from "../assets/img/9551249.jpg";
+import Mock from "../api/MockAPI/mock";
 
 const Cart = ({ ticketsInCart, setTicketsInCart }) => {
   const discountCode = useRef();
   const [total, setTotal] = useState(null);
+  const [thankYou, setThankYou] = useState(false);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     if (discountCode.current) {
       calculateTotal();
     }
   }, [ticketsInCart]);
+
+  const updateShowtimes = async (newShowtimeData) => {
+    const url = `${Mock.BASE_URL}showtimes/1`;
+    const options = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newShowtimeData),
+    };
+    const response = await fetch(url, options);
+    if (response.ok) {
+      setThankYou(true);
+      setTicketsInCart(null);
+      window.localStorage.removeItem("moviecart");
+
+      timeoutRef.current = setTimeout(() => {
+        setThankYou(false);
+      }, 5000);
+    }
+    return false;
+  };
+
+  const buyTickets = async () => {
+    await addBookedSeatsToTheater();
+  };
+
+  const addBookedSeatsToTheater = async () => {
+    const response = await fetch(`${Mock.BASE_URL}showtimes/1`);
+    const theater = await response.json();
+
+    for (const ticket of ticketsInCart) {
+      const index = theater.showtimes.findIndex((showtime) => showtime.timestamp === ticket.timestamp);
+      const rows = theater.showtimes[index].theaterLayout;
+      for (const row of rows) {
+        if (row.row === ticket.row) {
+          row.seats[ticket.index] = false;
+        }
+      }
+    }
+    updateShowtimes(theater);
+  };
 
   const handleDeleteTicket = (id) => {
     const updatedCart = ticketsInCart.filter((ticket) => {
@@ -34,8 +81,6 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
 
   const calculateTotal = () => {
     const discount = validateDiscountCode();
-    console.log(ticketsInCart);
-    console.log(discount);
     setTotal(ticketsInCart.reduce((a, b) => a + Number((b.price * (100 - discount)) / 100), 0).toFixed(2));
   };
 
@@ -47,9 +92,9 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
         <img src={happy_people} alt="" />
       </div>
       <div className="cart">
-        <div className="cart-title">Tickets in cart</div>
         {ticketsInCart && ticketsInCart.length > 0 ? (
           <>
+            <div className="cart-title">Tickets in cart</div>
             <div className="cart-tickets">
               {ticketsInCart.map((seat) => {
                 const date = new Date(seat.timestamp * 1000);
@@ -125,20 +170,44 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
               <div className="discount-sum">
                 Discount: {total > 0 ? (total - calculateSubtotal(ticketsInCart)).toFixed(2) : "0.00"} RON
               </div>
-              {/* <div className="total">Total: {total || calculateSubtotal(ticketsInCart).toFixed(2)} RON</div> */}
-              <div className="total">Total: {total && total} RON</div>
+              <div className="total">Total: {total} RON</div>
             </div>
             <div className="cart-buttons">
               <div className="continue-shopping">
                 <button className="continue-shopping-button">Continue Shopping</button>
               </div>
               <div className="checkout">
-                <button className="checkout-button">Checkout</button>
+                <button onClick={buyTickets} className="checkout-button">
+                  Checkout
+                </button>
               </div>
             </div>
           </>
         ) : (
-          <div>No tickets in cart</div>
+          !thankYou && (
+            <div className="empty-cart">
+              <div>
+                The cart is <span>empty</span>...{" "}
+              </div>
+              <img style={{ width: "70%" }} src={popcorn} alt="" />
+              <div>
+                ...the <span>popcorn</span> is waiting!{" "}
+              </div>
+              <i className="fa-regular fa-face-laugh-beam"></i>
+            </div>
+          )
+        )}
+        {thankYou && (
+          <div className="thank-you">
+            <div>
+              This is a <span>fictional</span> service...{" "}
+            </div>
+            <img style={{ width: "70%" }} src={daydreaming} alt="" />
+            <div>
+              ...but I <span>saved you the seats</span> anyway!{" "}
+            </div>
+            <i className="fa-regular fa-face-laugh-beam"></i>
+          </div>
         )}
       </div>
     </div>
