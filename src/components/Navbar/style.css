@@ -6,8 +6,11 @@
   justify-content: space-around;
   align-items: center;
   padding: 0.7rem 0;
-  box-shadow: 0px 2px 5px rgba(111, 111, 111, 0.478);
+  /* box-shadow: 0px 2px 5px rgba(111, 111, 111, 0.478); */
+  box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
+  /* box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 5px; */
   z-index: 101;
+  height: 4.5rem;
 }
 
 .navbar a {

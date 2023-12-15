@@ -1,12 +1,25 @@
 .cart-page {
   display: flex;
   justify-content: center;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  height: calc(100vh - 4.5rem);
 }
 
 .cart {
+  width: 44rem;
+  background-color: white;
+  margin-top: -1rem;
+  padding: 2rem 3rem 1rem 4rem;
+  box-shadow: 1px 1px 6px rgba(150, 150, 150, 0.554);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .cart-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
 }
 
 /* ------ tickets------- */
@@ -16,19 +29,24 @@
   flex-direction: column;
 }
 
+.ticket-row {
+  display: flex;
+  align-items: center;
+}
 .ticket-wrapper {
   display: flex;
   padding: 1.3rem;
+  font-size: 0.9rem;
 }
 
 .ticket-wrapper .left,
 .ticket-wrapper .right {
-  background: linear-gradient(to bottom, #e84c3d 3rem, #ecedef 3rem, #ecedef 100%);
+  background: linear-gradient(to bottom, #e84c3d 2.8rem, #ecedef 2.8rem, #ecedef 100%);
   padding: 0 2rem;
 }
 
 .ticket-wrapper .left {
-  width: 28rem;
+  width: 25rem;
   position: relative;
 }
 
@@ -57,15 +75,15 @@
 }
 
 .ticket-wrapper .right {
-  width: 8rem;
+  width: 7rem;
   border-left: 4px dashed white;
 }
 
 .ticket-wrapper .cinema {
-  height: 3rem;
+  height: 2.8rem;
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .ticket-wrapper .cinema span {
@@ -73,18 +91,18 @@
 }
 
 .ticket-wrapper .logo {
-  height: 3rem;
+  height: 2.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.9rem;
   color: #ecedef;
 }
 
 .ticket-wrapper .left .content {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.1rem;
   padding: 0.5rem 0;
 }
 .ticket-wrapper .tag {
@@ -102,7 +120,7 @@
 
 .ticket-wrapper .ticket-details {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .ticket-wrapper .right .seat {
@@ -114,7 +132,48 @@
 }
 
 .ticket-wrapper .right .seat > :first-child {
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 700;
   color: #e84c3d;
+}
+
+/* ---------- */
+.delete-wrapper button {
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 2px solid transparent;
+}
+
+.delete-wrapper button:hover {
+  background-color: transparent;
+  border: 2px solid #e84c3d;
+  color: #e84c3d;
+}
+
+.checkout-button {
+  background-color: #e84c3d;
+  padding: 0.5rem 3rem;
+  color: white;
+}
+
+.checkout {
+  margin: 1rem 1.3rem;
+  align-self: flex-end;
+}
+
+.cart-cover {
+  position: sticky;
+  top: 6.5rem;
+  height: calc(100vh - 8.5rem);
+  margin: 0 4rem;
+}
+
+.cart-cover img {
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.95) 0px 25px 20px -20px;
 }
