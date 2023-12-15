@@ -6,6 +6,12 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
   const discountCode = useRef();
   const [total, setTotal] = useState(null);
 
+  useEffect(() => {
+    if (discountCode.current) {
+      calculateTotal();
+    }
+  }, [ticketsInCart]);
+
   const handleDeleteTicket = (id) => {
     const updatedCart = ticketsInCart.filter((ticket) => {
       return ticket.seatID != id;
@@ -28,6 +34,8 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
 
   const calculateTotal = () => {
     const discount = validateDiscountCode();
+    console.log(ticketsInCart);
+    console.log(discount);
     setTotal(ticketsInCart.reduce((a, b) => a + Number((b.price * (100 - discount)) / 100), 0).toFixed(2));
   };
 
@@ -117,7 +125,8 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
               <div className="discount-sum">
                 Discount: {total > 0 ? (total - calculateSubtotal(ticketsInCart)).toFixed(2) : "0.00"} RON
               </div>
-              <div className="total">Total: {total || calculateSubtotal(ticketsInCart).toFixed(2)} RON</div>
+              {/* <div className="total">Total: {total || calculateSubtotal(ticketsInCart).toFixed(2)} RON</div> */}
+              <div className="total">Total: {total && total} RON</div>
             </div>
             <div className="cart-buttons">
               <div className="continue-shopping">
