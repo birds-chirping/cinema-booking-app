@@ -91,8 +91,14 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
                 );
               })}
             </div>
-            <div className="checkout">
-              <button className="checkout-button">Checkout</button>
+            <div className="cart-info">{/* <div className="subtotal">Subtotal: {}</div> */}</div>
+            <div className="cart-buttons">
+              <div className="continue-shopping">
+                <button className="continue-shopping-button">Continue Shopping</button>
+              </div>
+              <div className="checkout">
+                <button className="checkout-button">Checkout</button>
+              </div>
             </div>
           </>
         ) : (

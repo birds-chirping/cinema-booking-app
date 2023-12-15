@@ -19,7 +19,7 @@
 
 .navbar .menu {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .navbar a,
@@ -44,16 +44,12 @@
 
 .nav-cart {
   position: relative;
-  /* padding-bottom: 0.2rem; */
+  width: 3rem;
 }
 
 .cart-link {
   display: flex;
   align-items: last baseline;
-}
-
-.cart-link:hover .cart-icon {
-  color: #e84c3d;
 }
 
 .cart-icon {
@@ -71,6 +67,8 @@
   font-weight: 700;
   margin-left: -0.5rem;
   align-self: baseline;
+  position: relative;
+  z-index: 3;
 }
 
 .nav-admin {
@@ -79,6 +77,14 @@
   align-items: center;
 }
 
-.nav-admin:hover {
-  color: #e84c3d;
+.nav-admin:hover i,
+.nav-cart:hover .cart-icon {
+  /* filter: drop-shadow(0px 0px 7px #3dace8); */
+  /* filter: drop-shadow(0px 0px 3px #538ec1); */
+  filter: drop-shadow(0px 0px 3px #63aceb);
+}
+
+.nav-admin:active i,
+.nav-cart:active .cart-icon {
+  color: #667f93;
 }
