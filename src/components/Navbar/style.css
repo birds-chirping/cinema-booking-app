@@ -11,6 +11,7 @@
   /* box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 5px; */
   z-index: 101;
   height: 4.5rem;
+  background: linear-gradient(90deg, white 2%, #feac5e 12%, #c779d0, #4bc0c8, #4bc0c8 19%, white);
 }
 
 .navbar a {
@@ -82,6 +83,7 @@
   /* filter: drop-shadow(0px 0px 7px #3dace8); */
   /* filter: drop-shadow(0px 0px 3px #538ec1); */
   filter: drop-shadow(0px 0px 3px #63aceb);
+  filter: drop-shadow(0px 0px 3px mediumaquamarine);
 }
 
 .nav-admin:active i,

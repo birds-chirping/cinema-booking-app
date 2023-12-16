@@ -19,10 +19,14 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
   const showtimesRow = useRef();
 
   useEffect(() => {
-    if (editForm.current) editForm.current.scrollIntoView(false);
-    if (blockDeleteRow.current) blockDeleteRow.current.scrollIntoView(false);
-    if (alertDeleteRow.current) alertDeleteRow.current.scrollIntoView(false);
-    if (showtimesRow.current) showtimesRow.current.scrollIntoView(false);
+    if (editForm.current && editForm.current.getBoundingClientRect().bottom > window.innerHeight)
+      editForm.current.scrollIntoView(false);
+    if (blockDeleteRow.current && blockDeleteRow.current.getBoundingClientRect().bottom > window.innerHeight)
+      blockDeleteRow.current.scrollIntoView(false);
+    if (alertDeleteRow.current && alertDeleteRow.current.getBoundingClientRect().bottom > window.innerHeight)
+      alertDeleteRow.current.scrollIntoView(false);
+    if (showtimesRow.current && showtimesRow.current.getBoundingClientRect().bottom > window.innerHeight)
+      showtimesRow.current.scrollIntoView(false);
   }, [mode]);
 
   const showEditForm = (e) => {
@@ -122,36 +126,45 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
             {mode.blockDelete === movie.id && (
               <tr ref={blockDeleteRow} key={`errordeleterow_${movie.id}`} className="errordelete-row">
                 <td colSpan={6}>
-                  <div>Please remove movie from schedule first.</div>
-                  <button
-                    onClick={() => {
-                      setMode({ ...mode, blockDelete: false });
-                    }}
-                  >
-                    OK
-                  </button>
+                  <div className="block-alert">
+                    <div className="block-alert-message">Please remove movie from schedule first.</div>
+                    <button
+                      className="block-alert-ok-button"
+                      onClick={() => {
+                        setMode({ ...mode, blockDelete: false });
+                      }}
+                    >
+                      OK
+                    </button>
+                  </div>
                 </td>
               </tr>
             )}
             {mode.alertDelete === movie.id && (
               <tr ref={alertDeleteRow} key={`alertdeleterow_${movie.id}`} className="alertdelete-row">
                 <td colSpan={6}>
-                  <div>The movie "{movie.title}" will be permanently deleted. Continue?</div>
-                  <button
-                    onClick={() => {
-                      onDeleteMovie(movie.id);
-                      setMode({ ...mode, alertDelete: false });
-                    }}
-                  >
-                    Delete movie
-                  </button>
-                  <button
-                    onClick={() => {
-                      setMode({ ...mode, alertDelete: false });
-                    }}
-                  >
-                    Cancel
-                  </button>
+                  <div className="delete-alert">
+                    <div className="delete-alert-message">
+                      The movie <span>"{movie.title}"</span> will be <span>permanently deleted</span>. Continue?
+                    </div>
+                    <button
+                      className="delete-alert-yes-button"
+                      onClick={() => {
+                        onDeleteMovie(movie.id);
+                        setMode({ ...mode, alertDelete: false });
+                      }}
+                    >
+                      Delete movie
+                    </button>
+                    <button
+                      className="delete-alert-no-button"
+                      onClick={() => {
+                        setMode({ ...mode, alertDelete: false });
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </td>
               </tr>
             )}

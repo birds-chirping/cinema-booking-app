@@ -1,0 +1,75 @@
+.edit-inputs-wrapper {
+  width: 100%;
+  background-color: rgb(224, 236, 232);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px 0px rgba(99, 99, 99, 0.6);
+  margin-bottom: 1rem;
+}
+
+.edit-inputs {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.edit-inputs > * {
+  text-align: end;
+  margin: auto;
+}
+
+div[class^="edit-input-"] {
+  width: 40rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.edit-inputs input {
+  flex: 1;
+  background-color: white;
+  border: none;
+  border: 1px solid #92aabf;
+  border-radius: 5px;
+  line-height: 2rem;
+  padding: 0.1rem 0.5rem;
+}
+
+.edit-inputs label {
+  font-weight: 700;
+}
+
+.edit-form-buttons-wrapper {
+  width: 40rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-cancel-button {
+  border: 2px solid #e84c3d;
+  color: #3a5771;
+  font-weight: 700;
+}
+.edit-save-button {
+  border: 2px solid mediumaquamarine;
+  /* color: #213547; */
+  color: #3a5771;
+  font-weight: 700;
+}
+
+.edit-cancel-button:hover {
+  color: #e84c3d;
+}
+.edit-save-button:hover {
+  color: mediumaquamarine;
+}
+
+.edit-cancel-button:active {
+  background-color: #e84c3d;
+  color: white;
+}
+.edit-save-button:active {
+  background-color: mediumaquamarine;
+  color: white;
+}

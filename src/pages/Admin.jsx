@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Mock from "../api/MockAPI/mock.js";
 import AddMovieForm from "../components/AddMovieForm/index.jsx";
 import MovieTable from "../components/MovieTable/index.jsx";
-import "./style.css";
+import "./admin.css";
 
 const Admin = () => {
   const [data, setData] = useState({
@@ -30,15 +30,6 @@ const Admin = () => {
       console.error("error fetching data", error);
     }
   };
-
-  // const fetchShowtimes = async () => {
-  //   try {
-  //     const response = await Mock.getShowtimes();
-  //     setData({ ...data, showtimes: response });
-  //   } catch (error) {
-  //     console.error("error fetching data", error);
-  //   }
-  // };
 
   const handleMovieAdd = async (newMovie) => {
     try {
@@ -89,7 +80,7 @@ const Admin = () => {
 
   return (
     <div className="admin">
-      <button onClick={() => setAddMovieForm(!addMovieForm)} className="add-movie">
+      <button onClick={() => setAddMovieForm(!addMovieForm)} className="add-movie-button">
         {addMovieForm && "Hide"} {!addMovieForm && "Add new movie"}
       </button>
       {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}

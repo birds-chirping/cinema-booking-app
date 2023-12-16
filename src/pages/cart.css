@@ -1,7 +1,7 @@
 .cart-page {
   display: flex;
   justify-content: center;
-  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /* background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
   height: calc(100% - 4.5rem);
   position: relative;
 }
@@ -265,4 +265,19 @@
   font-size: 2.5rem;
   font-weight: 700;
   color: mediumaquamarine;
+}
+
+.cart .continue-shopping-empty-button {
+  font-size: 1rem;
+  border: 2px solid mediumaquamarine;
+  color: #213547;
+  font-weight: 700;
+}
+.cart .continue-shopping-empty-button:hover {
+  color: mediumaquamarine;
+}
+
+.cart .continue-shopping-empty-button:active {
+  background-color: mediumaquamarine;
+  color: #213547;
 }

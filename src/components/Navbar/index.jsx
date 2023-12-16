@@ -16,7 +16,7 @@ export const Navbar = ({ ticketsInCart, setTicketsInCart }) => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setShowCartPreview(false);
-    }, 800);
+    }, 500);
   };
 
   useEffect(() => {

@@ -2,6 +2,7 @@
   padding: 2rem;
   box-shadow: 1px 1px 5px rgb(138, 138, 138);
   border-radius: 5px;
+  background-color: white;
 }
 
 .movie-card .poster-wrapper {

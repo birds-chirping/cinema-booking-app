@@ -1,0 +1,73 @@
+.admin-inputs-wrapper {
+  width: 100%;
+  background-color: rgb(224, 236, 232);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 2px 2px 3px rgba(99, 99, 99, 0.9);
+}
+.admin-inputs {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.admin-inputs > * {
+  text-align: end;
+  margin: auto;
+}
+
+div[class^="admin-input-"] {
+  width: 40rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.admin-inputs input {
+  flex: 1;
+  background-color: white;
+  border: none;
+  border: 1px solid #92aabf;
+  border-radius: 5px;
+  line-height: 2rem;
+  padding: 0.1rem 0.5rem;
+}
+
+.admin-inputs label {
+  font-weight: 700;
+}
+
+.autocomplete {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  width: 40rem;
+  gap: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.autocomplete-error {
+  height: 1.5rem;
+}
+
+.autocomplete button,
+.admin-save-button {
+  border: 2px solid mediumaquamarine;
+  /* color: #213547; */
+  color: #3a5771;
+  font-weight: 700;
+  background-color: #ebedee;
+}
+
+.autocomplete button:hover,
+.admin-save-button:hover {
+  color: mediumaquamarine;
+}
+
+.autocomplete button:active,
+.admin-save-button:active {
+  background-color: mediumaquamarine;
+  color: white;
+}

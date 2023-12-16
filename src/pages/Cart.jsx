@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./cart.css";
 import happy_people from "../assets/img/2151024819.jpg";
 import daydreaming from "../assets/img/9930998_4286861.jpg";
@@ -174,7 +175,9 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
             </div>
             <div className="cart-buttons">
               <div className="continue-shopping">
-                <button className="continue-shopping-button">Continue Shopping</button>
+                <Link to="/">
+                  <button className="continue-shopping-button">Continue Shopping</button>
+                </Link>
               </div>
               <div className="checkout">
                 <button onClick={buyTickets} className="checkout-button">
@@ -193,7 +196,10 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
               <div>
                 ...the <span>popcorn</span> is waiting!{" "}
               </div>
-              <i className="fa-regular fa-face-laugh-beam"></i>
+              {/* <i className="fa-regular fa-face-laugh-beam"></i> */}
+              <Link to="/">
+                <button className="continue-shopping-empty-button">Continue Shopping</button>
+              </Link>
             </div>
           )
         )}
