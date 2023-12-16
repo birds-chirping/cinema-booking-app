@@ -1,57 +1,133 @@
-.showtimes-td {
-  padding: 1rem;
-}
-
-.showtimes {
-  height: 100%;
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.change-showtimes-btn {
-  text-wrap: nowrap;
-}
+/* -------- */
 
 .movie-table {
   width: 100%;
-  /* border-collapse: collapse; */
-  border-collapse: separate;
-  /* border: solid black 1px; */
+  border-collapse: collapse;
   border-radius: 10px;
   background-color: white;
   box-shadow: 2px 2px 3px rgba(99, 99, 99, 0.9);
 }
 
-tr {
-  border-radius: 5px;
-}
-.movie-table td {
-  padding: 5px;
+th {
+  padding: 1rem;
 }
 
+tbody tr {
+  border-top: 1px solid rgb(102, 145, 205);
+}
+
+.th-poster {
+  width: 7rem;
+}
+
+.th-delete {
+  width: 6rem;
+}
+
+.movie-table td {
+  padding: 0.7rem 0.5rem;
+}
+
+td:nth-child(3) {
+  text-align: center;
+}
+
+/*  ---- poster ----- */
 .movie-table .poster-wrapper {
-  width: 90px;
-  height: 90px;
+  height: 9rem;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 5px;
+  border-radius: 5px;
+  background-color: pink;
 }
 
 .movie-table .poster-wrapper img {
-  width: 90px;
+  width: 100%;
 }
 
-/* delete alert */
+/* ---- row middle section ----- */
+.td-movie-wrapper {
+  height: 9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.td-movie .title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.showtimes-wrapper {
+  flex: 1;
+}
+
+.showtimes {
+  height: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.showtimes .tag-wrapper {
+  background-color: mediumslateblue;
+  color: white;
+  font-size: 0.7rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.showtimes .tag-date {
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+button > i {
+  pointer-events: none;
+}
+.td-movie .admin-edit-button {
+  background-color: transparent;
+  color: rgb(255, 157, 0);
+}
+
+.td-movie .change-showtimes-btn {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  color: mediumslateblue;
+}
+/* ------ delete button -------- */
+.admin-delete-button {
+  background-color: transparent;
+  font-weight: 700;
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 2px solid transparent;
+}
+
+.admin-delete-button:hover {
+  background-color: transparent;
+  border: 2px solid #e84c3d;
+  color: #e84c3d;
+}
+
+/* --- delete alert ------ */
 
 .block-alert,
 .delete-alert {
-  background-color: rgb(224, 236, 232);
+  /* background-color: rgb(224, 236, 232); */
+  background-color: white;
+  border: 2px solid #fc8277;
   padding: 2rem 2rem 1rem;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 0px rgba(99, 99, 99, 0.6);
@@ -68,15 +144,16 @@ tr {
   font-weight: 700;
 }
 
-.delete-alert-no-button {
+.delete-alert-yes-button {
   border: 2px solid #e84c3d;
   color: #3a5771;
+  color: #ff6658;
+
   font-weight: 700;
   margin: 1rem;
 }
 
-.block-alert-ok-button,
-.delete-alert-yes-button {
+.block-alert-ok-button {
   border: 2px solid mediumaquamarine;
   /* color: #213547; */
   color: #3a5771;
@@ -84,23 +161,38 @@ tr {
   margin: 1rem;
 }
 
-.delete-alert-no-button:hover {
+.delete-alert-no-button {
+  border: 2px solid mediumaquamarine;
+  /* color: #213547; */
+  color: #3a5771;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.delete-alert-yes-button:hover {
   color: #e84c3d;
 }
 
-.block-alert-ok-button:hover,
-.delete-alert-yes-button:hover {
+.block-alert-ok-button:hover {
   color: mediumaquamarine;
 }
 
-.delete-alert-no-button:active {
+.delete-alert-no-button:hover {
+  color: mediumaquamarine;
+}
+
+.delete-alert-yes-button:active {
   background-color: #e84c3d;
   border: 2px solid #e84c3d;
   color: white;
 }
 
-.block-alert-ok-button:active,
-.delete-alert-yes-button:active {
+.block-alert-ok-button:active {
+  background-color: mediumaquamarine;
+  color: white;
+}
+
+.delete-alert-no-button:active {
   background-color: mediumaquamarine;
   color: white;
 }

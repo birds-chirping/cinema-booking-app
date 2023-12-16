@@ -49,18 +49,27 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
     <table className="movie-table">
       <thead>
         <tr>
-          <th>Poster</th>
-          <th>Title</th>
-          <th>Price</th>
-          <th>Showtimes</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th className="th-poster"></th>
+          <th className="movie">Movie</th>
+          <th className="th-delete">Delete</th>
         </tr>
       </thead>
       <tbody>
         {movies.toReversed().map((movie) => (
           <Fragment key={movie.id}>
-            <tr key={`row_${movie.id}`}>
+            <tr
+              key={`row_${movie.id}`}
+              style={{
+                backgroundColor: `${
+                  mode.edit === movie.id ||
+                  mode.blockDelete === movie.id ||
+                  mode.alertDelete === movie.id ||
+                  mode.showtimes === movie.id
+                    ? "rgb(205 229 252)"
+                    : "white"
+                }`,
+              }}
+            >
               <td>
                 <div className="poster-wrapper" style={{ backgroundColor: !movie.poster_path && `rgb(232, 232, 232)` }}>
                   {movie.poster_path ? (
@@ -73,38 +82,45 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                   )}
                 </div>
               </td>
-              <td>{movie.title}</td>
-              <td>
-                {movie.price} {(movie.price && "RON") || "-"}
-              </td>
-              <td className="showtimes-td">
-                <div className="showtimes">
-                  {showtimes
-                    .filter((showtime) => {
-                      return showtime.movieID == movie.id;
-                    })
-                    .map((showtime) => {
-                      const showtimeDate = new Date(showtime.timestamp * 1000);
-                      return (
-                        <div key={showtime.timestamp}>
-                          <div>
-                            {showtimeDate.getDate()}.{showtimeDate.getMonth() + 1}
-                          </div>{" "}
-                          <div>
-                            {showtimeDate.getHours()}:{showtimeDate.getMinutes()}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  <button className="change-showtimes-btn" onClick={showShowtimes} id={movie.id}>
-                    Change showtimes
-                  </button>
+
+              <td className="td-movie">
+                <div className="td-movie-wrapper">
+                  <div className="title">{movie.title}</div>
+
+                  <div className="price">
+                    Price: {movie.price} {(movie.price && "RON") || "-"}
+                  </div>
+                  <div className="showtimes-wrapper">
+                    <div className="showtimes">
+                      {showtimes
+                        .filter((showtime) => {
+                          return showtime.movieID == movie.id;
+                        })
+                        .map((showtime) => {
+                          const showtimeDate = new Date(showtime.timestamp * 1000);
+                          return (
+                            <div className="tag-wrapper" key={showtime.timestamp}>
+                              <div className="tag-date">
+                                {showtimeDate.getDate()}.{showtimeDate.getMonth() + 1}
+                              </div>{" "}
+                              <div className="tag-hour">
+                                {showtimeDate.getHours()}:{showtimeDate.getMinutes()}
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </div>
+
+                  <div className="buttons">
+                    <button id={movie.id} onClick={showEditForm} className="admin-edit-button">
+                      <i className="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button className="change-showtimes-btn" onClick={showShowtimes} id={movie.id}>
+                      <i className="fa-regular fa-calendar-days"></i>
+                    </button>
+                  </div>
                 </div>
-              </td>
-              <td>
-                <button id={movie.id} onClick={showEditForm} className="admin-edit-button">
-                  Edit
-                </button>
               </td>
               <td>
                 <button
@@ -119,13 +135,18 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                   }}
                   className="admin-delete-button"
                 >
-                  Delete
+                  <i className="fa-solid fa-minus"></i>
                 </button>
               </td>
             </tr>
             {mode.blockDelete === movie.id && (
-              <tr ref={blockDeleteRow} key={`errordeleterow_${movie.id}`} className="errordelete-row">
-                <td colSpan={6}>
+              <tr
+                ref={blockDeleteRow}
+                key={`errordeleterow_${movie.id}`}
+                className="errordelete-row"
+                style={{ borderTop: "none", backgroundColor: "rgb(205 229 252)" }}
+              >
+                <td colSpan={3}>
                   <div className="block-alert">
                     <div className="block-alert-message">Please remove movie from schedule first.</div>
                     <button
@@ -141,8 +162,13 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
               </tr>
             )}
             {mode.alertDelete === movie.id && (
-              <tr ref={alertDeleteRow} key={`alertdeleterow_${movie.id}`} className="alertdelete-row">
-                <td colSpan={6}>
+              <tr
+                ref={alertDeleteRow}
+                key={`alertdeleterow_${movie.id}`}
+                className="alertdelete-row"
+                style={{ borderTop: "none", backgroundColor: "rgb(205 229 252)" }}
+              >
+                <td colSpan={3}>
                   <div className="delete-alert">
                     <div className="delete-alert-message">
                       The movie <span>"{movie.title}"</span> will be <span>permanently deleted</span>. Continue?
@@ -169,8 +195,13 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
               </tr>
             )}
             {mode.edit === movie.id && (
-              <tr ref={editForm} key={`editrow_${movie.id}`} className="edit-row">
-                <td colSpan={6}>
+              <tr
+                ref={editForm}
+                key={`editrow_${movie.id}`}
+                className="edit-row"
+                style={{ borderTop: "none", backgroundColor: "rgb(205 229 252)" }}
+              >
+                <td colSpan={3}>
                   <EditMovieForm
                     movieToBeEdited={movie}
                     onSaveChanges={(newMovieData) => {
@@ -183,8 +214,13 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
               </tr>
             )}
             {mode.showtimes === movie.id && (
-              <tr ref={showtimesRow} key={`showtimerow_${movie.id}`} className="showtime-row">
-                <td colSpan={6}>
+              <tr
+                ref={showtimesRow}
+                key={`showtimerow_${movie.id}`}
+                className="showtime-row"
+                style={{ borderTop: "none", backgroundColor: "rgb(205 229 252)" }}
+              >
+                <td colSpan={3}>
                   <Showtimes
                     movie={movie}
                     showtimes={showtimes}

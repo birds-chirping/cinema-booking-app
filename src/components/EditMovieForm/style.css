@@ -1,10 +1,13 @@
 .edit-inputs-wrapper {
   width: 100%;
-  background-color: rgb(224, 236, 232);
+  /* background-color: rgb(224, 236, 232); */
+  /* background-color: rgb(233 243 253); */
+  background-color: rgb(244 249 255);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 0px rgba(99, 99, 99, 0.6);
   margin-bottom: 1rem;
+  /* margin: 0rem 2rem 1rem; */
 }
 
 .edit-inputs {
@@ -27,7 +30,7 @@ div[class^="edit-input-"] {
 }
 
 .edit-inputs input {
-  flex: 1;
+  width: 29rem;
   background-color: white;
   border: none;
   border: 1px solid #92aabf;
@@ -37,6 +40,7 @@ div[class^="edit-input-"] {
 }
 
 .edit-inputs label {
+  margin-right: auto;
   font-weight: 700;
 }
 
@@ -72,4 +76,9 @@ div[class^="edit-input-"] {
 .edit-save-button:active {
   background-color: mediumaquamarine;
   color: white;
+}
+
+.edit-inputs-wrapper button {
+  padding: 0.3rem 2rem;
+  margin-top: 1rem;
 }

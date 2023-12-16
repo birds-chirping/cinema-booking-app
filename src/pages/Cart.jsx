@@ -11,12 +11,25 @@ const Cart = ({ ticketsInCart, setTicketsInCart }) => {
   const [total, setTotal] = useState(null);
   const [thankYou, setThankYou] = useState(false);
   const timeoutRef = useRef(null);
+  const [movies, setMovies] = useState(null);
+  // const [usersTickets, setUsersTickets] = useState(null);
 
   useEffect(() => {
+    // setUsersTickets(ticketsInCart);
     if (discountCode.current) {
       calculateTotal();
     }
   }, [ticketsInCart]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const movieData = await Mock.getMovies();
+  //     if (typeof movieData !== "string") {
+  //       setMovies(movieData);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const updateShowtimes = async (newShowtimeData) => {
     const url = `${Mock.BASE_URL}showtimes/1`;

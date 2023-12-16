@@ -11,7 +11,7 @@
   /* box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 5px; */
   z-index: 101;
   height: 4.5rem;
-  background: linear-gradient(90deg, white 2%, #feac5e 12%, #c779d0, #4bc0c8, #4bc0c8 19%, white);
+  /* background: linear-gradient(90deg, white 2%, #feac5e 12%, #c779d0, #4bc0c8, #4bc0c8 19%, white); */
 }
 
 .navbar a {

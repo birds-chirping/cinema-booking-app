@@ -38,9 +38,18 @@ const Details = ({ setTicketsInCart }) => {
   return data.movie ? (
     <div
       className="details"
+      // style={{
+      //   background: data.movie.backdrop_path
+      //     ? `linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent 40%), url(${TMDB.getPhotoPath(
+      //         data.movie.backdrop_path,
+      //         "w1280"
+      //       )})`
+      //     : `linear-gradient(90deg, rgba(255, 255, 255, 0.9),  transparent 40%), url(${generic_bg})`,
+      //   backgroundSize: "cover",
+      // }}
       style={{
         background: data.movie.backdrop_path
-          ? `linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent 40%), url(${TMDB.getPhotoPath(
+          ? `linear-gradient(90deg, rgba(20, 20, 20, 0.8), rgba(45, 45, 45, 0.8)), url(${TMDB.getPhotoPath(
               data.movie.backdrop_path,
               "w1280"
             )})`
