@@ -30,8 +30,12 @@
   background-color: rgb(231, 92, 185);
 }
 
+/* .seat-label.booked {
+  background-color: blue;
+} */
+
 .seat-input:checked:not(:disabled) + label {
-  background-color: peru;
+  background-color: rgb(255, 170, 13);
 }
 
 .seat-input {
