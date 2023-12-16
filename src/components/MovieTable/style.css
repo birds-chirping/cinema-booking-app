@@ -42,7 +42,6 @@ td:nth-child(3) {
   flex-direction: column;
   text-align: center;
   border-radius: 5px;
-  background-color: pink;
 }
 
 .movie-table .poster-wrapper img {
@@ -62,18 +61,18 @@ td:nth-child(3) {
   font-weight: 700;
 }
 
-.showtimes-wrapper {
+.td-movie .showtimes-wrapper {
   flex: 1;
 }
 
-.showtimes {
+.td-movie .showtimes {
   height: 100%;
   display: flex;
   gap: 0.5rem;
   align-items: center;
 }
 
-.showtimes .tag-wrapper {
+.td-movie .showtimes .tag-wrapper {
   background-color: mediumslateblue;
   color: white;
   font-size: 0.7rem;
@@ -86,7 +85,7 @@ td:nth-child(3) {
   border-radius: 3px;
 }
 
-.showtimes .tag-date {
+.td-movie .showtimes .tag-date {
   font-weight: 700;
   font-size: 0.8rem;
 }
@@ -162,7 +161,7 @@ button > i {
 }
 
 .delete-alert-no-button {
-  border: 2px solid mediumaquamarine;
+  border: 2px solid rgb(255, 170, 13);
   /* color: #213547; */
   color: #3a5771;
   font-weight: 700;
@@ -178,7 +177,7 @@ button > i {
 }
 
 .delete-alert-no-button:hover {
-  color: mediumaquamarine;
+  color: rgb(255, 170, 13);
 }
 
 .delete-alert-yes-button:active {
@@ -193,6 +192,7 @@ button > i {
 }
 
 .delete-alert-no-button:active {
-  background-color: mediumaquamarine;
+  background-color: rgb(255, 170, 13);
+
   color: white;
 }

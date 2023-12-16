@@ -32,7 +32,7 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
       alertDeleteRow.current.scrollIntoView(false);
     if (showtimesRow.current && showtimesRow.current.getBoundingClientRect().bottom > window.innerHeight)
       showtimesRow.current.scrollIntoView(false);
-  }, [mode]);
+  }, [mode, showtimeMode]);
 
   const showEditForm = (e) => {
     setMode({ edit: e.target.id, showtimes: false, blockDelete: false, alertDelete: false });

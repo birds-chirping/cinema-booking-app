@@ -1,28 +1,142 @@
+.showtimes-form-wrapper {
+  width: 100%;
+  background-color: rgb(244 249 255);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px 0px rgba(99, 99, 99, 0.6);
+  margin-bottom: 1rem;
+}
+
 .showtimes-form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   max-width: 100%;
 }
 
+.showtimes-form .showtimes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 16rem;
+  width: 35rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.showtimes-form .showtime-wrapper {
+  width: 3rem;
+  height: 5rem;
+}
+
+.showtimes-form .showtime-tag input {
+  appearance: none;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
 .showtime-label {
-  padding: 0.5rem;
+  margin-top: -1.4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(189, 172, 222);
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
 
-.showtime-label > * {
-  text-align: center;
+.showtime-label > :first-child {
+  font-weight: 700;
 }
-
-.showtimes-form .locked {
+/* disabled */
+.showtimes-form .showtime-tag input:disabled + label {
   background-color: rgb(226, 218, 226);
+  color: gray;
+  cursor: not-allowed;
 }
-.showtimes-form .alreadyBooked {
+/* to be added */
+.showtimes-form .showtime-tag input:checked:not(:disabled) + .showtime-label {
+  /* background-color: rgb(84, 163, 254); */
   background-color: mediumslateblue;
+
+  color: white;
 }
-.showtimes-form .available {
+/* already added */
+.showtimes-form .showtime-tag input:checked:not(:disabled) + .showtime-label.already-booked {
+  background-color: mediumslateblue;
+  /* background-color: rgb(84, 163, 254); */
+
+  color: white;
+}
+/* available */
+.showtimes-form .showtime-tag input:not(:disabled) + .showtime-label {
   background-color: rgb(140, 224, 140);
+  color: #213547;
+}
+/* to be removed */
+.showtimes-form .showtime-tag input:not(:disabled) + .showtime-label.already-booked {
+  /* background-color: rgb(240, 155, 161); */
+  background-color: rgb(243, 101, 110);
+  /* color: #213547; */
+  color: white;
+}
+
+.showtime-wrapper button.edit-showtime {
+  /* background-color: pink; */
+  padding: 0.2rem 0.5rem;
+  width: 100%;
+}
+
+.showtime-bookings .submit,
+.showtimes-form-buttons .submit {
+  border: 2px solid mediumaquamarine;
+  color: #3a5771;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.showtime-bookings .submit:hover,
+.showtimes-form-buttons .submit:hover {
+  color: mediumaquamarine;
+}
+
+.showtime-bookings .submit:active,
+.showtimes-form-buttons .submit:active {
+  background-color: mediumaquamarine;
+  color: white;
+}
+
+.showtimes-form-buttons .cancel {
+  border: 2px solid rgb(255, 170, 13);
+  color: #3a5771;
+  font-weight: 700;
+  margin: 1rem;
+}
+.showtimes-form-buttons .cancel:hover {
+  color: rgb(255, 170, 13);
+}
+.showtimes-form-buttons .cancel:active {
+  background-color: rgb(255, 170, 13);
+  color: white;
+}
+
+.showtime-bookings .back-button {
+  border: 2px solid rgb(255, 170, 13);
+  color: #3a5771;
+  font-weight: 700;
+  margin: 1rem;
+}
+
+.showtime-bookings .back-button:hover {
+  color: rgb(255, 170, 13);
+}
+.showtime-bookings .back-button:active {
+  background-color: rgb(255, 170, 13);
+  color: white;
 }
