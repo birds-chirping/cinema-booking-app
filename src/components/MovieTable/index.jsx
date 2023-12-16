@@ -13,6 +13,11 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
     blockDelete: false,
     alertDelete: false,
   });
+  const [showtimeMode, setShowtimeMode] = useState({
+    schedule: true,
+    showtime: false,
+  });
+
   const editForm = useRef();
   const blockDeleteRow = useRef();
   const alertDeleteRow = useRef();
@@ -35,6 +40,10 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
 
   const showShowtimes = (e) => {
     setMode({ edit: false, showtimes: e.target.id, blockDelete: false, alertDelete: false });
+    setShowtimeMode({
+      schedule: true,
+      showtime: false,
+    });
   };
 
   const showDeleteErrorAlert = (id) => {
@@ -135,7 +144,7 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                   }}
                   className="admin-delete-button"
                 >
-                  <i className="fa-solid fa-minus"></i>
+                  <i className="fa-regular fa-trash-can"></i>
                 </button>
               </td>
             </tr>
@@ -226,6 +235,8 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                     showtimes={showtimes}
                     setShowtimes={setShowtimes}
                     closeShowtimes={() => setMode({ ...mode, showtimes: false })}
+                    mode={showtimeMode}
+                    setMode={setShowtimeMode}
                   />
                 </td>
               </tr>

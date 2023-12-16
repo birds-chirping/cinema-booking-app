@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-const Seat = ({ showtimeID, seat, onSeatClick }) => {
+const Seat = ({ showtimeID, seat, onSeatClick, editMode }) => {
   const locked = seat.available != true;
 
   return (

@@ -1,53 +1,36 @@
-export default class TheaterModel {
-  static theaterLayout = [
-    { row: "A", seats: [false, false, false, false, false, false, false, false, false, false] },
-    { row: "B", seats: [false, false, false, false, false, false, false, false, false, false] },
-    {
-      row: "C",
-      seats: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    },
-    {
-      row: "D",
-      seats: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    },
-    {
-      row: "E",
-      seats: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    },
-    {
-      row: "F",
-      seats: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    },
-    {
-      row: "G",
-      seats: [false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-    },
-    {
-      row: "H",
-      seats: [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-      ],
-    },
-  ];
+const emptyTheaterLayout = [
+  {
+    row: "A",
+    seats: [true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "B",
+    seats: [true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "C",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "D",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "E",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "F",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "G",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+  {
+    row: "H",
+    seats: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  },
+];
 
-  static getNewLayout() {
-    return JSON.parse(JSON.stringify(this.theaterLayout));
-  }
-}
+export { emptyTheaterLayout };

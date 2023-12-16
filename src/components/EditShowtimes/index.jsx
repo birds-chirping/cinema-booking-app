@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
+import { emptyTheaterLayout } from "../../theaterModel/theaterModel";
+import Theater from "../Theater";
 
-const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes }) => {
+const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMode }) => {
   const showtimeForm = useRef();
 
   const updateShowtime = async (newShowtimeData) => {
@@ -39,7 +41,10 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes }) => {
         if (showtimeIDsToBeAdded.includes(showtime.id)) {
           showtime.movieID = movieID;
         } else {
-          if (showtime.movieID == movieID) showtime.movieID = null;
+          if (showtime.movieID == movieID) {
+            showtime.movieID = null;
+            showtime.theaterLayout = emptyTheaterLayout;
+          }
         }
       }
       updateShowtime({ id: 1, showtimes: showtimesCopy });
@@ -50,49 +55,62 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes }) => {
 
   return showtimes ? (
     <div className="showtimes">
-      <form ref={showtimeForm} className="showtimes-form">
-        {showtimes.map((showtime) => {
-          const date = new Date(showtime.timestamp * 1000);
-          const locked = showtime.movieID != null && showtime.movieID != movie.id;
-          const alreadyBooked = showtime.movieID == movie.id;
-          return (
-            <div
-              className={`showtime-label ${locked ? "locked" : alreadyBooked ? "alreadyBooked" : "available"}`}
-              key={showtime.id}
-            >
-              <label htmlFor={`showtime_${showtime.id}`}>
-                <div>
-                  {date.getDate()}.{date.getMonth() + 1}
-                </div>{" "}
-                <div>
-                  {date.getHours()}:{date.getMinutes()}
-                </div>
-              </label>
-              <input
-                value={showtime.id}
-                type="checkbox"
-                name="showtime"
-                id={`showtime_${showtime.id}`}
-                className="showtime"
-                disabled={locked}
-                defaultChecked={showtime.movieID}
-              />
-              {/* <div>{showtime.id}</div>
+      {mode.schedule && (
+        <form ref={showtimeForm} className="showtimes-form">
+          {showtimes.map((showtime) => {
+            const date = new Date(showtime.timestamp * 1000);
+            const locked = showtime.movieID != null && showtime.movieID != movie.id;
+            const alreadyBooked = showtime.movieID == movie.id;
+            return (
+              <div key={showtime.id}>
+                <div className={`showtime-label ${locked ? "locked" : alreadyBooked ? "alreadyBooked" : "available"}`}>
+                  <label htmlFor={`showtime_${showtime.id}`}>
+                    <div>
+                      {date.getDate()}.{date.getMonth() + 1}
+                    </div>{" "}
+                    <div>
+                      {date.getHours()}:{date.getMinutes()}
+                    </div>
+                  </label>
+                  <input
+                    value={showtime.id}
+                    type="checkbox"
+                    name="showtime"
+                    id={`showtime_${showtime.id}`}
+                    className="showtime"
+                    disabled={locked}
+                    defaultChecked={showtime.movieID}
+                  />
+                  {/* <div>{showtime.id}</div>
             <div>{showtime.timestamp}</div>
-            <div>{showtime.movieID}</div> */}
-            </div>
-          );
-        })}
-        <button
-          onClick={(e) => {
-            onSubmit(e, movie);
-            closeShowtimes();
-          }}
-        >
-          Submit
-        </button>
-        <button onClick={() => closeShowtimes()}>Cancel</button>
-      </form>
+          <div>{showtime.movieID}</div> */}
+                </div>
+                {showtime.movieID === movie.id && (
+                  <button onClick={() => setMode({ schedule: false, showtime: showtime })} className="edit-showtime">
+                    {showtime.id}
+                  </button>
+                )}
+              </div>
+            );
+          })}
+          <button
+            onClick={(e) => {
+              onSubmit(e, movie);
+              closeShowtimes();
+            }}
+          >
+            Submit
+          </button>
+          <button onClick={() => closeShowtimes()}>Cancel</button>
+        </form>
+      )}
+      {mode.showtime && (
+        <div>
+          <Theater showtime={mode.showtime} editMode={true} callback={(...args) => console.log(args)} />
+
+          <button onClick={() => setMode({ schedule: true, showtime: false })}>Back</button>
+        </div>
+      )}
     </div>
   ) : (
     <div>Loading...</div>

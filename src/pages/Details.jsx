@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Mock from "../api/MockAPI/mock.js";
 import TMDB from "../api/TMDB/tmdb.js";
-import Theater from "../components/Theater/index.jsx";
+import Booking from "../components/Booking/index.jsx";
 import ShowtimeButton from "../components/ShowtimeButton/index.jsx";
 import "./details.css";
 import generic_bg from "../assets/img/generic_bg.jpg";
@@ -93,7 +93,7 @@ const Details = ({ setTicketsInCart }) => {
             );
           })}
         {theater.showtime && (
-          <Theater
+          <Booking
             key={addedTickets}
             setAddedTickets={setAddedTickets}
             showtime={theater.showtime}
