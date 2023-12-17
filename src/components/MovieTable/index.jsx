@@ -94,7 +94,8 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                   mode.edit === movie.id ||
                   mode.blockDelete === movie.id ||
                   mode.alertDelete === movie.id ||
-                  mode.showtimes === movie.id
+                  mode.showtimes === movie.id ||
+                  mode.fieldsAlert.id === movie.id
                     ? "rgb(205 229 252)"
                     : "white"
                 }`,

@@ -6,12 +6,12 @@ const Theater = ({ showtime, editMode, callback }) => {
   // console.log(showtime);
   return (
     showtime && (
-      <>
+      <div className="theater-wrapper">
         <div className="screen-wrapper">
           <div className="screen">SCREEN</div>
         </div>
         <div className="theater">
-          {showtime.id} {/* temp */}
+          {/* {showtime.id}  */}
           {showtime.theaterLayout.map((rowData) => {
             return (
               <div className="theater-row" key={rowData.row}>
@@ -31,7 +31,7 @@ const Theater = ({ showtime, editMode, callback }) => {
             );
           })}
         </div>
-      </>
+      </div>
     )
   );
 };

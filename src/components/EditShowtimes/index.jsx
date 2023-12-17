@@ -167,19 +167,21 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
       {mode.showtime && (
         <div className="showtime-bookings">
           <Theater showtime={mode.showtime} editMode={true} callback={handleSeatClick} />
-          <button className="submit" onClick={handleSaveSeats}>
-            Save changes
-          </button>
-          <button
-            className="back-button"
-            onClick={() => {
-              selectedSeats.current.toAdd.clear();
-              selectedSeats.current.toRemove.clear();
-              setMode({ schedule: true, showtime: false });
-            }}
-          >
-            Cancel
-          </button>
+          <div className="showtime-bookings-buttons">
+            <button className="submit" onClick={handleSaveSeats}>
+              Save changes
+            </button>
+            <button
+              className="back-button"
+              onClick={() => {
+                selectedSeats.current.toAdd.clear();
+                selectedSeats.current.toRemove.clear();
+                setMode({ schedule: true, showtime: false });
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       )}
     </div>

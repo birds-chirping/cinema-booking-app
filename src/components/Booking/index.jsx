@@ -53,7 +53,7 @@ const Booking = ({ setAddedTickets, showtime, movie, setTicketsInCart }) => {
   };
 
   return (
-    <div className="theater-wrapper">
+    <div className="bookings-wrapper">
       <Theater showtime={showtime} editMode={false} callback={handleSeatClick} />
 
       <div ref={selectedSeatsDiv} className="selected-seats-wrapper">
