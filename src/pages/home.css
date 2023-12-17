@@ -1,0 +1,27 @@
+.home-wrapper {
+  width: 100%;
+  padding: 1rem 0;
+  min-width: 80rem;
+  max-width: 80%;
+  margin: auto;
+}
+
+.home-content-wrapper {
+  margin: 1rem auto;
+  /* background: linear-gradient(7deg, #feac5e, #c779d0, #4bc0c8); */
+  /* background: linear-gradient(to top, #403a3e, #be5869); */
+  /* background: linear-gradient(to top, #304352, #d7d2cc); */
+  /* background: linear-gradient(-135deg, #ff0084, #33001b); */
+  /* background: linear-gradient(7deg, #feac5e, #c779d0, #4bc0c8); */
+}
+
+.movies {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  box-shadow: 0px 2px 5px 0px rgba(99, 99, 99, 0.4);
+  background: linear-gradient(to top, #304352, #d7d2cc);
+  padding: 3rem;
+}

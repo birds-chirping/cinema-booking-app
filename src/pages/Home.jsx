@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Mock from "../api/MockAPI/mock.js";
 import MovieCard from "../components/MovieCard/MovieCard.jsx";
-import "./style.css";
+import "./home.css";
 
 const Home = () => {
   const [data, setData] = useState({
@@ -21,10 +21,15 @@ const Home = () => {
   }, []);
 
   return data.movies.length > 0 ? (
-    <div className="movies">
-      {data.movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} showtimes={data.showtimes} />
-      ))}
+    <div className="home-wrapper">
+      <div className="home-content-wrapper">
+        <div className="home-banner">BANNER</div>
+        <div className="movies">
+          {data.movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} showtimes={data.showtimes} />
+          ))}
+        </div>
+      </div>
     </div>
   ) : (
     <div>Loading...</div>

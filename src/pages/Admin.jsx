@@ -79,19 +79,21 @@ const Admin = () => {
   };
 
   return (
-    <div className="admin">
-      <button onClick={() => setAddMovieForm(!addMovieForm)} className="add-movie-button">
-        {addMovieForm && "Hide"} {!addMovieForm && "Add new movie"}
-      </button>
-      {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}
-      <MovieTable
-        key={data.movies.length}
-        movies={data.movies}
-        showtimes={data.showtimes}
-        setShowtimes={(newShowtimes) => setData({ ...data, showtimes: newShowtimes })}
-        onDeleteMovie={handleOnDelete}
-        onEdit={handleEditMovie}
-      />
+    <div className="admin-wrapper">
+      <div className="admin">
+        <button onClick={() => setAddMovieForm(!addMovieForm)} className="add-movie-button">
+          {addMovieForm && "Hide"} {!addMovieForm && "Add new movie"}
+        </button>
+        {addMovieForm && <AddMovieForm onMovieAdd={handleMovieAdd} />}
+        <MovieTable
+          key={data.movies.length}
+          movies={data.movies}
+          showtimes={data.showtimes}
+          setShowtimes={(newShowtimes) => setData({ ...data, showtimes: newShowtimes })}
+          onDeleteMovie={handleOnDelete}
+          onEdit={handleEditMovie}
+        />
+      </div>
     </div>
   );
 };

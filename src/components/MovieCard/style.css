@@ -1,22 +1,37 @@
 .movie-card {
-  padding: 2rem;
+  width: 15rem;
+  max-width: 15rem;
+  height: 22rem;
   box-shadow: 1px 1px 5px rgb(138, 138, 138);
   border-radius: 5px;
   background-color: white;
-}
-
-.movie-card .poster-wrapper {
-  width: 185px;
-  height: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   overflow: hidden;
 }
 
-.movie-card .noposter {
-  font-size: 5rem;
+.movie-card-details {
+  display: none;
+}
+
+.movie-card:hover > .movie-card-details {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  text-align: start;
+  padding: 1rem;
+}
+
+.movie-card .poster-wrapper {
+  width: 15rem;
+  overflow: hidden;
 }
 
 .movie-card .movie-poster {
