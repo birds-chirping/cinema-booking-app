@@ -48,13 +48,14 @@ div[class^="edit-input-"] {
 }
 
 .edit-cancel-button {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid rgb(255, 170, 13);
   color: #3a5771;
   font-weight: 700;
 }
 .edit-save-button {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid mediumaquamarine;
-  /* color: #213547; */
   color: #3a5771;
   font-weight: 700;
 }

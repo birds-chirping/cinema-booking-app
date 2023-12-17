@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
 import { emptyTheaterLayout } from "../../theaterModel/theaterModel";
@@ -29,9 +29,6 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
 
   const onSubmit = async (e, movie) => {
     e.preventDefault();
-    // const showtimesCopy = showtimes.map((prop) => {
-    //   return { ...prop };
-    // });
     const showtimesCopy = JSON.parse(JSON.stringify(showtimes));
     const form = new FormData(showtimeForm.current);
 
@@ -114,10 +111,7 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
             {showtimes.map((showtime) => {
               const date = new Date(showtime.timestamp * 1000);
               const locked = showtime.movieID != null && showtime.movieID != movie.id;
-
               const alreadyBooked = showtime.movieID == movie.id;
-              // <div className={`showtime-label ${locked ? "locked" : alreadyBooked ? "alreadyBooked" : "available"}`}>
-
               return (
                 <div className="showtime-wrapper" key={showtime.id}>
                   <div className="showtime-tag">
@@ -141,11 +135,11 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
                       </div>
                     </label>
                   </div>
-                  {/* <div>{showtime.id}</div>
-            <div>{showtime.timestamp}</div>
-          <div>{showtime.movieID}</div> */}
                   {showtime.movieID === movie.id && (
-                    <button onClick={() => setMode({ schedule: false, showtime: showtime })} className="edit-showtime">
+                    <button
+                      onClick={() => setMode({ schedule: false, showtime: showtime })}
+                      className="edit-showtime-button"
+                    >
                       {/* {showtime.id} */}
                       <i className="fa-regular fa-pen-to-square"></i>
                     </button>
@@ -176,7 +170,14 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
           <button className="submit" onClick={handleSaveSeats}>
             Save changes
           </button>
-          <button className="back-button" onClick={() => setMode({ schedule: true, showtime: false })}>
+          <button
+            className="back-button"
+            onClick={() => {
+              selectedSeats.current.toAdd.clear();
+              selectedSeats.current.toRemove.clear();
+              setMode({ schedule: true, showtime: false });
+            }}
+          >
             Cancel
           </button>
         </div>

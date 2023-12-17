@@ -49,6 +49,7 @@
   border-radius: 5px;
   color: white;
   cursor: pointer;
+  box-shadow: 1px 1px 3px rgba(34, 34, 34, 0.7);
 }
 
 .showtime-label > :first-child {
@@ -62,7 +63,6 @@
 }
 /* to be added */
 .showtimes-form .showtime-tag input:checked:not(:disabled) + .showtime-label {
-  /* background-color: rgb(84, 163, 254); */
   background-color: mediumslateblue;
 
   color: white;
@@ -70,7 +70,6 @@
 /* already added */
 .showtimes-form .showtime-tag input:checked:not(:disabled) + .showtime-label.already-booked {
   background-color: mediumslateblue;
-  /* background-color: rgb(84, 163, 254); */
 
   color: white;
 }
@@ -81,20 +80,19 @@
 }
 /* to be removed */
 .showtimes-form .showtime-tag input:not(:disabled) + .showtime-label.already-booked {
-  /* background-color: rgb(240, 155, 161); */
   background-color: rgb(243, 101, 110);
-  /* color: #213547; */
   color: white;
 }
 
-.showtime-wrapper button.edit-showtime {
-  /* background-color: pink; */
+.showtime-wrapper .edit-showtime-button {
+  background-color: transparent;
   padding: 0.2rem 0.5rem;
   width: 100%;
 }
 
 .showtime-bookings .submit,
 .showtimes-form-buttons .submit {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid mediumaquamarine;
   color: #3a5771;
   font-weight: 700;
@@ -113,6 +111,7 @@
 }
 
 .showtimes-form-buttons .cancel {
+  box-shadow: 1px 1px 3px rgba(34, 34, 34, 0.7);
   border: 2px solid rgb(255, 170, 13);
   color: #3a5771;
   font-weight: 700;
@@ -127,6 +126,7 @@
 }
 
 .showtime-bookings .back-button {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid rgb(255, 170, 13);
   color: #3a5771;
   font-weight: 700;

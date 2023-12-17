@@ -1,6 +1,5 @@
 .admin-inputs-wrapper {
   width: 100%;
-  /* background-color: rgb(224, 236, 232); */
   background-color: rgb(229 239 255);
   padding: 2rem;
   border-radius: 10px;
@@ -27,7 +26,6 @@ div[class^="admin-input-"] {
 }
 
 .admin-inputs input {
-  /* flex: 1; */
   width: 28rem;
   background-color: white;
   border: none;

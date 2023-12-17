@@ -96,12 +96,21 @@ button > i {
 .td-movie .admin-edit-button {
   background-color: transparent;
   color: rgb(255, 157, 0);
+  color: rgb(255, 170, 13);
+}
+
+.td-movie .admin-edit-button:hover {
+  color: rgb(255, 199, 95);
 }
 
 .td-movie .change-showtimes-btn {
   background-color: transparent;
   padding: 0.5rem 1rem;
   color: mediumslateblue;
+}
+
+.td-movie .change-showtimes-btn:hover {
+  color: rgb(160, 146, 242);
 }
 /* ------ delete button -------- */
 .admin-delete-button {
@@ -112,6 +121,7 @@ button > i {
   height: 3rem;
   padding: 0;
   border: 2px solid transparent;
+  color: #3a5771;
 }
 
 .admin-delete-button:hover {
@@ -121,22 +131,23 @@ button > i {
 }
 
 /* --- delete alert ------ */
-
+.field-error,
 .block-alert,
 .delete-alert {
-  /* background-color: rgb(224, 236, 232); */
   background-color: white;
-  border: 2px solid #fc8277;
-  padding: 2rem 2rem 1rem;
+  border: 2px solid #ff9baa;
+  padding: 2rem 2rem 1.5rem;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 0px rgba(99, 99, 99, 0.6);
   text-align: center;
   margin-bottom: 1rem;
 }
 
+.field-error-message,
 .block-alert-message,
 .delete-alert-message {
   font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .delete-alert-message span {
@@ -144,15 +155,16 @@ button > i {
 }
 
 .delete-alert-yes-button {
-  border: 2px solid #e84c3d;
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
+  border: 2px solid #ff6658;
   color: #3a5771;
-  color: #ff6658;
-
   font-weight: 700;
   margin: 1rem;
 }
 
+.field-error-ok-button,
 .block-alert-ok-button {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid mediumaquamarine;
   /* color: #213547; */
   color: #3a5771;
@@ -161,8 +173,8 @@ button > i {
 }
 
 .delete-alert-no-button {
+  box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.7);
   border: 2px solid rgb(255, 170, 13);
-  /* color: #213547; */
   color: #3a5771;
   font-weight: 700;
   margin: 1rem;
@@ -172,6 +184,7 @@ button > i {
   color: #e84c3d;
 }
 
+.field-error-ok-button:hover,
 .block-alert-ok-button:hover {
   color: mediumaquamarine;
 }
@@ -186,6 +199,7 @@ button > i {
   color: white;
 }
 
+.field-error-ok-button:active,
 .block-alert-ok-button:active {
   background-color: mediumaquamarine;
   color: white;
@@ -193,6 +207,5 @@ button > i {
 
 .delete-alert-no-button:active {
   background-color: rgb(255, 170, 13);
-
   color: white;
 }

@@ -12,6 +12,7 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
     showtimes: false,
     blockDelete: false,
     alertDelete: false,
+    fieldsAlert: false,
   });
   const [showtimeMode, setShowtimeMode] = useState({
     schedule: true,
@@ -22,6 +23,7 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
   const blockDeleteRow = useRef();
   const alertDeleteRow = useRef();
   const showtimesRow = useRef();
+  const fieldsAlertRow = useRef();
 
   useEffect(() => {
     if (editForm.current && editForm.current.getBoundingClientRect().bottom > window.innerHeight)
@@ -32,26 +34,45 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
       alertDeleteRow.current.scrollIntoView(false);
     if (showtimesRow.current && showtimesRow.current.getBoundingClientRect().bottom > window.innerHeight)
       showtimesRow.current.scrollIntoView(false);
+    if (fieldsAlertRow.current && fieldsAlertRow.current.getBoundingClientRect().bottom > window.innerHeight)
+      fieldsAlertRow.current.scrollIntoView(false);
   }, [mode, showtimeMode]);
 
   const showEditForm = (e) => {
-    setMode({ edit: e.target.id, showtimes: false, blockDelete: false, alertDelete: false });
+    setMode({ edit: e.target.id, showtimes: false, blockDelete: false, alertDelete: false, fieldsAlert: false });
   };
 
-  const showShowtimes = (e) => {
-    setMode({ edit: false, showtimes: e.target.id, blockDelete: false, alertDelete: false });
-    setShowtimeMode({
-      schedule: true,
-      showtime: false,
-    });
+  const showShowtimes = (e, movie) => {
+    if (movie.title && movie.poster_path && movie.genres && movie.price && movie.runtime && movie.description) {
+      setMode({ edit: false, showtimes: e.target.id, blockDelete: false, alertDelete: false, fieldsAlert: false });
+      setShowtimeMode({
+        schedule: true,
+        showtime: false,
+      });
+    } else {
+      let fields = [];
+      if (!movie.title) fields.push('"Title"');
+      if (!movie.poster_path) fields.push('"Poster path"');
+      if (!movie.description) fields.push('"Description"');
+      if (!movie.genres) fields.push('"Genres"');
+      if (!movie.runtime) fields.push('"Runtime"');
+      if (!movie.price) fields.push('"Price"');
+      setMode({
+        edit: false,
+        showtimes: false,
+        blockDelete: false,
+        alertDelete: false,
+        fieldsAlert: { id: e.target.id, missingFields: fields },
+      });
+    }
   };
 
   const showDeleteErrorAlert = (id) => {
-    setMode({ edit: false, showtimes: false, blockDelete: id, alertDelete: false });
+    setMode({ edit: false, showtimes: false, blockDelete: id, alertDelete: false, fieldsAlert: false });
   };
 
   const showDeleteAlert = (id) => {
-    setMode({ edit: false, showtimes: false, blockDelete: false, alertDelete: id });
+    setMode({ edit: false, showtimes: false, blockDelete: false, alertDelete: id, fieldsAlert: false });
   };
 
   return (
@@ -125,7 +146,13 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                     <button id={movie.id} onClick={showEditForm} className="admin-edit-button">
                       <i className="fa-regular fa-pen-to-square"></i>
                     </button>
-                    <button className="change-showtimes-btn" onClick={showShowtimes} id={movie.id}>
+                    <button
+                      className="change-showtimes-btn"
+                      onClick={(e) => {
+                        showShowtimes(e, movie);
+                      }}
+                      id={movie.id}
+                    >
                       <i className="fa-regular fa-calendar-days"></i>
                     </button>
                   </div>
@@ -148,6 +175,33 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                 </button>
               </td>
             </tr>
+            {mode.fieldsAlert.id === movie.id && (
+              <tr
+                ref={fieldsAlertRow}
+                key={`errorfieldrow_${movie.id}`}
+                className="errorfield-row"
+                style={{ borderTop: "none", backgroundColor: "rgb(205 229 252)" }}
+              >
+                <td colSpan={3}>
+                  <div className="field-error">
+                    <div className="field-error-message">
+                      Access blocked. Please complete the following field
+                      {mode.fieldsAlert.missingFields.length > 1 ? "s" : ""}:{" "}
+                      {[...mode.fieldsAlert.missingFields].join(", ")}.
+                    </div>
+                    <button
+                      className="field-error-ok-button"
+                      onClick={() => {
+                        setMode({ ...mode, fieldsAlert: false });
+                      }}
+                    >
+                      OK
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            )}
+
             {mode.blockDelete === movie.id && (
               <tr
                 ref={blockDeleteRow}

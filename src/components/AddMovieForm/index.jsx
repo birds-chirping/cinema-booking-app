@@ -16,12 +16,17 @@ const AddMovieForm = ({ onMovieAdd }) => {
     runtime: "",
     price: "",
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+  const [fieldsError, setFieldsError] = useState(false);
 
   async function handleNewMovie() {
     const newMovie = movieInput;
-    resetFields();
-    onMovieAdd(newMovie);
+    if (newMovie.title) {
+      resetFields();
+      onMovieAdd(newMovie);
+    } else {
+      setFieldsError(true);
+    }
   }
 
   const handleAutocomplete = async () => {
@@ -39,7 +44,6 @@ const AddMovieForm = ({ onMovieAdd }) => {
         description: data.overview || "",
         runtime: data.runtime || "",
         price: "",
-        // TODO: make input fields required
       });
       setError(null);
     }
@@ -63,7 +67,13 @@ const AddMovieForm = ({ onMovieAdd }) => {
       <div className="admin-inputs">
         <div className="autocomplete">
           <label htmlFor="moviecode">TMDB Movie Code: </label>
-          <input ref={movieCode} className="input-moviecode" type="text" id="moviecode" />
+          <input
+            ref={movieCode}
+            onChange={() => setError(false)}
+            className="input-moviecode"
+            type="text"
+            id="moviecode"
+          />
           <button ref={autocompleteBtn} onClick={handleAutocomplete}>
             Autocomplete
           </button>
@@ -71,10 +81,13 @@ const AddMovieForm = ({ onMovieAdd }) => {
         {error && <div className="autocomplete-error">{error}</div>}
 
         <div className="admin-input-title">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Title *</label>
           <input
             value={movieInput.title}
-            onChange={(e) => setMovieInput({ ...movieInput, title: e.target.value })}
+            onChange={(e) => {
+              setFieldsError(false);
+              setMovieInput({ ...movieInput, title: e.target.value });
+            }}
             className="input-title"
             type="text"
             id="title"
@@ -140,6 +153,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
             className="input-runtime"
           />
         </div>
+        {fieldsError && <div>Movie title is required.</div>}
         <button onClick={handleNewMovie} className="admin-save-button">
           Add new movie
         </button>
