@@ -15,7 +15,7 @@ const Seat = ({ showtimeID, seat, onSeatClick, editMode }) => {
         className={`seat-input ${showtimeID}`}
         disabled={editMode ? false : booked}
         defaultChecked={booked}
-        onChange={(e) => onSeatClick(seat.row, seat.index, e.target.checked)}
+        onChange={(e) => onSeatClick(seat.row, seat.index, e.target.checked, booked)}
       />
       <label
         className={`seat-label ${booked ? (editMode ? "booked" : "locked") : "available"}`}

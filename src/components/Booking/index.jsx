@@ -11,7 +11,7 @@ const Booking = ({ setAddedTickets, showtime, movie, setTicketsInCart }) => {
     setSelectedSeats([]);
   }, [showtime]);
 
-  const handleSeatClick = (row, index, checked) => {
+  const handleSeatClick = (row, index, checked, booked) => {
     const seat = {
       seatID: `${showtime.timestamp}_${movie.id}_${row}${index}`,
       row: row,

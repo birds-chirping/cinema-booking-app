@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Mock from "../../api/MockAPI/mock";
 import "./style.css";
 import { emptyTheaterLayout } from "../../theaterModel/theaterModel";
@@ -6,6 +6,10 @@ import Theater from "../Theater";
 
 const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMode }) => {
   const showtimeForm = useRef();
+  const selectedSeats = useRef({
+    toAdd: new Set(),
+    toRemove: new Set(),
+  });
 
   const updateShowtime = async (newShowtimeData) => {
     const url = `${Mock.BASE_URL}showtimes/1`;
@@ -25,13 +29,13 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
 
   const onSubmit = async (e, movie) => {
     e.preventDefault();
-
-    const showtimesCopy = showtimes.map((prop) => {
-      return { ...prop };
-    });
+    // const showtimesCopy = showtimes.map((prop) => {
+    //   return { ...prop };
+    // });
+    const showtimesCopy = JSON.parse(JSON.stringify(showtimes));
     const form = new FormData(showtimeForm.current);
 
-    let showtimeIDsToBeAdded = [];
+    const showtimeIDsToBeAdded = [];
     form.forEach((showtimeID) => {
       showtimeIDsToBeAdded.push(showtimeID);
     });
@@ -49,8 +53,57 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
       }
       updateShowtime({ id: 1, showtimes: showtimesCopy });
     };
-
     addMoviesToSchedule(showtimeIDsToBeAdded, movie.id, showtimesCopy);
+  };
+
+  const handleSeatClick = (row, index, checked, booked) => {
+    const seat = `${row}_${index}`;
+
+    if (checked) {
+      if (!booked) {
+        selectedSeats.current.toAdd.add(seat);
+      }
+      selectedSeats.current.toRemove.delete(seat);
+    } else {
+      selectedSeats.current.toAdd.delete(seat);
+      if (booked) {
+        selectedSeats.current.toRemove.add(seat);
+      }
+    }
+  };
+
+  const handleSaveSeats = async () => {
+    const dict = {
+      A: 0,
+      B: 1,
+      C: 2,
+      D: 3,
+      E: 4,
+      F: 5,
+      G: 6,
+      H: 7,
+    };
+    const newShowtimes = JSON.parse(JSON.stringify(showtimes));
+    const newShowtime = JSON.parse(JSON.stringify(mode.showtime));
+
+    selectedSeats.current.toAdd.forEach((seat) => {
+      seat = seat.split("_");
+      newShowtime.theaterLayout[dict[seat[0]]].seats[seat[1]] = false;
+    });
+    selectedSeats.current.toRemove.forEach((seat) => {
+      seat = seat.split("_");
+      newShowtime.theaterLayout[dict[seat[0]]].seats[seat[1]] = true;
+    });
+
+    const index = newShowtimes.findIndex((elem) => {
+      return elem.id == newShowtime.id;
+    });
+    newShowtimes[index] = newShowtime;
+
+    await updateShowtime({ id: 1, showtimes: newShowtimes });
+    selectedSeats.current.toAdd.clear();
+    selectedSeats.current.toRemove.clear();
+    setMode({ schedule: true, showtime: false });
   };
 
   return showtimes ? (
@@ -73,7 +126,6 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
                       type="checkbox"
                       name="showtime"
                       id={`showtime_${showtime.id}`}
-                      // className="showtime"
                       disabled={locked}
                       defaultChecked={showtime.movieID}
                     />
@@ -120,8 +172,8 @@ const Showtimes = ({ movie, showtimes, setShowtimes, closeShowtimes, mode, setMo
       )}
       {mode.showtime && (
         <div className="showtime-bookings">
-          <Theater showtime={mode.showtime} editMode={true} callback={(...args) => console.log(args)} />
-          <button className="submit" onClick={() => setMode({ schedule: true, showtime: false })}>
+          <Theater showtime={mode.showtime} editMode={true} callback={handleSeatClick} />
+          <button className="submit" onClick={handleSaveSeats}>
             Save changes
           </button>
           <button className="back-button" onClick={() => setMode({ schedule: true, showtime: false })}>
