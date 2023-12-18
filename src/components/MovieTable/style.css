@@ -35,6 +35,7 @@ td:nth-child(3) {
 /*  ---- poster ----- */
 .movie-table .poster-wrapper {
   height: 9rem;
+  width: 6rem;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -45,7 +46,9 @@ td:nth-child(3) {
 }
 
 .movie-table .poster-wrapper img {
-  width: 100%;
+  /* width: 100%; */
+  /* width: 6rem; */
+  height: 9rem;
 }
 
 /* ---- row middle section ----- */
@@ -208,4 +211,32 @@ button > i {
 .delete-alert-no-button:active {
   background-color: rgb(255, 170, 13);
   color: white;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+.buttons .status {
+  margin-right: 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-radius: 3px;
+  padding: 0.1rem 0.5rem;
+  background-color: white;
+  /* border: 1px solid #c5c7c7; */
+  /* background-image: linear-gradient(to right, #ece9e6 0%, #ffffff 51%, #ece9e6 100%); */
+}
+
+.buttons .status i {
+  margin-right: 0.3rem;
+  color: rgb(175, 191, 201);
+}
+
+.buttons .status.now i {
+  color: rgb(110, 204, 9);
+}
+
+.buttons .status.soon i {
+  color: rgb(32, 168, 226);
 }

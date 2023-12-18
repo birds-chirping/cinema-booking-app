@@ -15,6 +15,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
     description: "",
     runtime: "",
     price: "",
+    status: null,
   });
   const [error, setError] = useState(false);
   const [fieldsError, setFieldsError] = useState(false);
@@ -44,6 +45,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
         description: data.overview || "",
         runtime: data.runtime || "",
         price: "",
+        status: null,
       });
       setError(null);
     }
@@ -59,6 +61,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
       description: "",
       runtime: "",
       price: "",
+      status: null,
     });
   };
 

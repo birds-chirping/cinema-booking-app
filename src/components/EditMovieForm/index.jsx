@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./style.css";
 
 const EditMovieForm = ({ movieToBeEdited, onSaveChanges, closeEditForm }) => {
@@ -10,6 +10,7 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges, closeEditForm }) => {
   const description = useRef();
   const runtime = useRef();
   const price = useRef();
+  const [status, setStatus] = useState(movieToBeEdited.status);
 
   const saveChanges = () => {
     const newMovieData = {
@@ -21,8 +22,13 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges, closeEditForm }) => {
       description: description.current.value,
       runtime: runtime.current.value,
       price: price.current.value,
+      status: status,
     };
     onSaveChanges(newMovieData);
+  };
+
+  const onOptionChange = (e) => {
+    setStatus(e.target.value);
   };
 
   return (
@@ -85,6 +91,46 @@ const EditMovieForm = ({ movieToBeEdited, onSaveChanges, closeEditForm }) => {
         <div className="edit-input-price">
           <label htmlFor="editPrice">Price (RON) </label>
           <input ref={price} defaultValue={movieToBeEdited.price} type="text" id="editPrice" className="input-price" />
+        </div>
+        <div className="edit-inp-status">
+          <div className="radio-label">Status</div>
+          <div className="radio-group">
+            <div>
+              <input
+                type="radio"
+                id="statusNow"
+                name="status"
+                value="now"
+                onChange={onOptionChange}
+                checked={status === "now"}
+              />
+              <label htmlFor="statusNow">Now showing</label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="statusSoon"
+                name="status"
+                value="soon"
+                onChange={onOptionChange}
+                checked={status === "soon"}
+              />
+              <label htmlFor="statusSoon">Coming soon</label>
+            </div>
+
+            <div>
+              <input
+                type="radio"
+                id="statusUnlisted"
+                name="status"
+                value=""
+                onChange={onOptionChange}
+                checked={!status}
+              />
+              <label htmlFor="statusUnlisted">Unlisted</label>
+            </div>
+          </div>
         </div>
         <div className="edit-form-buttons-wrapper">
           <button onClick={saveChanges} className="edit-save-button">

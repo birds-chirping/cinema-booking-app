@@ -19,6 +19,7 @@
   margin: auto;
 }
 
+.edit-inp-status,
 div[class^="edit-input-"] {
   width: 40rem;
   display: flex;
@@ -26,7 +27,7 @@ div[class^="edit-input-"] {
   align-items: center;
 }
 
-.edit-inputs input {
+div[class^="edit-input-"] input {
   width: 29rem;
   background-color: white;
   border: none;
@@ -34,10 +35,32 @@ div[class^="edit-input-"] {
   border-radius: 5px;
   line-height: 2rem;
   padding: 0.1rem 0.5rem;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 
-.edit-inputs label {
+.radio-label,
+div[class^="edit-input-"] label {
   margin-right: auto;
+  font-weight: 700;
+}
+
+/* radio buttons */
+
+.radio-group {
+  width: 29rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.radio-group > * {
+  min-width: 8rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.radio-group input:checked + label {
   font-weight: 700;
 }
 

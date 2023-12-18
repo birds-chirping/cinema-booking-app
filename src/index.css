@@ -15,7 +15,10 @@
 #root {
   min-height: 100vh;
   min-width: fit-content;
-  background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  /* background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); */
+  /* background: linear-gradient(to bottom, #323232 0%, #3f3f3f, #1c1c1c); */
+  background: radial-gradient(ellipse at bottom, #fcf7ed, #ffffff), radial-gradient(ellipse at top, #fcf7ed, white);
+
   background-attachment: fixed;
 }
 
