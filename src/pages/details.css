@@ -1,47 +1,115 @@
+:root {
+  --details-width: 86%;
+}
+
 .details {
-  display: flex;
-  gap: 2rem;
-  min-height: 100vh;
-}
-
-.details-movie-wrapper,
-.booking-section {
-  margin-top: 3.5rem;
-}
-
-.details-movie-wrapper {
-  padding: 3rem;
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
+}
+
+.details-content {
+  width: var(--details-width);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  gap: 3rem;
+  /* min-width: 78rem; */
+  padding: 0 2rem;
+}
+
+.details-left {
+  margin-top: 4.5rem;
+  padding-bottom: 4rem;
+}
+.details-right {
+  margin-top: 4.5rem;
+  max-width: 60rem;
+  font-family: Lato, sans-serif;
+}
+
+.details .details-left i {
+  color: rgb(220, 220, 220);
+  font-size: 1.2rem;
+  margin: 1rem 0 1rem -0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.details .details-left i:hover {
+  color: white;
 }
 
 .details .poster-wrapper {
-  width: 400px;
-  height: 600px;
+  width: 25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: rgba(29, 29, 29, 0.5) 0px 2rem 2rem -1.5rem;
 }
 
-.details .noposter {
+/* .details .noposter {
   font-size: 10rem;
-}
+} */
 
 .details .movie-poster {
   width: 100%;
 }
 
-.details-movie {
-  display: flex;
-  flex-direction: column;
-  width: min-content;
-  color: white;
+.details-right .movie-title {
+  font-size: 4rem;
+  font-weight: 700;
 }
 
-.booking-section {
-  flex: 2;
-  padding: 3rem;
+.details-right .genre {
+  font-size: 1.3rem;
+}
+.details-right .genre .label {
+  color: rgb(218, 218, 218);
+  font-weight: 700;
+}
+
+.details-right .description {
+  font-size: 1.5rem;
+  font-weight: 100;
+  line-height: 2.4rem;
+  margin: 1rem 0 2rem;
+}
+
+.details-right .price {
+  font-size: 1.3rem;
+}
+.details-right .price .label {
+  color: rgb(218, 218, 218);
+  font-weight: 700;
+}
+
+.booking-section .buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.booking-section button {
+  background-color: transparent;
+  color: rgb(220, 220, 220);
+  border: 1px solid rgb(180, 180, 180);
+}
+
+.booking-section button:first-child {
+  border: none;
+}
+
+.booking-section button:hover {
+  color: white;
+  border: 1px solid white;
+}
+
+.booking-section button:first-child:hover {
+  border: none;
+  color: white;
 }

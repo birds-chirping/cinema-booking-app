@@ -6,7 +6,7 @@
 
 .home-content-wrapper {
   margin: 1rem auto;
-  max-width: 65%;
+  max-width: 68%;
   min-width: 40rem;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@
   border-radius: 5px;
   overflow: hidden;
   gap: 2rem;
-  padding: 2rem 0;
+  padding: 2rem;
 }
 
 .movies {
@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-top: 4rem;
 }
 
 .home-wrapper .line {

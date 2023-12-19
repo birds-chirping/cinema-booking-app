@@ -18,6 +18,7 @@ const Details = ({ setTicketsInCart }) => {
     showtimes: [],
   });
   const [addedTickets, setAddedTickets] = useState(0);
+  const [mode, setMode] = useState("details");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,9 +31,10 @@ const Details = ({ setTicketsInCart }) => {
     fetchData();
   }, []);
 
-  const handleOnClick = (showtimeID) => {
+  const handleOnClickShowtime = (showtimeID) => {
     const showtime = data.showtimes.find((showtime) => showtime.id == showtimeID);
     setTheater({ showtime: showtime });
+    setMode("booking");
   };
 
   return data.movie ? (
@@ -40,16 +42,22 @@ const Details = ({ setTicketsInCart }) => {
       className="details"
       style={{
         background: data.movie.backdrop_path
-          ? `linear-gradient(90deg, rgba(20, 20, 20, 0.8), rgba(45, 45, 45, 0.8)), url(${TMDB.getPhotoPath(
+          ? // ? `linear-gradient(90deg, rgba(15, 15, 15, 0.7),rgba(27, 31, 33, 0.95), rgba(20, 20, 20, 0.85)), url(${TMDB.getPhotoPath(
+            `linear-gradient(90deg, rgba(15, 15, 15, 0.7), rgba(20, 20, 20, 0.85)), url(${TMDB.getPhotoPath(
               data.movie.backdrop_path,
               "w1280"
             )})`
-          : `linear-gradient(90deg, rgba(20, 20, 20, 0.8), rgba(45, 45, 45, 0.8)), url(${generic_bg})`,
+          : `linear-gradient(90deg, rgba(20, 20, 20, 0.75), rgba(45, 45, 45, 0.8)), url(${generic_bg})`,
         backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
     >
-      <div className="details-movie-wrapper">
-        <div className="details-movie">
+      <div className="details-content">
+        <div className="details-left">
+          <Link to="../">
+            <i className="fa-solid fa-arrow-left-long"></i>
+          </Link>
           <div className="poster-wrapper" style={{ backgroundColor: !data.movie.poster_path && `rgb(232, 232, 232)` }}>
             {data.movie.poster_path ? (
               <img className="movie-poster" src={TMDB.getPhotoPath(data.movie.poster_path, "w500")} />
@@ -60,38 +68,71 @@ const Details = ({ setTicketsInCart }) => {
               </>
             )}
           </div>
-
-          <div className="movie-title">{data.movie.title}</div>
-          <div className="genre">Genre: {data.movie.genres}</div>
-          <div className="description">{data.movie.description}</div>
-          <div className="price">
-            Price: {data.movie.price} {(data.movie.price && "RON") || "-"}
-          </div>
-          <Link to="../">Back home</Link>
         </div>
-      </div>
 
-      <div className="booking-section">
-        {data.showtimes.length > 0 &&
-          data.showtimes.map((showtime) => {
-            return (
-              <ShowtimeButton
-                onClick={handleOnClick}
-                key={`${showtime.id}`}
-                showtimeID={showtime.id}
-                showtimeDate={new Date(showtime.timestamp * 1000)}
+        <div className="details-right">
+          {mode === "details" && (
+            <div className="details-movie-data">
+              <div className="movie-title">{data.movie.title}</div>
+              <div className="genre">
+                <span className="label">Genre: </span>
+                <span className="data">{data.movie.genres}</span>
+              </div>
+              <div className="description">{data.movie.description}</div>
+              <div className="price">
+                <span className="label">Price: </span>
+                <span className="data">
+                  {data.movie.price} {(data.movie.price && "RON") || "-"}
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div className="booking-section">
+            <div className="buttons">
+              {mode === "booking" && (
+                <button className="back-to-details-button" onClick={() => setMode("details")}>
+                  <i className="fa-solid fa-arrow-left-long"></i>
+                </button>
+              )}
+              {data.showtimes.length > 0 &&
+                data.showtimes.map((showtime) => {
+                  const showtimeDate = new Date(showtime.timestamp * 1000);
+                  return (
+                    // <ShowtimeButton
+                    //   onClick={handleOnClick}
+                    //   key={`${showtime.id}`}
+                    //   showtimeID={showtime.id}
+                    //   showtimeDate={new Date(showtime.timestamp * 1000)}
+                    // />
+                    // <div>
+                    <button
+                      className="showtime-button"
+                      key={`${showtime.id}`}
+                      onClick={() => handleOnClickShowtime(showtime.id)}
+                    >
+                      <div>
+                        {showtimeDate.getDate()}.{showtimeDate.getMonth() + 1}
+                      </div>
+                      <div>
+                        {showtimeDate.getHours()}:{showtimeDate.getMinutes()}
+                      </div>
+                    </button>
+                    /* </div> */
+                  );
+                })}
+            </div>
+            {mode === "booking" && theater.showtime && (
+              <Booking
+                key={addedTickets}
+                setAddedTickets={setAddedTickets}
+                showtime={theater.showtime}
+                movie={data.movie}
+                setTicketsInCart={setTicketsInCart}
               />
-            );
-          })}
-        {theater.showtime && (
-          <Booking
-            key={addedTickets}
-            setAddedTickets={setAddedTickets}
-            showtime={theater.showtime}
-            movie={data.movie}
-            setTicketsInCart={setTicketsInCart}
-          />
-        )}
+            )}
+          </div>
+        </div>
       </div>
     </div>
   ) : (
