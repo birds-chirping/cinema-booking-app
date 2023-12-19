@@ -146,7 +146,7 @@ const MovieTable = ({ movies, onDeleteMovie, showtimes, setShowtimes, onEdit }) 
                   <div className="buttons">
                     <div className={`status ${movie.status}`}>
                       <i className="fa-solid fa-circle"></i>
-                      {movie.status === "now" ? "Now showing" : movie.status === "soon" ? "Coming soon" : "Unlisted"}
+                      {movie.status === "now" ? "Showing now" : movie.status === "soon" ? "Coming soon" : "Unlisted"}
                     </div>
                     <button id={movie.id} onClick={showEditForm} className="admin-edit-button">
                       <i className="fa-regular fa-pen-to-square"></i>
