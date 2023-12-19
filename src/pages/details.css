@@ -4,6 +4,19 @@
   min-height: 100vh;
 }
 
+.details-movie-wrapper,
+.booking-section {
+  margin-top: 3.5rem;
+}
+
+.details-movie-wrapper {
+  padding: 3rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .details .poster-wrapper {
   width: 400px;
   height: 600px;
@@ -19,13 +32,6 @@
 
 .details .movie-poster {
   width: 100%;
-}
-.details-movie-wrapper {
-  padding: 3rem;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .details-movie {

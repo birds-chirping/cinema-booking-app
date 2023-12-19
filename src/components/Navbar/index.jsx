@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import CartPreview from "../CartPreview";
 
-export const Navbar = ({ ticketsInCart, setTicketsInCart }) => {
+export const Navbar = ({ navbarStyle, ticketsInCart, setTicketsInCart }) => {
   const [showCartPreview, setShowCartPreview] = useState(false);
   const timeoutRef = useRef(null);
 
@@ -31,41 +31,43 @@ export const Navbar = ({ ticketsInCart, setTicketsInCart }) => {
 
   return (
     <div
-      className="navbar"
+      className={`navbar ${navbarStyle}`}
       // style={{
       //   backgroundColor: props.color ?? "transparent",
       //   color: props.textColor ?? "black",
       // }}
     >
-      <div className="logo">
-        <Link to="/">
-          <span>Imaginary</span>
-          <span>Cinema</span>
-        </Link>
-      </div>
-      <div className="menu">
-        <div className="nav-admin">
-          <Link to="/admin">
-            <i className="fa-solid fa-user-tie"></i>
+      <div className="buttons-wrapper">
+        <div className="logo">
+          <Link to="/">
+            <span>Imaginary</span>
+            <span>Cinema</span>
           </Link>
         </div>
-        <div className="nav-cart">
-          <Link className="cart-link" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
-            <div className="cart-icon">
-              <i className="fa-solid fa-cart-shopping"></i>
-            </div>
-            {ticketsInCart && ticketsInCart.length > 0 && (
-              <div className="cart-counter">{`${ticketsInCart.length}`}</div>
+        <div className="menu">
+          <div className="nav-admin">
+            <Link to="/admin">
+              <i className="fa-solid fa-user-tie"></i>
+            </Link>
+          </div>
+          <div className="nav-cart">
+            <Link className="cart-link" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} to="/cart">
+              <div className="cart-icon">
+                <i className="fa-solid fa-cart-shopping"></i>
+              </div>
+              {ticketsInCart && ticketsInCart.length > 0 && (
+                <div className="cart-counter">{`${ticketsInCart.length}`}</div>
+              )}
+            </Link>
+            {showCartPreview && (
+              <CartPreview
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onGoToCartClick={() => setShowCartPreview(false)}
+                setTicketsInCart={handleSetTicketsInCart}
+              />
             )}
-          </Link>
-          {showCartPreview && (
-            <CartPreview
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              onGoToCartClick={() => setShowCartPreview(false)}
-              setTicketsInCart={handleSetTicketsInCart}
-            />
-          )}
+          </div>
         </div>
       </div>
     </div>

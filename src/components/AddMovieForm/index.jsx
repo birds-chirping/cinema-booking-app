@@ -47,6 +47,7 @@ const AddMovieForm = ({ onMovieAdd }) => {
         price: "",
         status: null,
       });
+      setFieldsError(false);
       setError(null);
     }
   };
