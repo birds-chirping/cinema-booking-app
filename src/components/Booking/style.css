@@ -1,24 +1,57 @@
 .bookings-wrapper {
   width: fit-content;
-  background-color: rgba(57, 57, 57, 0.7);
-  padding: 3rem 5rem 5rem 5rem;
+  height: 33rem;
+  display: flex;
+  gap: 1rem;
+  border-radius: 10px;
+  background-color: rgba(35, 35, 35, 0.765);
+  color: rgb(147, 145, 145);
+  position: relative;
+  overflow: hidden;
+}
+
+.bookings-wrapper > :first-child {
+  margin: auto 1rem;
+}
+
+.selected-seats-container {
+  width: 15rem;
+  max-height: 33rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  position: relative;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.selected-seats-container .no-seats {
+  font-weight: 400;
+}
+
+.selected-seats-container .your-seats {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px dashed rgb(177, 177, 177);
+  font-weight: 700;
+  color: #e84c3d;
 }
 
 .selected-seats-wrapper {
-  /* background-color: rgba(57, 57, 57, 0.8); */
-  min-height: 10rem;
-  color: white;
+  flex: 1;
+  overflow: auto;
+  margin-bottom: 1rem;
+}
+
+.selected-seats {
+  width: 10rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
 }
 
 .double-alert {
   position: absolute;
-  background-color: rgba(139, 139, 139, 0.571);
   height: 100%;
   width: 100%;
   top: 0;
@@ -28,17 +61,30 @@
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  background-color: rgba(37, 37, 37, 0.75);
 }
 
 .double-alert .alert-content {
-  background-color: rgba(255, 255, 255, 0.8);
   width: 100%;
   padding: 3rem;
   text-align: center;
-  color: black;
   font-weight: 700;
   font-size: 1.5rem;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .double-alert .alert-button {
+  background-color: #e84c3d;
+  border: 1px solid #e84c3d;
+}
+
+.double-alert .alert-button:hover {
+  border: 1px solid #e84c3d;
+}
+
+.selected-seats-container #tickets-to-cart-button {
+  background-color: #e84c3d;
+  border: 1px solid #e84c3d;
+  margin-bottom: 1rem;
 }

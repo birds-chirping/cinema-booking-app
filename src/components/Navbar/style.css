@@ -2,13 +2,8 @@
   position: sticky;
   background-color: white;
   top: 0px;
-  /* display: flex; */
-  /* justify-content: center;
-  align-items: center; */
   padding: 0.7rem 0;
-  /* box-shadow: 0px 2px 5px rgba(111, 111, 111, 0.478); */
   box-shadow: 0px 2px 8px 0px rgba(99, 99, 99, 0.2);
-  /* box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 5px; */
   z-index: 101;
   height: 4.5rem;
   width: 100%;
@@ -50,10 +45,6 @@
   font-weight: 900;
 }
 
-.navbar .logo span:nth-child(2) {
-  /* color: #e84c3d; */
-}
-
 .nav-cart {
   position: relative;
   width: 3rem;
@@ -91,10 +82,9 @@
 
 .nav-admin:hover i,
 .nav-cart:hover .cart-icon {
-  /* filter: drop-shadow(0px 0px 7px #3dace8); */
   /* filter: drop-shadow(0px 0px 3px #538ec1); */
-  filter: drop-shadow(0px 0px 3px #63aceb);
-  filter: drop-shadow(0px 0px 3px mediumaquamarine);
+  filter: drop-shadow(0px 0px 2px #63aceb);
+  /* filter: drop-shadow(0px 0px 3px mediumaquamarine); */
 }
 
 .nav-admin:active i,
@@ -111,10 +101,6 @@
   box-shadow: none;
   background-color: rgba(11, 11, 11, 0.5);
   margin: auto;
-  /* min-width: 80rem; */
-
-  /* background: linear-gradient(to bottom, rgba(20, 20, 20, 0.9), rgba(11, 11, 11, 0.5)); */
-  /* background: transparent; */
 }
 
 .navbar.transparent .buttons-wrapper {

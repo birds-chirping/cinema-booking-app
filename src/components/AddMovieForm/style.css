@@ -8,9 +8,9 @@
 }
 .admin-inputs {
   display: flex;
-  gap: 1rem;
   flex-direction: column;
   align-items: baseline;
+  gap: 1rem;
 }
 
 .admin-inputs > * {
@@ -63,7 +63,6 @@ div[class^="admin-input-"] {
 .autocomplete button,
 .admin-save-button {
   border: 2px solid mediumaquamarine;
-  /* color: #213547; */
   color: #3a5771;
   font-weight: 700;
   background-color: #ebedee;

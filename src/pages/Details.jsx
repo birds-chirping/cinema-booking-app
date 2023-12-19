@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import Mock from "../api/MockAPI/mock.js";
 import TMDB from "../api/TMDB/tmdb.js";
 import Booking from "../components/Booking/index.jsx";
-import ShowtimeButton from "../components/ShowtimeButton/index.jsx";
 import "./details.css";
 import generic_bg from "../assets/img/generic_bg.jpg";
 
@@ -43,11 +42,15 @@ const Details = ({ setTicketsInCart }) => {
       style={{
         background: data.movie.backdrop_path
           ? // ? `linear-gradient(90deg, rgba(15, 15, 15, 0.7),rgba(27, 31, 33, 0.95), rgba(20, 20, 20, 0.85)), url(${TMDB.getPhotoPath(
-            `linear-gradient(90deg, rgba(15, 15, 15, 0.7), rgba(20, 20, 20, 0.85)), url(${TMDB.getPhotoPath(
-              data.movie.backdrop_path,
-              "w1280"
-            )})`
-          : `linear-gradient(90deg, rgba(20, 20, 20, 0.75), rgba(45, 45, 45, 0.8)), url(${generic_bg})`,
+            `linear-gradient(90deg, rgba(15, 15, 15, 0.8), 10%, rgba(0, 0, 0, 0.8), rgba(15, 15, 15, 0.8)),
+            radial-gradient(farthest-side at bottom left, rgba(255, 0, 255, 0.5), transparent), 
+            radial-gradient(farthest-corner at bottom right, rgba(255, 50, 50, 0.7), transparent 400px),
+            radial-gradient(farthest-corner at top right, rgba(36, 103, 86, 0.7), transparent ),
+            url(${TMDB.getPhotoPath(data.movie.backdrop_path, "w1280")})`
+          : `linear-gradient(90deg, rgba(15, 15, 15, 0.8), 10%, rgba(0, 0, 0, 0.8), rgba(15, 15, 15, 0.8)),
+          radial-gradient(farthest-side at bottom left, rgba(255, 0, 255, 0.5), transparent), 
+          radial-gradient(farthest-corner at bottom right, rgba(255, 50, 50, 0.7), transparent 400px),
+          radial-gradient(farthest-corner at top right, rgba(36, 103, 86, 0.7), transparent ), url(${generic_bg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -76,7 +79,7 @@ const Details = ({ setTicketsInCart }) => {
               <div className="movie-title">{data.movie.title}</div>
               <div className="genre">
                 <span className="label">Genre: </span>
-                <span className="data">{data.movie.genres}</span>
+                <span className="data">{data.movie.genres.split(",").join(", ")}</span>
               </div>
               <div className="description">{data.movie.description}</div>
               <div className="price">
@@ -99,13 +102,6 @@ const Details = ({ setTicketsInCart }) => {
                 data.showtimes.map((showtime) => {
                   const showtimeDate = new Date(showtime.timestamp * 1000);
                   return (
-                    // <ShowtimeButton
-                    //   onClick={handleOnClick}
-                    //   key={`${showtime.id}`}
-                    //   showtimeID={showtime.id}
-                    //   showtimeDate={new Date(showtime.timestamp * 1000)}
-                    // />
-                    // <div>
                     <button
                       className="showtime-button"
                       key={`${showtime.id}`}

@@ -25,17 +25,33 @@
 }
 
 .movie-card:hover > .movie-card-details {
-  display: block;
   position: absolute;
   height: 100%;
   width: 100%;
-  /* border-radius: 5px; */
   top: 0px;
   left: 0px;
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.75);
-  color: white;
-  text-align: start;
   padding: 1rem;
+  color: rgb(228, 228, 228);
+}
+
+.movie-card-details .movie-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.movie-card-details .details-link {
+  margin: auto auto 0;
+  border: 1px solid rgb(228, 228, 228);
+
+  color: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+}
+
+.movie-card-details .details-link:hover {
+  border: 1px solid #e84c3d;
+  color: #e84c3d;
 }

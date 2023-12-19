@@ -46,8 +46,6 @@ td:nth-child(3) {
 }
 
 .movie-table .poster-wrapper img {
-  /* width: 100%; */
-  /* width: 6rem; */
   height: 9rem;
 }
 
@@ -98,7 +96,7 @@ button > i {
 }
 .td-movie .admin-edit-button {
   background-color: transparent;
-  color: rgb(255, 157, 0);
+  /* color: rgb(255, 157, 0); */
   color: rgb(255, 170, 13);
 }
 

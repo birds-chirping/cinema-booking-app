@@ -56,12 +56,16 @@ const Booking = ({ setAddedTickets, showtime, movie, setTicketsInCart }) => {
     <div className="bookings-wrapper">
       <Theater showtime={showtime} editMode={false} callback={handleSeatClick} />
 
-      <div ref={selectedSeatsDiv} className="selected-seats-wrapper">
-        {selectedSeats.map((seat) => (
-          <div key={`${seat.row}${seat.index}`} className="selected-seats">
-            {`Row: ${seat.row} Seat: ${seat.index + 1} - ${seat.price} RON`}
-          </div>
-        ))}
+      <div ref={selectedSeatsDiv} className="selected-seats-container">
+        {!selectedSeats.length && <div className="no-seats">No seats selected</div>}
+        {selectedSeats.length > 0 && <div className="your-seats">Your seats</div>}
+        <div className="selected-seats-wrapper">
+          {selectedSeats.map((seat) => (
+            <div key={`${seat.row}${seat.index}`} className="selected-seats">
+              <span>{`${seat.row}${seat.index + 1}`}</span> <span> {seat.price} RON</span>
+            </div>
+          ))}
+        </div>
         {selectedSeats.length > 0 && (
           <div>
             Total:{" "}
@@ -73,9 +77,13 @@ const Booking = ({ setAddedTickets, showtime, movie, setTicketsInCart }) => {
             RON
           </div>
         )}
+        {selectedSeats.length > 0 && (
+          <button id="tickets-to-cart-button" onClick={() => addTicketsToCart(selectedSeats)}>
+            Add tickets to cart
+          </button>
+        )}
       </div>
 
-      {selectedSeats.length > 0 && <button onClick={() => addTicketsToCart(selectedSeats)}>Add tickets to cart</button>}
       {reselectedSeats.length > 0 && (
         <div className="double-alert">
           <div className="alert-content">

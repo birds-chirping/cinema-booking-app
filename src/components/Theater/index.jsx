@@ -3,7 +3,6 @@ import "./style.css";
 import Seat from "../Seat";
 
 const Theater = ({ showtime, editMode, callback }) => {
-  // console.log(showtime);
   return (
     showtime && (
       <div className="theater-wrapper">
