@@ -1,5 +1,4 @@
 class Mock {
-  static KEY = MOCK_KEY;
   static BASE_URL = `https://652bdb83d0d1df5273eecf2d.mockapi.io/`;
   static MOVIES_URL = `${this.BASE_URL}movies`;
 
